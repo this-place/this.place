@@ -4,19 +4,19 @@
 # Setup
 1. Fork this repository and clone the fork to your computer
 1. Install Git LFS
-  - `$ git lfs install`
+    - `$ git lfs install`
 1. Unity Setup
-  - Install/Update Unity
-    - Unity Version 2017.3.1f1
-  - Unity Editor Settings
-    1. Open Editor Settings Window
-      - `Edit > Project Settings > Editor`
-    1. Make .meta files visible
-      - `Version Control / Mode: "Visible Meta Files"`
-    1. Use Plain Text Serialization
-      - `Asset Serialization / Mode: "Force Text"`
-    1. Save
-      - `File > Save Project`
+    - Install/Update Unity
+        - Unity Version 2017.3.1f1
+    - Unity Editor Settings
+        1. Open Editor Settings Window
+            - `Edit > Project Settings > Editor`
+        1. Make .meta files visible
+            - `Version Control / Mode: "Visible Meta Files"`
+        1. Use Plain Text Serialization
+            - `Asset Serialization / Mode: "Force Text"`
+        1. Save
+            - `File > Save Project`
 
 # Contributing
 1. Follow [semantic commit messages](https://seesparkbox.com/foundry/semantic_commit_messages)
