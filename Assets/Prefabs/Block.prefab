@@ -627,7 +627,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2e313473df62674b8f963b19e0ef1fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Top: {fileID: 114769073226413364}
+  Bottom: {fileID: 114825950481087158}
+  Front: {fileID: 114489181383897130}
+  Back: {fileID: 114027926247674682}
+  Left: {fileID: 114488236434236110}
+  Right: {fileID: 114160877702792488}
   Speed: 2
+  _isDisplaced: 0
 --- !u!114 &114769073226413364
 MonoBehaviour:
   m_ObjectHideFlags: 1

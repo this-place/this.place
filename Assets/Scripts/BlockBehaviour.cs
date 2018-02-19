@@ -5,12 +5,26 @@ using UnityEngine;
 
 public class BlockBehaviour : MonoBehaviour
 {
+    /*
+     * Faces
+     */
+    public BlockFaceBehaviour Top;
+    public BlockFaceBehaviour Bottom;
+    public BlockFaceBehaviour Front;
+    public BlockFaceBehaviour Back;
+    public BlockFaceBehaviour Left;
+    public BlockFaceBehaviour Right;
+
+    [Range(0f, 1f)]
+    public float SkinToLengthRatio = 0.1f;
     public float Speed = 1f;
 
     private Vector3 _originalPosition;
     private Vector3 _targetPosition;
-    private bool _isDisplaced = false;
-    private bool _isTranslating = false;
+
+    private bool _isDisplaced;
+    private bool _isTranslating;
+    private BlockFaceBehaviour _lastClickedFace;
 
     // Use this for initialization
     private void Start()
@@ -27,21 +41,28 @@ public class BlockBehaviour : MonoBehaviour
         }
     }
 
-    public void MoveBlock(Vector3 dir, float faceLength)
+    private BlockFaceBehaviour GetOppositeFace(BlockFaceBehaviour face)
+    {
+        return
+            (face == Top) ? Bottom :
+            (face == Bottom) ? Top :
+            (face == Front) ? Back :
+            (face == Back) ? Front :
+            (face == Left) ? Right :
+            (face == Right) ? Left : null;
+    }
+
+    public void MoveBlock(BlockFaceBehaviour face)
     {
         if (_isTranslating)
         {
             return;
         }
 
-        float halfFaceLength = faceLength / 2;
-
         if (_isDisplaced)
         {
-            Vector3 dirToOriginal = _originalPosition - transform.position;
-
-            //Fire Raycast to see if block can move to position
-            bool hit = Physics.Raycast(transform.position, dirToOriginal.normalized, halfFaceLength * 2.75f); //some terrible hack
+            BlockFaceBehaviour oppositeFace = GetOppositeFace(_lastClickedFace);
+            bool hit = oppositeFace.FireRaycastFromFace(SkinToLengthRatio);
             if (!hit)
             {
                 _targetPosition = _originalPosition;
@@ -50,11 +71,12 @@ public class BlockBehaviour : MonoBehaviour
         }
         else
         {
-            bool hit = Physics.Raycast(_originalPosition, dir, halfFaceLength * 2.75f); //some terrible hack
+            bool hit = face.FireRaycastFromFace(SkinToLengthRatio);
             if (!hit)
             {
-                _targetPosition = _originalPosition + (dir * faceLength);
+                _targetPosition = _originalPosition + (face.GetNormal() * face.GetFaceLength());
                 _isTranslating = true;
+                _lastClickedFace = face;
             }
         }
     }
