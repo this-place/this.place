@@ -15,7 +15,7 @@ public class BlockFaceBehaviour : MonoBehaviour
 
     private Vector3 _normal;
     private float _faceLength;
-    
+
     private void Start()
     {
         _renderer = GetComponent<Renderer>();
