@@ -65,8 +65,19 @@ public class PlayerController : MonoBehaviour
         transform.position += upMovement;
     }
 
-    private void OnCollisionStay()
+    private void OnCollisionEnter(Collision other)
     {
-        _onGround = true;
+        if (Physics.Raycast(transform.position, Vector3.down, 1f))
+        {
+            _onGround = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        if (!Physics.Raycast(transform.position, Vector3.down, 1f))
+        {
+            _onGround = false;
+        }
     }
 }
