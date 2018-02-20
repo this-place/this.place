@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private const float MoveSpeed = 2f;
     private const float JumpForce = 5.2f;
+    private const float DistToGround = 1.0f;
 
     private Vector3 _forward;
     private Vector3 _right;
@@ -67,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (Physics.Raycast(transform.position, Vector3.down, 1f))
+        if (Physics.Raycast(transform.position, Vector3.down, DistToGround))
         {
             _onGround = true;
         }
@@ -75,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionExit(Collision other)
     {
-        if (!Physics.Raycast(transform.position, Vector3.down, 1f))
+        if (!Physics.Raycast(transform.position, Vector3.down, DistToGround))
         {
             _onGround = false;
         }
