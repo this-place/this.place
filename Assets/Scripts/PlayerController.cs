@@ -36,12 +36,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
             Move();
         }
 
-        if (_onGround && Input.GetAxisRaw("Jump") == 1.0f)
+        if (_onGround && Input.GetAxis("Jump") == 1.0f)
         {
             Jump();
         }
@@ -61,7 +61,8 @@ public class PlayerController : MonoBehaviour
 
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
 
-        transform.forward = heading;
+        if (heading != Vector3.zero)
+            transform.forward = heading;
         transform.position += rightMovement;
         transform.position += upMovement;
     }
