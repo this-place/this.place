@@ -21,6 +21,11 @@ public class PlayerController : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
 
+        UpdateCamera();
+    }
+
+    public void UpdateCamera()
+    {
         _forward = Camera.main.transform.forward;
         _forward.y = 0;
         _forward = Vector3.Normalize(_forward);
