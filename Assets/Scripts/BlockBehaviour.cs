@@ -15,6 +15,8 @@ public class BlockBehaviour : MonoBehaviour
     public BlockFaceBehaviour Left;
     public BlockFaceBehaviour Right;
 
+    public LayerMask IgnoreCollision;
+
     [Range(0f, 1f)]
     public float SkinToLengthRatio = 0.1f;
     public float Speed = 1f;
@@ -62,7 +64,7 @@ public class BlockBehaviour : MonoBehaviour
         if (_isDisplaced)
         {
             BlockFaceBehaviour oppositeFace = GetOppositeFace(_lastClickedFace);
-            bool hit = oppositeFace.FireRaycastFromFace(SkinToLengthRatio);
+            bool hit = oppositeFace.FireRaycastFromFace(SkinToLengthRatio, IgnoreCollision);
             if (!hit)
             {
                 _targetPosition = _originalPosition;
@@ -71,7 +73,7 @@ public class BlockBehaviour : MonoBehaviour
         }
         else
         {
-            bool hit = face.FireRaycastFromFace(SkinToLengthRatio);
+            bool hit = face.FireRaycastFromFace(SkinToLengthRatio, IgnoreCollision);
             if (!hit)
             {
                 _targetPosition = _originalPosition + (face.GetNormal() * face.GetFaceLength());

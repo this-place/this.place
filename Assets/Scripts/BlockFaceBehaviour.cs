@@ -8,6 +8,7 @@ public class BlockFaceBehaviour : MonoBehaviour
 {
 
     public BlockBehaviour Block;
+    public LayerMask IgnoreCollision;
 
     private Color _originalColor;
     private Renderer _renderer;
@@ -45,7 +46,7 @@ public class BlockFaceBehaviour : MonoBehaviour
         return _faceLength;
     }
 
-    public bool FireRaycastFromFace(float skinToLengthRatio)
+    public bool FireRaycastFromFace(float skinToLengthRatio, LayerMask ignores)
     {
         float skinWidth = skinToLengthRatio * _faceLength;   
 
@@ -72,7 +73,7 @@ public class BlockFaceBehaviour : MonoBehaviour
         foreach (Vector3 skinVertex in skinVertices)
         {
             Debug.DrawRay(skinVertex, _normal * 0.5f, Color.red, 1f);
-            if (Physics.Raycast(skinVertex, _normal, _faceLength))
+            if (Physics.Raycast(skinVertex, _normal, _faceLength, ignores))
             {
                 return true;
             }

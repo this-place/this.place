@@ -165,7 +165,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1658610704228756}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -3}
+  m_LocalPosition: {x: -3, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4765363375052980}
@@ -638,6 +638,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Block: {fileID: 114582055743451856}
+  IgnoreCollision:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &114160877702792488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -650,6 +653,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Block: {fileID: 114582055743451856}
+  IgnoreCollision:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &114488236434236110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -662,6 +668,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Block: {fileID: 114582055743451856}
+  IgnoreCollision:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &114489181383897130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -674,6 +683,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Block: {fileID: 114582055743451856}
+  IgnoreCollision:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &114582055743451856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -691,6 +703,9 @@ MonoBehaviour:
   Back: {fileID: 114027926247674682}
   Left: {fileID: 114488236434236110}
   Right: {fileID: 114160877702792488}
+  IgnoreCollision:
+    serializedVersion: 2
+    m_Bits: 256
   SkinToLengthRatio: 0.1
   Speed: 2
 --- !u!114 &114769073226413364
@@ -705,6 +720,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Block: {fileID: 114582055743451856}
+  IgnoreCollision:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &114825950481087158
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -717,3 +735,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Block: {fileID: 114582055743451856}
+  IgnoreCollision:
+    serializedVersion: 2
+    m_Bits: 0
