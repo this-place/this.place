@@ -8,7 +8,6 @@ public class BlockFaceBehaviour : MonoBehaviour
 {
 
     public BlockBehaviour Block;
-    public LayerMask IgnoreCollision;
 
     private Color _originalColor;
     private Renderer _renderer;
