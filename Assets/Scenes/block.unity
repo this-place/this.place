@@ -591,11 +591,6 @@ Prefab:
       propertyPath: m_Name
       value: Block (14)
       objectReference: {fileID: 0}
-    - target: {fileID: 114582055743451856, guid: f679be7b679f36d4abe38c70fbe73ca3,
-        type: 2}
-      propertyPath: IgnoreCollision.m_Bits
-      value: 256
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f679be7b679f36d4abe38c70fbe73ca3, type: 2}
   m_IsPrefabParent: 0
@@ -831,6 +826,10 @@ Prefab:
         type: 2}
       propertyPath: m_CollisionDetection
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1925440072047652, guid: 06b55a9b4eb93ca4297ecddfc63c413d, type: 2}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 06b55a9b4eb93ca4297ecddfc63c413d, type: 2}
