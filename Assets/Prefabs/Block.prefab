@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 64603949200813050}
   - component: {fileID: 23940774252966866}
   - component: {fileID: 114489181383897130}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 64758686540009452}
   - component: {fileID: 23840522211632814}
   - component: {fileID: 114488236434236110}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Quad (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 64869238669638166}
   - component: {fileID: 23951870910146316}
   - component: {fileID: 114769073226413364}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Quad (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 64381746422799842}
   - component: {fileID: 23125547732128354}
   - component: {fileID: 114825950481087158}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Quad (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 64701996853166966}
   - component: {fileID: 23605976766001946}
   - component: {fileID: 114027926247674682}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Quad (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 64598044467335974}
   - component: {fileID: 23409120914355552}
   - component: {fileID: 114160877702792488}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Quad (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4302208019492456}
   - component: {fileID: 114582055743451856}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 4386701363285146}
   - component: {fileID: 65737266706246898}
   - component: {fileID: 54631774735555356}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Inner Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -638,9 +638,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Block: {fileID: 114582055743451856}
-  IgnoreCollision:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &114160877702792488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -653,9 +650,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Block: {fileID: 114582055743451856}
-  IgnoreCollision:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &114488236434236110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -668,9 +662,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Block: {fileID: 114582055743451856}
-  IgnoreCollision:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &114489181383897130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -683,9 +674,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Block: {fileID: 114582055743451856}
-  IgnoreCollision:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &114582055743451856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -705,7 +693,7 @@ MonoBehaviour:
   Right: {fileID: 114160877702792488}
   IgnoreCollision:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512
   SkinToLengthRatio: 0.1
   Speed: 2
 --- !u!114 &114769073226413364
@@ -720,9 +708,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Block: {fileID: 114582055743451856}
-  IgnoreCollision:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &114825950481087158
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -735,6 +720,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Block: {fileID: 114582055743451856}
-  IgnoreCollision:
-    serializedVersion: 2
-    m_Bits: 0

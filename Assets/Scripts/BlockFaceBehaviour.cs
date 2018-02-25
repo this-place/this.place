@@ -45,7 +45,7 @@ public class BlockFaceBehaviour : MonoBehaviour
         return _faceLength;
     }
 
-    public bool FireRaycastFromFace(float skinToLengthRatio, LayerMask ignores)
+    public bool FireRaycastFromFace(float skinToLengthRatio, LayerMask collidable)
     {
         float skinWidth = skinToLengthRatio * _faceLength;   
 
@@ -72,7 +72,7 @@ public class BlockFaceBehaviour : MonoBehaviour
         foreach (Vector3 skinVertex in skinVertices)
         {
             Debug.DrawRay(skinVertex, _normal * 0.5f, Color.red, 1f);
-            if (Physics.Raycast(skinVertex, _normal, _faceLength, ignores))
+            if (Physics.Raycast(skinVertex, _normal, _faceLength, collidable))
             {
                 return true;
             }
