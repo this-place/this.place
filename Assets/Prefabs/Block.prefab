@@ -165,7 +165,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1658610704228756}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3, y: 0, z: -2}
+  m_LocalPosition: {x: -3, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4765363375052980}
@@ -694,6 +694,8 @@ MonoBehaviour:
   CollidableLayers:
     serializedVersion: 2
     m_Bits: 512
+  Plugins:
+  - {fileID: 11400000, guid: 5b8b66d25ec0bde42b870324961b5d70, type: 2}
   SkinToLengthRatio: 0.1
   Speed: 2
 --- !u!114 &114769073226413364

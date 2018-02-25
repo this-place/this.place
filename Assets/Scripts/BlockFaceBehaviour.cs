@@ -116,6 +116,6 @@ public class BlockFaceBehaviour : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Block.MoveBlock(this);
+        Block.OnFaceClick(this);
     }
 }

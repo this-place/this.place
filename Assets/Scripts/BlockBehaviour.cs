@@ -16,34 +16,67 @@ public class BlockBehaviour : MonoBehaviour
     public BlockFaceBehaviour Right;
 
     public LayerMask CollidableLayers;
+    public List<BlockPlugin> Plugins = new List<BlockPlugin>();
+
 
     [Range(0f, 1f)]
     public float SkinToLengthRatio = 0.1f;
     public float Speed = 1f;
 
-    private Vector3 _originalPosition;
     private Vector3 _targetPosition;
 
-    private bool _isDisplaced;
     private bool _isTranslating;
     private BlockFaceBehaviour _lastClickedFace;
 
     // Use this for initialization
     private void Start()
     {
-        _originalPosition = transform.position;
+        foreach (BlockPlugin plugin in Plugins)
+        {
+            BlockPlugin pluginInstance = Instantiate(plugin);
+            SubscribePlugin(pluginInstance);
+        }
     }
 
-    // Update is called once per frame
+    private void SubscribePlugin(BlockPlugin plugin)
+    {
+        plugin.Plug(this);
+
+        //subscribe to events
+        _onFaceClick += plugin.OnFaceClick;
+    }
+
+    public void UnsubscribePlugin(BlockPlugin plugin)
+    {
+        //unsubscribe to events
+        _onFaceClick -= plugin.OnFaceClick;
+    }
+
+    /**
+     *  OnFaceClick(BlockFaceBehaviour)
+     *  Triggers when the face of a block is clicked and block is interact-able
+     */
+    private delegate void OnFaceClickDel(BlockFaceBehaviour face);
+    private OnFaceClickDel _onFaceClick;
+
+    // TODO: Hide with Interface
+    public void OnFaceClick(BlockFaceBehaviour face)
+    {
+        if (_onFaceClick != null && !_isTranslating)
+        {
+            _onFaceClick(face);
+        }
+    }
+
     private void Update()
     {
         if (_isTranslating)
         {
-           TranslateBlock();
+            TranslateBlock();
         }
     }
 
-    private BlockFaceBehaviour GetOppositeFace(BlockFaceBehaviour face)
+    public BlockFaceBehaviour GetOppositeFace(BlockFaceBehaviour face)
     {
         return
             (face == Top) ? Bottom :
@@ -54,33 +87,23 @@ public class BlockBehaviour : MonoBehaviour
             (face == Right) ? Left : null;
     }
 
-    public void MoveBlock(BlockFaceBehaviour face)
+    public bool MoveBlock(BlockFaceBehaviour face)
     {
         if (_isTranslating)
         {
-            return;
+            return false;
         }
 
-        if (_isDisplaced)
+        bool hit = face.FireRaycastFromFace(SkinToLengthRatio, CollidableLayers);
+        if (!hit)
         {
-            BlockFaceBehaviour oppositeFace = GetOppositeFace(_lastClickedFace);
-            bool hit = oppositeFace.FireRaycastFromFace(SkinToLengthRatio, CollidableLayers);
-            if (!hit)
-            {
-                _targetPosition = _originalPosition;
-                _isTranslating = true;
-            }
+            _targetPosition = transform.position + (face.GetNormal() * face.GetFaceLength());
+            _isTranslating = true;
+            _lastClickedFace = face;
+            return true;
         }
-        else
-        {
-            bool hit = face.FireRaycastFromFace(SkinToLengthRatio, CollidableLayers);
-            if (!hit)
-            {
-                _targetPosition = _originalPosition + (face.GetNormal() * face.GetFaceLength());
-                _isTranslating = true;
-                _lastClickedFace = face;
-            }
-        }
+
+        return false;
     }
 
     private void TranslateBlock()
@@ -91,10 +114,6 @@ public class BlockBehaviour : MonoBehaviour
         {
             transform.position = _targetPosition;
             _isTranslating = false;
-
-            _isDisplaced = _targetPosition != _originalPosition;
         }
     }
-
-    
 }
