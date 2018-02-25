@@ -691,7 +691,7 @@ MonoBehaviour:
   Back: {fileID: 114027926247674682}
   Left: {fileID: 114488236434236110}
   Right: {fileID: 114160877702792488}
-  IgnoreCollision:
+  CollidableLayers:
     serializedVersion: 2
     m_Bits: 512
   SkinToLengthRatio: 0.1
