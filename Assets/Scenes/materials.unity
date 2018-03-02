@@ -398,7 +398,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4302208019492456, guid: f679be7b679f36d4abe38c70fbe73ca3, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -2
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 4302208019492456, guid: f679be7b679f36d4abe38c70fbe73ca3, type: 2}
       propertyPath: m_LocalRotation.x
@@ -428,22 +428,22 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7769d84735a3e204f901278e95058609, type: 2}
+      objectReference: {fileID: 2100000, guid: 251005e5dcc04784a99fbf70532eab7b, type: 2}
     - target: {fileID: 23840522211632814, guid: f679be7b679f36d4abe38c70fbe73ca3,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7769d84735a3e204f901278e95058609, type: 2}
+      objectReference: {fileID: 2100000, guid: 251005e5dcc04784a99fbf70532eab7b, type: 2}
     - target: {fileID: 23940774252966866, guid: f679be7b679f36d4abe38c70fbe73ca3,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7769d84735a3e204f901278e95058609, type: 2}
+      objectReference: {fileID: 2100000, guid: 251005e5dcc04784a99fbf70532eab7b, type: 2}
     - target: {fileID: 23409120914355552, guid: f679be7b679f36d4abe38c70fbe73ca3,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7769d84735a3e204f901278e95058609, type: 2}
+      objectReference: {fileID: 2100000, guid: 251005e5dcc04784a99fbf70532eab7b, type: 2}
     - target: {fileID: 23125547732128354, guid: f679be7b679f36d4abe38c70fbe73ca3,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
@@ -453,7 +453,7 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7769d84735a3e204f901278e95058609, type: 2}
+      objectReference: {fileID: 2100000, guid: 251005e5dcc04784a99fbf70532eab7b, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f679be7b679f36d4abe38c70fbe73ca3, type: 2}
   m_IsPrefabParent: 0
@@ -888,7 +888,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
