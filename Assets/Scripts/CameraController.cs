@@ -14,9 +14,9 @@ public class CameraController : MonoBehaviour
     //used for rotation
     private float _originalY;
     private float _targetY;
-    private float _speed = 380f;
     private bool _isKeyboardRotating;
     private bool _isMouseRotating;
+    private float _keyboardSpeed = 380f;
     private float _movedAmount;
     private float _mouseX;
     private float _mouseY;
@@ -71,15 +71,12 @@ public class CameraController : MonoBehaviour
 
     private void RotateKeyboardCamera()
     {
-        float rotateDir = (_targetY - _originalY)/90;
-        float moveAmount = rotateDir * Time.deltaTime * _speed;
-        _movedAmount += moveAmount;
-        if (_movedAmount > 90)
-            moveAmount -= _movedAmount - 90;
-        else if (_movedAmount < -90)
-            moveAmount -= _movedAmount + 90;
+        float moveAmount = Input.GetAxis("CameraControl") * Time.deltaTime * _keyboardSpeed;
         transform.RotateAround(PlayerObject.transform.position, Vector3.up, moveAmount);
-        if (Mathf.Abs(_movedAmount) >= 90f)
+
+        PlayerObject.GetComponent<PlayerController>().UpdateCamera();
+        _offset = transform.position - PlayerObject.transform.position;
+        //_offset.y = 0;
     }
 
     private void RotateMouseCamera()
