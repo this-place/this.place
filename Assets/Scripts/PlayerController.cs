@@ -22,10 +22,10 @@ public class PlayerController : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _heading = Vector3.forward;
-        groundSkinVertices[0] = Vector3.zero - (Vector3.right * (Bc.bounds.extents.x - 0.05f)) - (Vector3.forward * (Bc.bounds.extents.z - 0.05f));
-        groundSkinVertices[1] = Vector3.zero - (Vector3.right * (Bc.bounds.extents.x - 0.05f)) + (Vector3.forward * (Bc.bounds.extents.z - 0.05f));
-        groundSkinVertices[2] = Vector3.zero + (Vector3.right * (Bc.bounds.extents.x - 0.05f)) + (Vector3.forward * (Bc.bounds.extents.z - 0.05f));
-        groundSkinVertices[3] = Vector3.zero + (Vector3.right * (Bc.bounds.extents.x - 0.05f)) - (Vector3.forward * (Bc.bounds.extents.z - 0.05f));
+        groundSkinVertices[0] = new Vector3(Bc.bounds.extents.x - 0.05f, 0, Bc.bounds.extents.z - 0.05f);
+        groundSkinVertices[1] = new Vector3(Bc.bounds.extents.x - 0.05f, 0, -(Bc.bounds.extents.z - 0.05f));
+        groundSkinVertices[2] = new Vector3(-(Bc.bounds.extents.x - 0.05f), 0, -(Bc.bounds.extents.z - 0.05f));
+        groundSkinVertices[3] = new Vector3(-(Bc.bounds.extents.x - 0.05f), 0, Bc.bounds.extents.z - 0.05f);
         for (int i = 0; i < 4; i++)
         {
             float xDiff;
@@ -50,10 +50,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        forwardSkinVertices[0] = Vector3.zero - (Vector3.up * (Bc.bounds.extents.y - 0.01f)) - (Vector3.forward * (Bc.bounds.extents.z - 0.1f));
-        forwardSkinVertices[1] = Vector3.zero + (Vector3.up * (Bc.bounds.extents.y - 0.01f)) - (Vector3.forward * (Bc.bounds.extents.z - 0.1f));
-        forwardSkinVertices[2] = Vector3.zero + (Vector3.up * (Bc.bounds.extents.y - 0.01f)) + (Vector3.forward * (Bc.bounds.extents.z - 0.1f));
-        forwardSkinVertices[3] = Vector3.zero - (Vector3.up * (Bc.bounds.extents.y - 0.01f)) + (Vector3.forward * (Bc.bounds.extents.z - 0.1f));
+        forwardSkinVertices[0] = new Vector3(0, Bc.bounds.extents.y - 0.01f, Bc.bounds.extents.z - 0.1f);
+        forwardSkinVertices[1] = new Vector3(0, Bc.bounds.extents.y - 0.01f, -(Bc.bounds.extents.z - 0.1f));
+        forwardSkinVertices[2] = new Vector3(0, -(Bc.bounds.extents.y - 0.01f), -(Bc.bounds.extents.z - 0.1f));
+        forwardSkinVertices[3] = new Vector3(0, -(Bc.bounds.extents.y - 0.01f), Bc.bounds.extents.z - 0.1f);
         for (int i = 0; i < 4; i++)
         {
             float yDiff;
