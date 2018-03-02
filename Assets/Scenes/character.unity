@@ -728,6 +728,11 @@ Prefab:
       propertyPath: m_Name
       value: Cube
       objectReference: {fileID: 0}
+    - target: {fileID: 114074379916613544, guid: 06b55a9b4eb93ca4297ecddfc63c413d,
+        type: 2}
+      propertyPath: Bc
+      value: 
+      objectReference: {fileID: 1932252333}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 06b55a9b4eb93ca4297ecddfc63c413d, type: 2}
   m_IsPrefabParent: 0
@@ -977,6 +982,11 @@ Prefab:
 --- !u!1 &1932252329 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1925440072047652, guid: 06b55a9b4eb93ca4297ecddfc63c413d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1382880599}
+--- !u!65 &1932252333 stripped
+BoxCollider:
+  m_PrefabParentObject: {fileID: 65876971030211024, guid: 06b55a9b4eb93ca4297ecddfc63c413d,
     type: 2}
   m_PrefabInternal: {fileID: 1382880599}
 --- !u!1001 &1942743757
