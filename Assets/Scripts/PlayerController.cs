@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     public BoxCollider Bc;
     private Vector3[] groundSkinVertices = new Vector3[40];
+    private Vector3[] forwardSkinVertices = new Vector3[16];
 
     // Use this for initialization
     private void Start()
@@ -49,6 +50,33 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        forwardSkinVertices[0] = Vector3.zero - (Vector3.up * (Bc.bounds.extents.y - 0.01f)) - (Vector3.forward * (Bc.bounds.extents.z - 0.1f));
+        forwardSkinVertices[1] = Vector3.zero + (Vector3.up * (Bc.bounds.extents.y - 0.01f)) - (Vector3.forward * (Bc.bounds.extents.z - 0.1f));
+        forwardSkinVertices[2] = Vector3.zero + (Vector3.up * (Bc.bounds.extents.y - 0.01f)) + (Vector3.forward * (Bc.bounds.extents.z - 0.1f));
+        forwardSkinVertices[3] = Vector3.zero - (Vector3.up * (Bc.bounds.extents.y - 0.01f)) + (Vector3.forward * (Bc.bounds.extents.z - 0.1f));
+        for (int i = 0; i < 4; i++)
+        {
+            float yDiff;
+            float zDiff;
+            if (i < 3)
+            {
+                yDiff = forwardSkinVertices[i + 1].y - forwardSkinVertices[i].y;
+                zDiff = forwardSkinVertices[i + 1].z - forwardSkinVertices[i].z;
+            }
+            else
+            {
+                yDiff = forwardSkinVertices[0].y - forwardSkinVertices[i].y;
+                zDiff = forwardSkinVertices[0].z - forwardSkinVertices[i].z;
+            }
+            float yStart = forwardSkinVertices[i].y;
+            float zStart = forwardSkinVertices[i].z;
+            for (int j = 1; j < 4; j++)
+            {
+                forwardSkinVertices[(j - 1) + 4 + (3 * i)] = new Vector3(0,
+                    yStart + ((yDiff / 4) * j),
+                    zStart + ((zDiff / 4) * j));
+            }
+        }
         UpdateCamera();
     }
 
@@ -63,7 +91,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        if (Mathf.Abs(Input.GetAxis("Horizontal")) == 1 || Mathf.Abs(Input.GetAxis("Vertical")) == 1)
         {
             Move();
         }
@@ -82,20 +110,63 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         Vector3 rightMovement = _right * MoveSpeed * Time.deltaTime * Input.GetAxis("Horizontal");
         Vector3 upMovement = _forward * MoveSpeed * Time.deltaTime * Input.GetAxis("Vertical");
 
-        Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
+        _heading = Vector3.Normalize(rightMovement + upMovement);
 
-        if (heading != Vector3.zero)
-            transform.forward = heading;
-        transform.position += rightMovement;
-        transform.position += upMovement;
+        if (_heading != Vector3.zero)
+            transform.forward = _heading;
+
+        Vector3 movement = CheckCollision(rightMovement + upMovement);
+
+        transform.position += movement;
     }
 
+    private Vector3 CheckCollision(Vector3 movement)
     {
+        float closestPoint = float.MaxValue;
+        Vector3 correctNormal = Vector3.zero;
+        bool hit = false;
+        float angle = Mathf.Atan2(transform.forward.z, transform.forward.x);
+        foreach (Vector3 skinVertex in forwardSkinVertices)
         {
+            float newXValue = Mathf.Cos(angle) * skinVertex.x - Mathf.Sin(angle) * skinVertex.z;
+            float newZValue = Mathf.Sin(angle) * skinVertex.x + Mathf.Cos(angle) * skinVertex.z;
+            Debug.DrawRay(Bc.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), transform.forward * 2f, Color.red);
+            RaycastHit[] rayHits = Physics.RaycastAll(Bc.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue),
+                transform.forward, movement.magnitude + Bc.bounds.extents.x);
+            if (rayHits.Length != 0)
+            {
+                if (Physics.Raycast(Bc.bounds.center, transform.forward, 2f))
+                    correctNormal = Physics.RaycastAll(Bc.bounds.center, transform.forward, 2f)[0].normal;
+                else
+                    correctNormal = rayHits[0].normal;
+                Debug.Log(correctNormal);
+                foreach (RaycastHit rayHit in rayHits)
+                {
+                    float distance = rayHit.distance;
+                    if (distance < closestPoint)
+                    {
+                        closestPoint = distance;
+                        hit = true;
+                    }
+                }
+            }
+        }
+        
+        if (hit)
+        {
+            if (correctNormal != -transform.forward && (closestPoint - Bc.bounds.extents.x) < 0.01 && IsOnGround())
+            {
+                transform.forward = Vector3.Normalize(transform.forward - Vector3.Project(transform.forward, correctNormal));
+                return CheckCollision(movement);
+            }
+            return (closestPoint - Bc.bounds.extents.x) * Vector3.Normalize(movement) * 0.95f;
+        }
+        else
+        {
+            return movement.magnitude * transform.forward;
         }
     }
 
