@@ -25,4 +25,6 @@ public class BlockPlugin : ScriptableObject
     }
 
     public virtual void OnFaceClick(BlockFaceBehaviour face) { }
+
+    public virtual void OnUpdate() { }
 }

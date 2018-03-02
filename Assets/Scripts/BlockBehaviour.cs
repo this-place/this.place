@@ -44,12 +44,14 @@ public class BlockBehaviour : MonoBehaviour
 
         //subscribe to events
         _onFaceClick += plugin.OnFaceClick;
+        _onUpdate += plugin.OnUpdate;
     }
 
     public void UnsubscribePlugin(BlockPlugin plugin)
     {
         //unsubscribe to events
         _onFaceClick -= plugin.OnFaceClick;
+        _onUpdate -= plugin.OnUpdate;
     }
 
     /**
@@ -68,11 +70,19 @@ public class BlockBehaviour : MonoBehaviour
         }
     }
 
+    private delegate void OnUpdateDel();
+    private OnUpdateDel _onUpdate;
+
     private void Update()
     {
         if (_isTranslating)
         {
             TranslateBlock();
+        }
+
+        if (_onUpdate != null)
+        {
+            _onUpdate();
         }
     }
 
