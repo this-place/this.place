@@ -73,7 +73,7 @@ MonoBehaviour:
     m_Settings:
       focusDistance: 0.17
       aperture: 4
-      focalLength: 13
+      focalLength: 10
       useCameraFov: 0
       kernelSize: 1
   motionBlur:
@@ -97,12 +97,12 @@ MonoBehaviour:
       logMin: -8
       logMax: 4
   bloom:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       bloom:
         intensity: 0.6
         threshold: 1.1
-        softKnee: 0.8
+        softKnee: 0.6
         radius: 6
         antiFlicker: 1
       lensDirt:
@@ -122,25 +122,25 @@ MonoBehaviour:
       basic:
         postExposure: 1.5
         temperature: 0
-        tint: 22
+        tint: 12
         hueShift: 0
-        saturation: 1.2
-        contrast: 1.05
+        saturation: 2
+        contrast: 0.94
       channelMixer:
         red: {x: 1, y: -0.04, z: 0}
         green: {x: 0, y: 1, z: 0}
         blue: {x: 0, y: 0, z: 1}
         currentEditingChannel: 0
       colorWheels:
-        mode: 0
+        mode: 1
         log:
           slope: {r: 1, g: 1, b: 1, a: 0}
-          power: {r: 1, g: 1, b: 1, a: 0}
-          offset: {r: 1, g: 1, b: 1, a: 0}
+          power: {r: 1, g: 1, b: 1, a: 0.11678832}
+          offset: {r: 1, g: 1, b: 1, a: -0.02919708}
         linear:
-          lift: {r: 1, g: 1, b: 1, a: 0}
-          gamma: {r: 1, g: 1, b: 1, a: 0}
-          gain: {r: 1, g: 1, b: 1, a: 0}
+          lift: {r: 0.6585922, g: 1, b: 0.767192, a: 0.11678832}
+          gamma: {r: 0.7209326, g: 0.84330386, b: 1, a: -0.05839416}
+          gain: {r: 0.76526713, g: 1, b: 0.96703124, a: -0.35036495}
       curves:
         master:
           curve:
