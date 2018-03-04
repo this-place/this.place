@@ -58,7 +58,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4628927749411818}
   - component: {fileID: 114601863002226042}
-  - component: {fileID: 114597631551948952}
   m_Layer: 9
   m_Name: SandBlock
   m_TagString: Untagged
@@ -675,17 +674,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Block: {fileID: 114601863002226042}
---- !u!114 &114597631551948952
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1432493847348846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30da6d28172b2e046abf284a55d5227f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114601863002226042
 MonoBehaviour:
   m_ObjectHideFlags: 1
