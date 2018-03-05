@@ -9,19 +9,15 @@ public class CameraController : MonoBehaviour
 
     //used for translation
     private Vector3 _offset;
-    private float _yValue;
 
     //used for rotation
-    private float _originalY;
-    private float _targetY;
     private bool _isKeyboardRotating;
     private bool _isMouseRotating;
-    private float _keyboardSpeed = 380f;
-    private float _movedAmount;
+    private const float KeyboardSpeed = 380f;
     private float _mouseX;
     private float _mouseY;
-    private float _mouseXSpeed = 1;
-    private float _mouseYSpeed = 0.1f;
+    private const float MouseXSpeed = 1;
+    private const float MouseYSpeed = 0.1f;
     private float _currentYDisplacement;
     private const float MaxYDisplacement = 30;
     private PlayerController _playerController;
@@ -30,16 +26,12 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         _offset = transform.position - PlayerObject.transform.position;
-        //_offset.y = 0;
-        _yValue = transform.position.y;
-        _originalY = transform.position.y;
         _playerController = PlayerObject.GetComponent<PlayerController>();
     }
 
     private void Update()
     {
         Vector3 newPosition = PlayerObject.transform.position + _offset;
-        //newPosition.y = _yValue;
         transform.position = newPosition;
 
         if (Input.GetAxis("CameraControl") != 0 && !_isMouseRotating)
@@ -73,18 +65,17 @@ public class CameraController : MonoBehaviour
 
     private void RotateKeyboardCamera()
     {
-        float moveAmount = Input.GetAxis("CameraControl") * Time.deltaTime * _keyboardSpeed;
+        float moveAmount = Input.GetAxis("CameraControl") * Time.deltaTime * KeyboardSpeed;
         transform.RotateAround(PlayerObject.transform.position, Vector3.up, moveAmount);
 
         _playerController.UpdateCamera();
         _offset = transform.position - PlayerObject.transform.position;
-        //_offset.y = 0;
     }
 
     private void RotateMouseCamera()
     {
-        float rotateXAmount = (_mouseX - Input.mousePosition.x) * _mouseXSpeed;
-        float rotateYAmount = (_mouseY - Input.mousePosition.y) * _mouseYSpeed;
+        float rotateXAmount = (_mouseX - Input.mousePosition.x) * MouseXSpeed;
+        float rotateYAmount = (_mouseY - Input.mousePosition.y) * MouseYSpeed;
         _currentYDisplacement += rotateYAmount;
         if (_currentYDisplacement > MaxYDisplacement)
         {
@@ -102,9 +93,8 @@ public class CameraController : MonoBehaviour
         _mouseX = Input.mousePosition.x;
         _mouseY = Input.mousePosition.y;
 
-        PlayerObject.GetComponent<PlayerController>().UpdateCamera();
+        _playerController.UpdateCamera();
         _offset = transform.position - PlayerObject.transform.position;
-        //_offset.y = 0;
     }
 
     private Vector3 GetNormalVector()
@@ -112,9 +102,5 @@ public class CameraController : MonoBehaviour
         Vector3 playerFacing = transform.position - PlayerObject.transform.position;
         Vector3 planeCompletion = playerFacing - Vector3.up;
         return Vector3.Cross(playerFacing, planeCompletion);
-    }
-
-    private void LateUpdate()
-    {
     }
 }
