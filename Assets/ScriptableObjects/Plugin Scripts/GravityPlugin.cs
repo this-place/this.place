@@ -7,6 +7,6 @@ public class GravityPlugin : BlockPlugin {
 
     public override void OnUpdate()
     {
-        _block.MoveBlock(_block.Bottom);
+        _block.MoveBlock(BlockFace.Bottom);
     }
 }

@@ -6,73 +6,45 @@ using UnityEngine;
 
 public class BlockFaceBehaviour : MonoBehaviour
 {
+    public float FaceLength;
 
-    public BlockBehaviour Block;
-
+    private BlockBehaviour _block;
     private Color _originalColor;
     private Renderer _renderer;
     private Mesh _mesh;
 
     private Vector3 _normal;
-    private float _faceLength;
 
     private void Start()
     {
-        _renderer = GetComponent<Renderer>();
-        _originalColor = _renderer.material.color;
-
-        MeshFilter meshFilter = GetComponent<MeshFilter>();
-        _mesh = meshFilter.mesh;
-
-        // convert local vertex into world space coordinate
-        Vector3[] worldCoord = GetWorldCoordinates();
-
-        // quad vertices are in this order:
-        // 3 --- 1 
-        // |     | with the normal facing you
-        // 0 --- 2
-        _faceLength = Vector3.Distance(worldCoord[0], worldCoord[2]);
-        _normal = CalculateFaceNormal(worldCoord);
-    }
-
-    public Vector3 GetNormal()
-    {
-        return _normal;
+        _block = GetComponent<BlockBehaviour>();
     }
 
     public float GetFaceLength()
     {
-        return _faceLength;
+        return FaceLength;
     }
 
-    public bool FireRaycastFromFace(float skinToLengthRatio, LayerMask collidableLayers)
+    public bool FireRaycastFromFace(float skinToLengthRatio, LayerMask collidableLayers, BlockFace face)
     {
-        float skinWidth = skinToLengthRatio * _faceLength;   
+        float centerToSkin = FaceLength * (1 - skinToLengthRatio / 2) / 2;
+        Vector3 normal = face.GetNormal();
+        Vector3[] perpendicularNormals = face.GetPerpendicularNormals();
+        Vector3 quadCenter = transform.position + (centerToSkin * normal);
 
-        // convert local vertex into world space coordinate
-        Vector3[] worldCoord = GetWorldCoordinates();
-
-        // quad vertices are in this order:
-        // 3 -C- 1 
-        // B     D with the normal facing you
-        // 0 -A- 2
-        // 
-        Vector3 a20 = worldCoord[0] - worldCoord[2];
-        Vector3 b03 = worldCoord[3] - worldCoord[0];
-        Vector3 c31 = worldCoord[1] - worldCoord[3];
-        Vector3 d12 = worldCoord[2] - worldCoord[1];
-
-        // we are firing our ray cast from within the cube
         Vector3[] skinVertices = new Vector3[4];
-        skinVertices[0] = worldCoord[0] - (a20 * skinWidth) + (b03 * skinWidth) - (_normal * skinWidth);
-        skinVertices[1] = worldCoord[1] - (c31 * skinWidth) + (d12 * skinWidth) - (_normal * skinWidth);
-        skinVertices[2] = worldCoord[2] + (a20 * skinWidth) + (b03 * skinWidth) - (_normal * skinWidth);
-        skinVertices[3] = worldCoord[3] + (c31 * skinWidth) + (d12 * skinWidth) - (_normal * skinWidth);
+        Vector3 scaledPNormal1 = centerToSkin * perpendicularNormals[0];
+        Vector3 scaledPNormal2 = centerToSkin * perpendicularNormals[1];
+
+        skinVertices[0] = quadCenter + scaledPNormal1 + scaledPNormal2;
+        skinVertices[1] = quadCenter + scaledPNormal1 - scaledPNormal2;
+        skinVertices[2] = quadCenter - scaledPNormal1 + scaledPNormal2;
+        skinVertices[3] = quadCenter - scaledPNormal1 - scaledPNormal2;
 
         foreach (Vector3 skinVertex in skinVertices)
         {
-            Debug.DrawRay(skinVertex, _normal * 0.5f, Color.red, 1f);
-            if (Physics.Raycast(skinVertex, _normal, _faceLength, collidableLayers))
+            Debug.DrawRay(skinVertex, normal * FaceLength, Color.red, 1f);
+            if (Physics.Raycast(skinVertex, normal, FaceLength, collidableLayers))
             {
                 return true;
             }
@@ -80,42 +52,13 @@ public class BlockFaceBehaviour : MonoBehaviour
         return false;
     }
 
-    private Vector3[] GetWorldCoordinates()
+    public void OnMouseClick(Vector3 normal)
     {
-        Vector3[] localVertices = _mesh.vertices;
-        Assert.AreEqual(4, localVertices.Length);
-        Vector3[] worldCoord = new Vector3[localVertices.Length];
-        for (int i = 0; i < localVertices.Length; i++)
-        {
-            worldCoord[i] = transform.TransformPoint(localVertices[i]);
-        }
-
-        return worldCoord;
-    }
-
-    private static Vector3 CalculateFaceNormal(Vector3[] worldCoords)
-    {
-        // Unity uses clockwise winding order for face normals
-        // https://forum.unity.com/threads/unity-has-a-clockwise-winding-order.129923/
-        Vector3 sideA = worldCoords[1] - worldCoords[0];
-        Vector3 sideB = worldCoords[2] - worldCoords[0];
-
-        return Vector3.Cross(sideA, sideB).normalized;
-    }
-
-    private void OnMouseEnter()
-    {
-        // TODO: Expose color to inspector
-        _renderer.material.color = Color.black;
-    }
-
-    private void OnMouseExit()
-    {
-        _renderer.material.color = _originalColor;  
-    }
-
-    private void OnMouseDown()
-    {
-        Block.OnFaceClick(this);
+        BlockFace clickedFace = BlockFaceMethods.BlockFaceFromNormal(normal);
+        _block.OnFaceClick(clickedFace);
     }
 }
+
+
+
+
