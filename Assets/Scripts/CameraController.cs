@@ -24,6 +24,7 @@ public class CameraController : MonoBehaviour
     private float _mouseYSpeed = 0.1f;
     private float _currentYDisplacement;
     private const float MaxYDisplacement = 30;
+    private PlayerController _playerController;
 
 
     private void Start()
@@ -32,6 +33,7 @@ public class CameraController : MonoBehaviour
         //_offset.y = 0;
         _yValue = transform.position.y;
         _originalY = transform.position.y;
+        _playerController = PlayerObject.GetComponent<PlayerController>();
     }
 
     private void Update()
@@ -74,7 +76,7 @@ public class CameraController : MonoBehaviour
         float moveAmount = Input.GetAxis("CameraControl") * Time.deltaTime * _keyboardSpeed;
         transform.RotateAround(PlayerObject.transform.position, Vector3.up, moveAmount);
 
-        PlayerObject.GetComponent<PlayerController>().UpdateCamera();
+        _playerController.UpdateCamera();
         _offset = transform.position - PlayerObject.transform.position;
         //_offset.y = 0;
     }
