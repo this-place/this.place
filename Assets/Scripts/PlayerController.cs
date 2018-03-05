@@ -14,67 +14,55 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody _rb;
     public BoxCollider Bc;
-    private Vector3[] groundSkinVertices = new Vector3[40];
-    private Vector3[] forwardSkinVertices = new Vector3[16];
+    private Vector3[] _groundSkinVertices = new Vector3[40];
+    private Vector3[] _forwardSkinVertices = new Vector3[16];
+    private const float GroundSkinOffset = 0.5f;
+    private const float ForwardSkinOffset = 0.1f;
 
     // Use this for initialization
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _heading = Vector3.forward;
-        groundSkinVertices[0] = new Vector3(Bc.bounds.extents.x - 0.05f, 0, Bc.bounds.extents.z - 0.05f);
-        groundSkinVertices[1] = new Vector3(Bc.bounds.extents.x - 0.05f, 0, -(Bc.bounds.extents.z - 0.05f));
-        groundSkinVertices[2] = new Vector3(-(Bc.bounds.extents.x - 0.05f), 0, -(Bc.bounds.extents.z - 0.05f));
-        groundSkinVertices[3] = new Vector3(-(Bc.bounds.extents.x - 0.05f), 0, Bc.bounds.extents.z - 0.05f);
+        float groundXBound = Bc.bounds.extents.x - GroundSkinOffset;
+        float groundZBound = Bc.bounds.extents.z - GroundSkinOffset;
+        _groundSkinVertices[0] = new Vector3(groundXBound, 0, groundZBound);
+        _groundSkinVertices[1] = new Vector3(groundXBound, 0, -groundZBound);
+        _groundSkinVertices[2] = new Vector3(-groundXBound, 0, -groundZBound);
+        _groundSkinVertices[3] = new Vector3(-groundXBound, 0, groundZBound);
         for (int i = 0; i < 4; i++)
         {
-            float xDiff;
-            float zDiff;
-            if (i < 3)
+            float xDiff = _groundSkinVertices[(i + 1) % 3].x - _groundSkinVertices[i].x;
+            float zDiff = _groundSkinVertices[(i + 1) % 3].z - _groundSkinVertices[i].z;
+            float zStart = _groundSkinVertices[i].z;
+            float xStart = _groundSkinVertices[i].x;
+
+            for (int j = 0; j < 9; j++)
             {
-                xDiff = groundSkinVertices[i + 1].x - groundSkinVertices[i].x;
-                zDiff = groundSkinVertices[i + 1].z - groundSkinVertices[i].z;
-            }
-            else
-            {
-                xDiff = groundSkinVertices[0].x - groundSkinVertices[i].x;
-                zDiff = groundSkinVertices[0].z - groundSkinVertices[i].z;
-            }
-            float zStart = groundSkinVertices[i].z;
-            float xStart = groundSkinVertices[i].x;
-            for (int j = 1; j < 10; j++)
-            {
-                groundSkinVertices[(j-1) + 4 + (9 * i)] = new Vector3(xStart + ((xDiff / 9) * j),
-                    0,
-                    zStart + ((zDiff / 9) * j));
+                _groundSkinVertices[j + 4 + (9 * i)] = new Vector3(xStart + ((xDiff / 9) * (j + 1)),
+                                                                   0,
+                                                                   zStart + ((zDiff / 9) * (j + 1)));
             }
         }
 
-        forwardSkinVertices[0] = new Vector3(0, Bc.bounds.extents.y - 0.01f, Bc.bounds.extents.z - 0.1f);
-        forwardSkinVertices[1] = new Vector3(0, Bc.bounds.extents.y - 0.01f, -(Bc.bounds.extents.z - 0.1f));
-        forwardSkinVertices[2] = new Vector3(0, -(Bc.bounds.extents.y - 0.01f), -(Bc.bounds.extents.z - 0.1f));
-        forwardSkinVertices[3] = new Vector3(0, -(Bc.bounds.extents.y - 0.01f), Bc.bounds.extents.z - 0.1f);
+        float forwardYBound = Bc.bounds.extents.y - ForwardSkinOffset;
+        float forwardZBound = Bc.bounds.extents.z - ForwardSkinOffset;
+        _forwardSkinVertices[0] = new Vector3(0, forwardYBound, forwardZBound);
+        _forwardSkinVertices[1] = new Vector3(0, forwardYBound, -forwardZBound);
+        _forwardSkinVertices[2] = new Vector3(0, -forwardYBound, -forwardZBound);
+        _forwardSkinVertices[3] = new Vector3(0, -forwardYBound, forwardZBound);
         for (int i = 0; i < 4; i++)
         {
-            float yDiff;
-            float zDiff;
-            if (i < 3)
+            float yDiff = _forwardSkinVertices[(i + 1) % 3].y - _forwardSkinVertices[i].y;
+            float zDiff = _forwardSkinVertices[(i + 1) % 3].z - _forwardSkinVertices[i].z;
+            float yStart = _forwardSkinVertices[i].y;
+            float zStart = _forwardSkinVertices[i].z;
+
+            for (int j = 0; j < 3; j++)
             {
-                yDiff = forwardSkinVertices[i + 1].y - forwardSkinVertices[i].y;
-                zDiff = forwardSkinVertices[i + 1].z - forwardSkinVertices[i].z;
-            }
-            else
-            {
-                yDiff = forwardSkinVertices[0].y - forwardSkinVertices[i].y;
-                zDiff = forwardSkinVertices[0].z - forwardSkinVertices[i].z;
-            }
-            float yStart = forwardSkinVertices[i].y;
-            float zStart = forwardSkinVertices[i].z;
-            for (int j = 1; j < 4; j++)
-            {
-                forwardSkinVertices[(j - 1) + 4 + (3 * i)] = new Vector3(0,
-                    yStart + ((yDiff / 4) * j),
-                    zStart + ((zDiff / 4) * j));
+                _forwardSkinVertices[j + 4 + (3 * i)] = new Vector3(0,
+                                                                    yStart + ((yDiff / 4) * (j + 1)),
+                                                                    zStart + ((zDiff / 4) * (j + 1)));
             }
         }
         UpdateCamera();
@@ -96,9 +84,8 @@ public class PlayerController : MonoBehaviour
             Move();
         }
 
-        if (Input.GetAxis("Jump") == 1.0f)
+        if (Input.GetAxis("Jump") == 1.0f && IsOnGround())
         {
-            if (IsOnGround())
                 Jump();
         }
     }
@@ -129,7 +116,7 @@ public class PlayerController : MonoBehaviour
         Vector3 correctNormal = Vector3.zero;
         bool hit = false;
         float angle = Mathf.Atan2(transform.forward.z, transform.forward.x);
-        foreach (Vector3 skinVertex in forwardSkinVertices)
+        foreach (Vector3 skinVertex in _forwardSkinVertices)
         {
             float newXValue = Mathf.Cos(angle) * skinVertex.x - Mathf.Sin(angle) * skinVertex.z;
             float newZValue = Mathf.Sin(angle) * skinVertex.x + Mathf.Cos(angle) * skinVertex.z;
@@ -173,7 +160,7 @@ public class PlayerController : MonoBehaviour
     private bool IsOnGround()
     {
         float angle = Mathf.Atan2(_heading.x, _heading.z);
-        foreach (Vector3 skinVertex in groundSkinVertices)
+        foreach (Vector3 skinVertex in _groundSkinVertices)
         {
             float newXValue = Mathf.Cos(angle) * skinVertex.x - Mathf.Sin(angle) * skinVertex.z;
             float newZValue = Mathf.Cos(angle) * skinVertex.z + Mathf.Sin(angle) * skinVertex.x;
