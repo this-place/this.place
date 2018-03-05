@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetAxis("Jump") == 1.0f && IsOnGround())
         {
-                Jump();
+            Jump();
         }
     }
 
