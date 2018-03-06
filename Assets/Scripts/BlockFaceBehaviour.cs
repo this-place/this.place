@@ -27,7 +27,7 @@ public class BlockFaceBehaviour : MonoBehaviour
 
     public bool FireRaycastFromFace(float skinToLengthRatio, LayerMask collidableLayers, BlockFace face)
     {
-        float centerToSkin = FaceLength * (1 - skinToLengthRatio / 2) / 2;
+        float centerToSkin = FaceLength * (1 - skinToLengthRatio) / 2;
         Vector3 normal = face.GetNormal();
         Vector3[] perpendicularNormals = face.GetPerpendicularNormals();
         Vector3 quadCenter = transform.position + (centerToSkin * normal);
