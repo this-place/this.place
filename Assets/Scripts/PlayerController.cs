@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 _heading;
 
     private Rigidbody _rb;
-    public BoxCollider Bc;
+    private BoxCollider _boxCollider;
     private Vector3[] _groundSkinVertices = new Vector3[40];
     private Vector3[] _forwardSkinVertices = new Vector3[16];
     private const float GroundSkinOffset = 0.5f;
@@ -23,9 +23,10 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _boxCollider = this.gameObject.GetComponent<BoxCollider>();
         _heading = Vector3.forward;
-        float groundXBound = Bc.bounds.extents.x - GroundSkinOffset;
-        float groundZBound = Bc.bounds.extents.z - GroundSkinOffset;
+        float groundXBound = _boxCollider.bounds.extents.x - GroundSkinOffset;
+        float groundZBound = _boxCollider.bounds.extents.z - GroundSkinOffset;
         _groundSkinVertices[0] = new Vector3(groundXBound, 0, groundZBound);
         _groundSkinVertices[1] = new Vector3(groundXBound, 0, -groundZBound);
         _groundSkinVertices[2] = new Vector3(-groundXBound, 0, -groundZBound);
@@ -45,8 +46,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        float forwardYBound = Bc.bounds.extents.y - ForwardSkinOffset;
-        float forwardZBound = Bc.bounds.extents.z - ForwardSkinOffset;
+        float forwardYBound = _boxCollider.bounds.extents.y - ForwardSkinOffset;
+        float forwardZBound = _boxCollider.bounds.extents.z - ForwardSkinOffset;
         _forwardSkinVertices[0] = new Vector3(0, forwardYBound, forwardZBound);
         _forwardSkinVertices[1] = new Vector3(0, forwardYBound, -forwardZBound);
         _forwardSkinVertices[2] = new Vector3(0, -forwardYBound, -forwardZBound);
@@ -120,13 +121,13 @@ public class PlayerController : MonoBehaviour
         {
             float newXValue = Mathf.Cos(angle) * skinVertex.x - Mathf.Sin(angle) * skinVertex.z;
             float newZValue = Mathf.Sin(angle) * skinVertex.x + Mathf.Cos(angle) * skinVertex.z;
-            Debug.DrawRay(Bc.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), transform.forward * 2f, Color.red);
-            RaycastHit[] rayHits = Physics.RaycastAll(Bc.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue),
-                transform.forward, movement.magnitude + Bc.bounds.extents.x);
+            Debug.DrawRay(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), transform.forward * 2f, Color.red);
+            RaycastHit[] rayHits = Physics.RaycastAll(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue),
+                transform.forward, movement.magnitude + _boxCollider.bounds.extents.x);
             if (rayHits.Length != 0)
             {
-                if (Physics.Raycast(Bc.bounds.center, transform.forward, 2f))
-                    correctNormal = Physics.RaycastAll(Bc.bounds.center, transform.forward, 2f)[0].normal;
+                if (Physics.Raycast(_boxCollider.bounds.center, transform.forward, 2f))
+                    correctNormal = Physics.RaycastAll(_boxCollider.bounds.center, transform.forward, 2f)[0].normal;
                 else
                     correctNormal = rayHits[0].normal;
                 Debug.Log(correctNormal);
@@ -144,12 +145,12 @@ public class PlayerController : MonoBehaviour
         
         if (hit)
         {
-            if (correctNormal != -transform.forward && (closestPoint - Bc.bounds.extents.x) < 0.01 && IsOnGround())
+            if (correctNormal != -transform.forward && (closestPoint - _boxCollider.bounds.extents.x) < 0.01 && IsOnGround())
             {
                 transform.forward = Vector3.Normalize(transform.forward - Vector3.Project(transform.forward, correctNormal));
                 return CheckCollision(movement);
             }
-            return (closestPoint - Bc.bounds.extents.x) * Vector3.Normalize(movement) * 0.95f;
+            return (closestPoint - _boxCollider.bounds.extents.x) * Vector3.Normalize(movement) * 0.95f;
         }
         else
         {
@@ -164,8 +165,8 @@ public class PlayerController : MonoBehaviour
         {
             float newXValue = Mathf.Cos(angle) * skinVertex.x - Mathf.Sin(angle) * skinVertex.z;
             float newZValue = Mathf.Cos(angle) * skinVertex.z + Mathf.Sin(angle) * skinVertex.x;
-            Debug.DrawRay(Bc.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), Vector3.up * 2f, Color.red, 1f);
-            if (Physics.Raycast(Bc.bounds.center + 
+            Debug.DrawRay(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), Vector3.up * 2f, Color.red, 1f);
+            if (Physics.Raycast(_boxCollider.bounds.center + 
                 new Vector3(newXValue, skinVertex.y, newZValue), Vector3.down, DistToGround))
             {
                 return true;
