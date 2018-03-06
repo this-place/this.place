@@ -101,8 +101,13 @@ public class BlockBehaviour : MonoBehaviour
     private void TranslateBlock()
     {
         Vector3 translateDir = _targetPosition - transform.position;
-        transform.Translate(translateDir.normalized * Time.deltaTime * Speed);
-        if (Vector3.Distance(transform.position, _targetPosition) <= 0.01f)
+        Vector3 translate = translateDir.normalized * Time.deltaTime * 10f;
+
+        if (Vector3.Distance(transform.position, _targetPosition) > translate.magnitude)
+        {
+            transform.Translate(translate);
+        }
+        else
         {
             transform.position = _targetPosition;
             _isTranslating = false;
