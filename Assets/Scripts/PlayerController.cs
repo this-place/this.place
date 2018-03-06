@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class PlayerController : MonoBehaviour
     private Vector3[] _forwardSkinVertices = new Vector3[16];
     private const float GroundSkinOffset = 0.5f;
     private const float ForwardSkinOffset = 0.1f;
+
+    private List<BlockBehaviour> _blockList = new List<BlockBehaviour>();
 
     // Use this for initialization
     private void Start()
@@ -88,6 +91,34 @@ public class PlayerController : MonoBehaviour
         if (Input.GetAxis("Jump") == 1.0f && IsOnGround())
         {
             Jump();
+        }
+
+        // Checking for blocks the player is standing on
+        foreach (BlockBehaviour block in _blockList)
+        {
+            block.SetIsPlayerStandingOn(false);
+        }
+
+        _blockList = new List<BlockBehaviour>();
+
+        for (int i = 0; i < 40; i++)
+        {
+
+            RaycastHit hit;
+            Debug.DrawRay(_boxCollider.bounds.center + _groundSkinVertices[i], Vector3.down);
+            if (Physics.Raycast(_boxCollider.bounds.center + _groundSkinVertices[i], Vector3.down, out hit))
+            {
+                BlockBehaviour hitBlock = hit.collider.GetComponent<BlockBehaviour>();
+                if (hitBlock != null && hit.normal == Vector3.up)
+                {
+                    hitBlock.SetIsPlayerStandingOn(true);
+
+                    if (!_blockList.Contains(hitBlock))
+                    {
+                        _blockList.Add(hitBlock);
+                    }
+                }
+            }
         }
     }
 
@@ -166,8 +197,8 @@ public class PlayerController : MonoBehaviour
             float newXValue = Mathf.Cos(angle) * skinVertex.x - Mathf.Sin(angle) * skinVertex.z;
             float newZValue = Mathf.Cos(angle) * skinVertex.z + Mathf.Sin(angle) * skinVertex.x;
             Debug.DrawRay(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), Vector3.up * 2f, Color.red, 1f);
-            if (Physics.Raycast(_boxCollider.bounds.center + 
-                new Vector3(newXValue, skinVertex.y, newZValue), Vector3.down, DistToGround))
+            if (Physics.Raycast(_boxCollider.bounds.center +
+                                new Vector3(newXValue, skinVertex.y, newZValue), Vector3.down, DistToGround))
             {
                 return true;
             }

@@ -15,6 +15,7 @@ public class BlockBehaviour : MonoBehaviour
     private Vector3 _targetPosition;
 
     private bool _isTranslating;
+    private bool _isPlayerStandingOn;
     private BlockFace _lastClickedFace;
     private BlockFaceBehaviour _blockFaceBehaviour;
 
@@ -107,4 +108,20 @@ public class BlockBehaviour : MonoBehaviour
             _isTranslating = false;
         }
     }
+
+    public void SetIsPlayerStandingOn(bool isPlayerStandingOn)
+    {
+        _isPlayerStandingOn = isPlayerStandingOn;
+    }
+
+    public bool IsPlayerStandingOn()
+    {
+        return _isPlayerStandingOn;
+    }
+
+    public bool IsTranslating()
+    {
+        return _isTranslating;
+    }
+
 }

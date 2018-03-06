@@ -58,7 +58,3 @@ public class BlockFaceBehaviour : MonoBehaviour
         _block.OnFaceClick(clickedFace);
     }
 }
-
-
-
-
