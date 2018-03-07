@@ -10,7 +10,10 @@ public class BlockBehaviour : MonoBehaviour
 
     [Range(0f, 1f)]
     public float SkinToLengthRatio = 0.1f;
-    public float Speed = 1f;
+    public float InitialSpeed = 3f;
+    public float Acceleration = 3f;
+
+    private float CurrentSpeed;
 
     private Vector3 _targetPosition;
 
@@ -24,6 +27,8 @@ public class BlockBehaviour : MonoBehaviour
     private void Start()
     {
         _blockFaceBehaviour = GetComponent<BlockFaceBehaviour>();
+
+        setSpeedToInitial();
         foreach (BlockPlugin plugin in Plugins)
         {
             BlockPlugin pluginInstance = Instantiate(plugin);
@@ -92,6 +97,7 @@ public class BlockBehaviour : MonoBehaviour
             _targetPosition = transform.position + (face.GetNormal() * _blockFaceBehaviour.GetFaceLength());
             _isTranslating = true;
             _lastClickedFace = face;
+            updateSpeed();
             return true;
         }
 
@@ -101,7 +107,7 @@ public class BlockBehaviour : MonoBehaviour
     private void TranslateBlock()
     {
         Vector3 translateDir = _targetPosition - transform.position;
-        Vector3 translate = translateDir.normalized * Time.deltaTime * 10f;
+        Vector3 translate = translateDir.normalized * Time.deltaTime * CurrentSpeed;
 
         if (Vector3.Distance(transform.position, _targetPosition) > translate.magnitude)
         {
@@ -111,8 +117,11 @@ public class BlockBehaviour : MonoBehaviour
         {
             transform.position = _targetPosition;
             _isTranslating = false;
+            Debug.Log("hey");
+            setSpeedToInitial();
         }
     }
+
 
     public void SetIsPlayerStandingOn(bool isPlayerStandingOn)
     {
@@ -127,6 +136,17 @@ public class BlockBehaviour : MonoBehaviour
     public bool IsTranslating()
     {
         return _isTranslating;
+    }
+
+
+    private void updateSpeed()
+    {
+        CurrentSpeed += Acceleration;
+    }
+
+    private void setSpeedToInitial()
+    {
+        CurrentSpeed = InitialSpeed;
     }
 
 }
