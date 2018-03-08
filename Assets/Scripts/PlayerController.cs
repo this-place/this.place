@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody _rb;
     private BoxCollider _boxCollider;
+    private Animator _animator;
     private Vector3[] _groundSkinVertices = new Vector3[40];
     private Vector3[] _forwardSkinVertices = new Vector3[16];
     private const float GroundSkinOffset = 0.5f;
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _animator = GetComponentInChildren<Animator>();
         _boxCollider = this.gameObject.GetComponent<BoxCollider>();
         _heading = Vector3.forward;
         float groundXBound = _boxCollider.bounds.extents.x - GroundSkinOffset;
@@ -86,7 +88,12 @@ public class PlayerController : MonoBehaviour
     {
         if (Mathf.Abs(Input.GetAxis("Horizontal")) != 0 || Mathf.Abs(Input.GetAxis("Vertical")) != 0)
         {
+            _animator.SetBool("IsMoving", true);
             Move();
+        }
+        else
+        {
+            _animator.SetBool("IsMoving", false);
         }
 
         if (Input.GetAxis("Jump") == 1.0f && IsOnGround())
@@ -175,7 +182,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        
+
         if (hit)
         {
             if (correctNormal != -transform.forward && (closestPoint - _boxCollider.bounds.extents.x) < 0.01 && IsOnGround())
@@ -199,6 +206,7 @@ public class PlayerController : MonoBehaviour
             float newXValue = Mathf.Cos(angle) * skinVertex.x - Mathf.Sin(angle) * skinVertex.z;
             float newZValue = Mathf.Cos(angle) * skinVertex.z + Mathf.Sin(angle) * skinVertex.x;
             Debug.DrawRay(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), Vector3.up * 2f, Color.red, 1f);
+
 
             RaycastHit hit;
 
