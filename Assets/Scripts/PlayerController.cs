@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviour
                     correctNormal = Physics.RaycastAll(_boxCollider.bounds.center, transform.forward, 2f)[0].normal;
                 else
                     correctNormal = rayHits[0].normal;
-                Debug.Log(correctNormal);
+
                 foreach (RaycastHit rayHit in rayHits)
                 {
                     float distance = rayHit.distance;
