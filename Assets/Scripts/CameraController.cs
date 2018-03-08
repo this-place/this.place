@@ -4,6 +4,12 @@ public class CameraController : MonoBehaviour
 {
 
     public GameObject PlayerObject;
+    public const float StartingXOffset = -4;
+    public const float StartingYOffset = 4;
+    public const float StartingZOffset = -4;
+    public const float StartingXRotation = 30;
+    public const float StartingYRotation = 45;
+    public const float StartingZRotation = 0;
 
     //used for translation
     private Vector3 _offset;
@@ -19,13 +25,6 @@ public class CameraController : MonoBehaviour
     private float _currentYDisplacement;
     private const float MaxYDisplacement = 30;
     private PlayerController _playerController;
-
-    public float StartingXOffset = -4;
-    public float StartingYOffset = 4;
-    public float StartingZOffset = -4;
-    public float StartingXRotation = 30;
-    public float StartingYRotation = 45;
-    public float StartingZRotation = 0;
 
     private void Start()
     {
