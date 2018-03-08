@@ -10,8 +10,8 @@ public class UVMap : MonoBehaviour
     // Current texture coordinates:
     // No highlight: (x,y) == (0,1)
     // Highlight: (x,y) == (1,1)
-    public float x = 0;
-    public float y = 1;
+    private float x = 0;
+    private float y = 1;
     private const float PixelSize = 2;
 
     void Start()
