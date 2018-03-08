@@ -1,97 +1,112 @@
 fileFormatVersion: 2
-guid: ed03d80de26332a43a4777fc3fda6624
-timeCreated: 1520495501
+guid: 6d393185c506b9345a44b757005a8063
+timeCreated: 1520510001
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: arm
-    100002: arm_001
-    100004: body_001
+    100002: arm.001
+    100004: body.001
     100006: Bone
-    100008: Bone_001
-    100010: Bone_002
-    100012: Bone_003
-    100014: Bone_004
-    100016: Bone_005
-    100018: Bone_006
-    100020: Bone_007
-    100022: Bone_008
-    100024: Bone_010
-    100026: Bone_011
-    100028: hair
-    100030: hair_001
-    100032: hat
-    100034: hat_001
-    100036: head
-    100038: head_001
-    100040: leg
-    100042: leg_001
-    100044: //RootNode
-    100046: mainchara_mqo_001
-    100048: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2"
+    100008: Bone.001
+    100010: Bone.002
+    100012: Bone.003
+    100014: Bone.003_end
+    100016: Bone.004
+    100018: Bone.005
+    100020: Bone.005_end
+    100022: Bone.006
+    100024: Bone.006_end
+    100026: Bone.007
+    100028: Bone.008
+    100030: Bone.008_end
+    100032: Bone.010
+    100034: Bone.011
+    100036: Bone.011_end
+    100038: Camera
+    100040: hair
+    100042: hair.001
+    100044: hat
+    100046: hat.001
+    100048: head
+    100050: head.001
+    100052: Lamp
+    100054: leg
+    100056: leg.001
+    100058: //RootNode
+    100060: mainchara_mqo.001
+    100062: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2"
     400000: arm
-    400002: arm_001
-    400004: body_001
+    400002: arm.001
+    400004: body.001
     400006: Bone
-    400008: Bone_001
-    400010: Bone_002
-    400012: Bone_003
-    400014: Bone_004
-    400016: Bone_005
-    400018: Bone_006
-    400020: Bone_007
-    400022: Bone_008
-    400024: Bone_010
-    400026: Bone_011
-    400028: hair
-    400030: hair_001
-    400032: hat
-    400034: hat_001
-    400036: head
-    400038: head_001
-    400040: leg
-    400042: leg_001
-    400044: //RootNode
-    400046: mainchara_mqo_001
-    400048: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2"
-    2100000: arm_001__arm_bmp_001
-    2100002: leg_001__leg_bmp_001
-    2100004: body_001__body2_bmp_001
-    2100006: hair_001__hair_bmp_001
-    2100008: hat_001__hat_bmp_001
-    2100010: head_001__head_bmp_001
-    2100012: arm__arm_bmp
-    2100014: leg__leg_bmp
-    2100016: hair__hair_bmp
-    2100018: hat__hat_bmp
-    2100020: head__head_bmp
-    4300000: arm_001
-    4300002: leg_001
-    4300004: body_001
-    4300006: hair_001
-    4300008: hat_001
-    4300010: head_001
+    400008: Bone.001
+    400010: Bone.002
+    400012: Bone.003
+    400014: Bone.003_end
+    400016: Bone.004
+    400018: Bone.005
+    400020: Bone.005_end
+    400022: Bone.006
+    400024: Bone.006_end
+    400026: Bone.007
+    400028: Bone.008
+    400030: Bone.008_end
+    400032: Bone.010
+    400034: Bone.011
+    400036: Bone.011_end
+    400038: Camera
+    400040: hair
+    400042: hair.001
+    400044: hat
+    400046: hat.001
+    400048: head
+    400050: head.001
+    400052: Lamp
+    400054: leg
+    400056: leg.001
+    400058: //RootNode
+    400060: mainchara_mqo.001
+    400062: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2"
+    2000000: Camera
+    2100000: arm.001
+    2100002: leg.001
+    2100004: body.001
+    2100006: hair.001
+    2100008: hat.001
+    2100010: head.001
+    2100012: arm
+    2100014: leg
+    2100016: hair
+    2100018: hat
+    2100020: head
+    4300000: arm.001
+    4300002: leg.001
+    4300004: body.001
+    4300006: hair.001
+    4300008: hat.001
+    4300010: head.001
     4300012: arm
     4300014: leg
     4300016: hair
     4300018: hat
     4300020: head
-    7400000: Default Take
-    7400002: wait
-    7400004: walk
+    7400000: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|wait"
+    7400002: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|walk"
     9500000: //RootNode
+    10800000: Lamp
     13700000: arm
-    13700002: arm_001
-    13700004: body_001
+    13700002: arm.001
+    13700004: body.001
     13700006: hair
-    13700008: hair_001
+    13700008: hair.001
     13700010: hat
-    13700012: hat_001
+    13700012: hat.001
     13700014: head
-    13700016: head_001
+    13700016: head.001
     13700018: leg
-    13700020: leg_001
+    13700020: leg.001
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -120,38 +135,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Default Take
-      takeName: Default Take
+      name: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|wait"
+      takeName: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|wait"
       firstFrame: 0
-      lastFrame: 17
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: wait
-      takeName: wait
-      firstFrame: -1
-      lastFrame: 77
+      lastFrame: 78
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -176,10 +163,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: walk
-      takeName: walk
-      firstFrame: -1
-      lastFrame: 17
+      name: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|walk"
+      takeName: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|walk"
+      firstFrame: 0
+      lastFrame: 18
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
