@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public LayerMask Layer;
 
     [SerializeField]
     private const float MoveSpeed = 2f;
@@ -109,7 +110,8 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(_boxCollider.bounds.center + _groundSkinVertices[i], Vector3.down, out hit))
             {
                 BlockBehaviour hitBlock = hit.collider.GetComponent<BlockBehaviour>();
-                if (hitBlock != null && hit.normal == Vector3.up)
+                BlockFaceBehaviour hitBlockFace = hit.collider.GetComponent<BlockFaceBehaviour>();
+                if (hitBlock != null && hit.normal == Vector3.up && !hitBlockFace.FireRaycastFromFace(0.1f, Layer, BlockFace.Top))
                 {
                     hitBlock.SetIsPlayerStandingOn(true);
 
@@ -197,10 +199,17 @@ public class PlayerController : MonoBehaviour
             float newXValue = Mathf.Cos(angle) * skinVertex.x - Mathf.Sin(angle) * skinVertex.z;
             float newZValue = Mathf.Cos(angle) * skinVertex.z + Mathf.Sin(angle) * skinVertex.x;
             Debug.DrawRay(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), Vector3.up * 2f, Color.red, 1f);
-            if (Physics.Raycast(_boxCollider.bounds.center +
-                                new Vector3(newXValue, skinVertex.y, newZValue), Vector3.down, DistToGround))
+
+            RaycastHit hit;
+
+            if (Physics.Raycast(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), Vector3.down, out hit, DistToGround))
             {
-                return true;
+                BlockFaceBehaviour hitBlockFace = hit.collider.GetComponent<BlockFaceBehaviour>();
+
+                if (!hitBlockFace.FireRaycastFromFace(0.1f, Layer, BlockFace.Top))
+                {
+                    return true;
+                }
             }
         }
 
