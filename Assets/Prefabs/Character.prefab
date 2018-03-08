@@ -410,6 +410,7 @@ GameObject:
   - component: {fileID: 23536143702901480}
   - component: {fileID: 54792073101254416}
   - component: {fileID: 114074379916613544}
+  - component: {fileID: 114937443919403186}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -869,6 +870,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30da6d28172b2e046abf284a55d5227f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114937443919403186
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1925440072047652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fffdfe65b53b5f409ce74fcaf2f10ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollidableLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!137 &137012066552474692
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
