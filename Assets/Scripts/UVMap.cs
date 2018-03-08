@@ -10,11 +10,30 @@ public class UVMap : MonoBehaviour
     // Current texture coordinates:
     // No highlight: (x,y) == (0,1)
     // Highlight: (x,y) == (1,1)
+    //
+    // TODO: Change coordinate system for 6 faces mapping
     private float x = 0;
     private float y = 1;
     private const float PixelSize = 2;
 
     void Start()
+    {
+        SetUVs();
+    }
+
+    public void SetHighlightTexture()
+    {
+        x = 1;
+        SetUVs();
+    }
+
+    public void SetNormalTexture()
+    {
+        x = 0;
+        SetUVs();
+    }
+
+    private void SetUVs()
     {
         float tilePerc = 1 / PixelSize;
 
@@ -52,15 +71,5 @@ public class UVMap : MonoBehaviour
 
         this.GetComponent<Renderer>().material = material;
         this.GetComponent<MeshFilter>().mesh.uv = blockUVs;
-    }
-
-    public void SetHighlightTexture()
-    {
-        x = 1;
-    }
-
-    public void SetNormalTexture()
-    {
-        x = 0;
     }
 }
