@@ -20,10 +20,17 @@ public class CameraController : MonoBehaviour
     private const float MaxYDisplacement = 30;
     private PlayerController _playerController;
 
+    public float StartingXOffset = -4;
+    public float StartingYOffset = 4;
+    public float StartingZOffset = -4;
+    public float StartingXRotation = 30;
+    public float StartingYRotation = 45;
+    public float StartingZRotation = 0;
 
     private void Start()
     {
-        _offset = transform.position - PlayerObject.transform.position;
+        _offset = new Vector3(StartingXOffset, StartingYOffset, StartingZOffset);
+        transform.eulerAngles = new Vector3(StartingXRotation, StartingYRotation, StartingZRotation);
         _playerController = PlayerObject.GetComponent<PlayerController>();
     }
 
