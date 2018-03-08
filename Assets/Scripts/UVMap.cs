@@ -53,4 +53,14 @@ public class UVMap : MonoBehaviour
         this.GetComponent<Renderer>().material = material;
         this.GetComponent<MeshFilter>().mesh.uv = blockUVs;
     }
+
+    public void SetHighlightTexture()
+    {
+        x = 1;
+    }
+
+    public void SetNormalTexture()
+    {
+        x = 0;
+    }
 }
