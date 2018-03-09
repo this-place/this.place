@@ -7,7 +7,6 @@ public class MoveablePlugin : BlockPlugin
 {
     private bool _isDisplaced;
     private BlockFace _displacedFace;
-    private const float Acceleration = 0f;
 
     private void OnEnable()
     {
@@ -18,7 +17,7 @@ public class MoveablePlugin : BlockPlugin
     {
         if (_isDisplaced)
         {
-            if (_block.MoveBlock(_displacedFace.GetOppositeFace(), Acceleration))
+            if (_block.MoveBlock(_displacedFace.GetOppositeFace()))
             {
                 _isDisplaced = false;
                 _displacedFace = BlockFace.Unknown;
@@ -26,11 +25,13 @@ public class MoveablePlugin : BlockPlugin
         }
         else
         {
-            if (_block.MoveBlock(face, Acceleration))
+            if (_block.MoveBlock(face))
             {
                 _isDisplaced = true;
                 _displacedFace = face;
             }
         }
+
+        _block.ResetSpeed();
     }
 }

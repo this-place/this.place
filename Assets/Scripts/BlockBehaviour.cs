@@ -14,10 +14,10 @@ public class BlockBehaviour : MonoBehaviour
     public float TerminalSpeed = 10f;
 
     private float _currentSpeed;
+    private const float Acceleration = 50f;
 
     private Vector3 _targetPosition;
 
-    private bool _isFalling;
     private bool _isTranslating;
     private bool _isPlayerStandingOn;
     private BlockFace _lastClickedFace;
@@ -85,14 +85,15 @@ public class BlockBehaviour : MonoBehaviour
         }
     }
 
-    public bool MoveBlock(BlockFace face, float acceleration)
+    public bool MoveBlock(BlockFace face)
     {
         Debug.Log(_currentSpeed);
         if (_isTranslating)
         {
-            UpdateSpeed(acceleration);
             return false;
         }
+
+        UpdateSpeed();
 
         bool hit = _blockFaceBehaviour.FireRaycastFromFace(SkinToLengthRatio, CollidableLayers, face);
         if (!hit)
@@ -104,7 +105,7 @@ public class BlockBehaviour : MonoBehaviour
         }
 
         ResetSpeed();
-
+        
         return false;
     }
 
@@ -140,11 +141,11 @@ public class BlockBehaviour : MonoBehaviour
         return _isTranslating;
     }
 
-    public void UpdateSpeed(float acceleration)
+    public void UpdateSpeed()
     {
         if (_currentSpeed < TerminalSpeed)
         {
-            _currentSpeed += Time.deltaTime * acceleration;
+            _currentSpeed += Time.deltaTime * Acceleration;
         }
     }
 
