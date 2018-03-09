@@ -10,13 +10,15 @@ public class BlockBehaviour : MonoBehaviour
 
     [Range(0f, 1f)]
     public float SkinToLengthRatio = 0.1f;
-    public float InitialSpeed = 3f;
-    public float Acceleration = 3f;
 
     private float CurrentSpeed;
+    public float InitialSpeed = 1f;
+    public float AccelerationFactor = 10f;
+    public float TerminalSpeed = 100f;
 
     private Vector3 _targetPosition;
 
+    private bool _isFalling;
     private bool _isTranslating;
     private bool _isPlayerStandingOn;
     private BlockFace _lastClickedFace;
@@ -28,7 +30,7 @@ public class BlockBehaviour : MonoBehaviour
     {
         _blockFaceBehaviour = GetComponent<BlockFaceBehaviour>();
 
-        setSpeedToInitial();
+        SetSpeedToInitial();
         foreach (BlockPlugin plugin in Plugins)
         {
             BlockPlugin pluginInstance = Instantiate(plugin);
@@ -91,15 +93,23 @@ public class BlockBehaviour : MonoBehaviour
             return false;
         }
 
+        if (_isFalling)
+        {
+            UpdateSpeed();
+        }
+
         bool hit = _blockFaceBehaviour.FireRaycastFromFace(SkinToLengthRatio, CollidableLayers, face);
         if (!hit)
         {
             _targetPosition = transform.position + (face.GetNormal() * _blockFaceBehaviour.GetFaceLength());
             _isTranslating = true;
+            _isFalling = true;
             _lastClickedFace = face;
-            updateSpeed();
+            Debug.Log(CurrentSpeed);
             return true;
         }
+
+        _isFalling = false;
 
         return false;
     }
@@ -117,8 +127,6 @@ public class BlockBehaviour : MonoBehaviour
         {
             transform.position = _targetPosition;
             _isTranslating = false;
-            Debug.Log("hey");
-            setSpeedToInitial();
         }
     }
 
@@ -139,12 +147,15 @@ public class BlockBehaviour : MonoBehaviour
     }
 
 
-    private void updateSpeed()
+    private void UpdateSpeed()
     {
-        CurrentSpeed += Acceleration;
+        if (CurrentSpeed < TerminalSpeed)
+        {
+            CurrentSpeed += AccelerationFactor;
+        }
     }
 
-    private void setSpeedToInitial()
+    private void SetSpeedToInitial()
     {
         CurrentSpeed = InitialSpeed;
     }
