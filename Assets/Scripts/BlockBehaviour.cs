@@ -10,11 +10,10 @@ public class BlockBehaviour : MonoBehaviour
 
     [Range(0f, 1f)]
     public float SkinToLengthRatio = 0.1f;
-
-    private float CurrentSpeed;
     public float InitialSpeed = 1f;
-    public float AccelerationFactor = 10f;
-    public float TerminalSpeed = 100f;
+    public float TerminalSpeed = 10f;
+
+    private float _currentSpeed;
 
     private Vector3 _targetPosition;
 
@@ -29,8 +28,8 @@ public class BlockBehaviour : MonoBehaviour
     private void Start()
     {
         _blockFaceBehaviour = GetComponent<BlockFaceBehaviour>();
+        ResetSpeed();
 
-        SetSpeedToInitial();
         foreach (BlockPlugin plugin in Plugins)
         {
             BlockPlugin pluginInstance = Instantiate(plugin);
@@ -86,16 +85,13 @@ public class BlockBehaviour : MonoBehaviour
         }
     }
 
-    public bool MoveBlock(BlockFace face)
+    public bool MoveBlock(BlockFace face, float acceleration)
     {
+        Debug.Log(_currentSpeed);
         if (_isTranslating)
         {
+            UpdateSpeed(acceleration);
             return false;
-        }
-
-        if (_isFalling)
-        {
-            UpdateSpeed();
         }
 
         bool hit = _blockFaceBehaviour.FireRaycastFromFace(SkinToLengthRatio, CollidableLayers, face);
@@ -103,13 +99,11 @@ public class BlockBehaviour : MonoBehaviour
         {
             _targetPosition = transform.position + (face.GetNormal() * _blockFaceBehaviour.GetFaceLength());
             _isTranslating = true;
-            _isFalling = true;
             _lastClickedFace = face;
-            Debug.Log(CurrentSpeed);
             return true;
         }
 
-        _isFalling = false;
+        ResetSpeed();
 
         return false;
     }
@@ -117,7 +111,7 @@ public class BlockBehaviour : MonoBehaviour
     private void TranslateBlock()
     {
         Vector3 translateDir = _targetPosition - transform.position;
-        Vector3 translate = translateDir.normalized * Time.deltaTime * CurrentSpeed;
+        Vector3 translate = translateDir.normalized * Time.deltaTime * _currentSpeed;
 
         if (Vector3.Distance(transform.position, _targetPosition) > translate.magnitude)
         {
@@ -146,18 +140,16 @@ public class BlockBehaviour : MonoBehaviour
         return _isTranslating;
     }
 
-
-    private void UpdateSpeed()
+    public void UpdateSpeed(float acceleration)
     {
-        if (CurrentSpeed < TerminalSpeed)
+        if (_currentSpeed < TerminalSpeed)
         {
-            CurrentSpeed += AccelerationFactor;
+            _currentSpeed += Time.deltaTime * acceleration;
         }
     }
 
-    private void SetSpeedToInitial()
+    public void ResetSpeed()
     {
-        CurrentSpeed = InitialSpeed;
+        _currentSpeed = InitialSpeed;
     }
-
 }

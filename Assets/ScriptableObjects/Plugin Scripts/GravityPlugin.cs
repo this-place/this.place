@@ -5,8 +5,10 @@ using UnityEngine;
 [CreateAssetMenu]
 public class GravityPlugin : BlockPlugin {
 
+    private const float Acceleration = 3f;
+
     public override void OnUpdate()
     {
-        _block.MoveBlock(BlockFace.Bottom);
+        _block.MoveBlock(BlockFace.Bottom, Acceleration);
     }
 }
