@@ -14,7 +14,7 @@ public class BlockBehaviour : MonoBehaviour
     public float TerminalSpeed = 10f;
 
     private float _currentSpeed;
-    private const float Acceleration = 50f;
+    private const float Acceleration = 3f;
 
     private Vector3 _targetPosition;
 
@@ -87,13 +87,10 @@ public class BlockBehaviour : MonoBehaviour
 
     public bool MoveBlock(BlockFace face)
     {
-        Debug.Log(_currentSpeed);
         if (_isTranslating)
         {
             return false;
         }
-
-        UpdateSpeed();
 
         bool hit = _blockFaceBehaviour.FireRaycastFromFace(SkinToLengthRatio, CollidableLayers, face);
         if (!hit)
@@ -111,6 +108,8 @@ public class BlockBehaviour : MonoBehaviour
 
     private void TranslateBlock()
     {
+        UpdateSpeed();
+
         Vector3 translateDir = _targetPosition - transform.position;
         Vector3 translate = translateDir.normalized * Time.deltaTime * _currentSpeed;
 
