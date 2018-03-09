@@ -5,21 +5,19 @@ using UnityEngine;
 public class UVMap : MonoBehaviour
 {
 
-    public Material material;
-
-    // Current texture coordinates:
-    // No highlight: (x,y) == (0,1)
-    // Highlight: (x,y) == (1,1)
-    //
-    // TODO: Change coordinate system for 6 faces mapping
+    public Material BlockMaterial;
     private float x = 0;
     private float y = 1;
     private const float PixelSize = 2;
+    private Mesh _mesh;
 
     void Start()
     {
+        GetComponent<Renderer>().material = BlockMaterial;
+        _mesh = GetComponent<MeshFilter>().mesh;
         SetUVs();
     }
+
 
     public void SetHighlightTexture()
     {
@@ -69,7 +67,62 @@ public class UVMap : MonoBehaviour
         blockUVs[22] = new Vector2(umin, vmax);
         blockUVs[23] = new Vector2(umax, vmin);
 
-        this.GetComponent<Renderer>().material = material;
-        this.GetComponent<MeshFilter>().mesh.uv = blockUVs;
+        _mesh.uv = blockUVs;
+    }
+
+    public void SetFaceHighlight(BlockFace face)
+    {
+        Vector2[] blockUVs = (Vector2[])_mesh.uv.Clone();
+
+        float tilePerc = 1 / PixelSize;
+        float umin = tilePerc;
+        float umax = tilePerc * 2;
+        float vmin = tilePerc * y;
+        float vmax = tilePerc * (y + 1);
+        Vector2 minmin = new Vector2(umin, vmin);
+        Vector2 maxmin = new Vector2(umax, vmin);
+        Vector2 minmax = new Vector2(umin, vmax);
+        Vector2 maxmax = new Vector2(umax, vmax);
+        switch (face)
+        {
+            case BlockFace.Top:
+                blockUVs[4] = minmin;
+                blockUVs[5] = maxmin;
+                blockUVs[8] = minmax;
+                blockUVs[9] = maxmax;
+                break;
+            case BlockFace.Bottom:
+                blockUVs[12] = minmax;
+                blockUVs[13] = maxmin;
+                blockUVs[14] = maxmax;
+                blockUVs[15] = minmin;
+                break;
+            case BlockFace.North:
+                blockUVs[0] = minmax;
+                blockUVs[1] = maxmax;
+                blockUVs[2] = minmin;
+                blockUVs[3] = maxmin;
+                break;
+            case BlockFace.South:
+                blockUVs[6] = minmin;
+                blockUVs[7] = maxmin;
+                blockUVs[10] = minmax;
+                blockUVs[11] = maxmax;
+                break;
+            case BlockFace.East:
+                blockUVs[20] = minmax;
+                blockUVs[21] = maxmin;
+                blockUVs[22] = maxmax;
+                blockUVs[23] = minmin;
+                break;
+            case BlockFace.West:
+                blockUVs[16] = minmax;
+                blockUVs[17] = maxmin;
+                blockUVs[18] = maxmax;
+                blockUVs[19] = minmin;
+                break;
+        }
+
+        _mesh.uv = blockUVs;
     }
 }

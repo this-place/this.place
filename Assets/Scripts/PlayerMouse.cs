@@ -6,6 +6,8 @@ public class PlayerMouse : MonoBehaviour
 {
     public LayerMask CollidableLayer;
 
+    private BlockFaceBehaviour _lastBlock;
+    private BlockFace _lastFace;
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -16,13 +18,26 @@ public class PlayerMouse : MonoBehaviour
             if (CollidableLayer == (CollidableLayer | (1 << hit.transform.gameObject.layer)))
             {
                 BlockFaceBehaviour blockFace = hit.transform.gameObject.GetComponent<BlockFaceBehaviour>();
-
+                BlockFace face = BlockFaceMethods.BlockFaceFromNormal(hit.normal);
                 if (Input.GetMouseButtonDown(0))
                 {
-                    blockFace.OnMouseClick(hit.normal);
-
+                    blockFace.OnMouseClick(face);
+                }
+                else
+                {
+                    if (_lastBlock != blockFace || _lastFace != face)
+                    {
+                        if (_lastBlock != null)
+                        {
+                            _lastBlock.OnMouseLeave();
+                        }
+                        _lastBlock = blockFace;
+                        _lastFace = face;
+                        blockFace.OnMouseHover(face);
+                    }
                 }
             }
         }
     }
+
 }

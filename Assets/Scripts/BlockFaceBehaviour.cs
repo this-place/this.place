@@ -9,6 +9,7 @@ public class BlockFaceBehaviour : MonoBehaviour
     public float FaceLength;
 
     private BlockBehaviour _block;
+    private UVMap _uvMap;
     private Color _originalColor;
     private Renderer _renderer;
     private Mesh _mesh;
@@ -18,6 +19,7 @@ public class BlockFaceBehaviour : MonoBehaviour
     private void Start()
     {
         _block = GetComponent<BlockBehaviour>();
+        _uvMap = GetComponent<UVMap>();
     }
 
     public float GetFaceLength()
@@ -52,9 +54,20 @@ public class BlockFaceBehaviour : MonoBehaviour
         return false;
     }
 
-    public void OnMouseClick(Vector3 normal)
+    public void OnMouseClick(BlockFace clickedFace)
     {
-        BlockFace clickedFace = BlockFaceMethods.BlockFaceFromNormal(normal);
         _block.OnFaceClick(clickedFace);
+    }
+
+    public void OnMouseHover(BlockFace hoveredFace)
+    {
+        if (_uvMap != null)
+            _uvMap.SetFaceHighlight(hoveredFace);
+    }
+
+    public void OnMouseLeave()
+    {
+        if (_uvMap != null)
+            _uvMap.SetNormalTexture();
     }
 }
