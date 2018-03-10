@@ -12,34 +12,24 @@ public class PlayerMouse : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        bool didRayCastHit = Physics.Raycast(ray, out hit);
+
+        // https://answers.unity.com/questions/50279/check-if-layer-is-in-layermask.html
+        // looking for block collisions only
+        bool isHitTargetInCollidableLayer =
+            didRayCastHit ? CollidableLayer == (CollidableLayer | (1 << hit.transform.gameObject.layer)) : false;
+
+        if (didRayCastHit && isHitTargetInCollidableLayer)
         {
-            // https://answers.unity.com/questions/50279/check-if-layer-is-in-layermask.html
-            if (CollidableLayer == (CollidableLayer | (1 << hit.transform.gameObject.layer)))
+            BlockFaceBehaviour blockFace = hit.transform.gameObject.GetComponent<BlockFaceBehaviour>();
+            BlockFace face = BlockFaceMethods.BlockFaceFromNormal(hit.normal);
+            if (Input.GetMouseButtonDown(0))
             {
-                BlockFaceBehaviour blockFace = hit.transform.gameObject.GetComponent<BlockFaceBehaviour>();
-                BlockFace face = BlockFaceMethods.BlockFaceFromNormal(hit.normal);
-                if (Input.GetMouseButtonDown(0))
-                {
-                    blockFace.OnMouseClick(face);
-                }
-                else
-                {
-                    if (_lastBlock != blockFace || _lastFace != face)
-                    {
-                        if (_lastBlock != null)
-                        {
-                            _lastBlock.OnMouseLeave();
-                        }
-                        _lastBlock = blockFace;
-                        _lastFace = face;
-                        blockFace.OnMouseHover(face);
-                    }
-                }
+                blockFace.OnMouseClick(face);
             }
             else
             {
-                LeaveLastBlock();
+                ChangeFaceHighlight(blockFace, face);
             }
         }
         else
@@ -54,6 +44,20 @@ public class PlayerMouse : MonoBehaviour
         {
             _lastBlock.OnMouseLeave();
             _lastBlock = null;
+        }
+    }
+
+    void ChangeFaceHighlight(BlockFaceBehaviour blockFace, BlockFace face)
+    {
+        if (_lastBlock != blockFace || _lastFace != face)
+        {
+            if (_lastBlock != null)
+            {
+                _lastBlock.OnMouseLeave();
+            }
+            _lastBlock = blockFace;
+            _lastFace = face;
+            blockFace.OnMouseHover(face);
         }
     }
 }
