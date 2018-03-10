@@ -37,15 +37,23 @@ public class PlayerMouse : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                LeaveLastBlock();
+            }
         }
         else
         {
-            if (_lastBlock != null)
-            {
-                _lastBlock.OnMouseLeave();
-                _lastBlock = null;
-            }
+            LeaveLastBlock();
         }
     }
 
+    void LeaveLastBlock()
+    {
+        if (_lastBlock != null)
+        {
+            _lastBlock.OnMouseLeave();
+            _lastBlock = null;
+        }
+    }
 }
