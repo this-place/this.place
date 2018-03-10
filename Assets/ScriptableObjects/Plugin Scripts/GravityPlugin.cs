@@ -7,35 +7,19 @@ using UnityEngine;
 public class GravityPlugin : BlockPlugin
 {
     public float TerminalSpeed = 10f;
-    private const float Acceleration = 2f;
-    private float _currentSpeed = 1f;
+    private const float _acceleration = 5f;
 
     public override void OnUpdate()
     {
-
-        if (_block.Fall(_currentSpeed))
+        if (!_block.IsTranslating())
         {
-            ResetSpeed();
-        }
-        else
-        {
-            UpdateSpeed();
-        }
+            bool didBlockMove = _block.MoveBlock(BlockFace.Bottom, _block.GetCurrentSpeed(), _acceleration);
 
-    }
-
-    public void UpdateSpeed()
-    {
-        if (_block.CurrentSpeed < TerminalSpeed)
-        {
-            _currentSpeed += Time.deltaTime * Acceleration;
+            if (!didBlockMove)
+            {
+                // block could not move due to obstruction
+                _block.SetCurrentSpeed(_block.InitialSpeed);
+            }
         }
-        Debug.Log("increasing speed to " + _currentSpeed);
-    }
-
-    public void ResetSpeed()
-    {
-        _currentSpeed = _block.InitialSpeed;
-        Debug.Log("resetting speed");
     }
 }
