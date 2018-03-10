@@ -31,7 +31,5 @@ public class MoveablePlugin : BlockPlugin
                 _displacedFace = face;
             }
         }
-
-        _block.ResetSpeed();
     }
 }
