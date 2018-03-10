@@ -38,6 +38,14 @@ public class PlayerMouse : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            if (_lastBlock != null)
+            {
+                _lastBlock.OnMouseLeave();
+                _lastBlock = null;
+            }
+        }
     }
 
 }
