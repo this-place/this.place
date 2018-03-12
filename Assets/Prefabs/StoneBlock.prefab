@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1526104144880422}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: 0, z: -8}
+  m_LocalPosition: {x: -3.034456, y: 1, z: -0.480801}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -129,7 +129,7 @@ MonoBehaviour:
     m_Bits: 512
   Plugins: []
   SkinToLengthRatio: 0.1
-  Speed: 2
+  InitialSpeed: 1
 --- !u!114 &114766962981869754
 MonoBehaviour:
   m_ObjectHideFlags: 1
