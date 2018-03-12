@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraController : MonoBehaviour
 {
@@ -25,6 +27,7 @@ public class CameraController : MonoBehaviour
     private float _currentYDisplacement;
     private const float MaxYDisplacement = 30;
     private PlayerController _playerController;
+    private ArrayList _fadeBlocks = new ArrayList();
 
     private void Start()
     {
@@ -59,12 +62,36 @@ public class CameraController : MonoBehaviour
             _isMouseRotating = false;
 
         if (_isKeyboardRotating)
+        {
             RotateKeyboardCamera();
+        }
 
         if (_isMouseRotating)
         {
             RotateMouseCamera();
         }
+
+        UpdateFadingBlocks();
+    }
+
+    private void UpdateFadingBlocks()
+    {
+        Vector3 cameraPosition = transform.position;
+        Vector3 cameraToPlayerPosition = cameraPosition - PlayerObject.transform.position;
+        float cameraToPlayerMagnitude = cameraToPlayerPosition.magnitude;
+        foreach (FadeoutPlugin fadeoutPlugin in _fadeBlocks)
+        {
+            if ((cameraPosition - fadeoutPlugin.GetBlock().transform.position).magnitude <
+                cameraToPlayerMagnitude)
+                fadeoutPlugin.IsFading = false;
+            else
+                fadeoutPlugin.IsFading = true;
+        }
+    }
+
+    public void AddFadeoutTarget(FadeoutPlugin fadeoutPlugin)
+    {
+        _fadeBlocks.Add(fadeoutPlugin);
     }
 
     private void RotateKeyboardCamera()

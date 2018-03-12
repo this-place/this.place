@@ -11,7 +11,7 @@ public class BlockPlugin : ScriptableObject
         UnPlug();
     }
 
-    public void Plug(BlockBehaviour block)
+    public virtual void Plug(BlockBehaviour block)
     {
         _block = block;
     }
