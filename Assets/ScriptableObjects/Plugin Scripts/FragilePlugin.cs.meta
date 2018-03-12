@@ -5,7 +5,9 @@ licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - FragileEmitter: {fileID: 198800170384898968, guid: 835b5616f21739b4bb04b2ef62768d84,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

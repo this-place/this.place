@@ -11,4 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30d962f456e70174793fae49c7abcdaa, type: 3}
   m_Name: Fragile
   m_EditorClassIdentifier: 
-  BreakAfterTime: 2
+  BreakAfterTime: 3.5
+  FragileEmitter: {fileID: 198800170384898968, guid: 835b5616f21739b4bb04b2ef62768d84,
+    type: 2}
