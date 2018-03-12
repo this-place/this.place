@@ -59,8 +59,8 @@ public class UVMap : MonoBehaviour
         blockUVs[14] = new Vector2(umin, vmax);
         blockUVs[15] = new Vector2(umax, vmin);
         blockUVs[16] = new Vector2(umin, vmin);
-        blockUVs[17] = new Vector2(umax, vmax);
-        blockUVs[18] = new Vector2(umin, vmax);
+        blockUVs[17] = new Vector2(umin, vmax);
+        blockUVs[18] = new Vector2(umax, vmax);
         blockUVs[19] = new Vector2(umax, vmin);
         blockUVs[20] = new Vector2(umin, vmin);
         blockUVs[21] = new Vector2(umax, vmax);
