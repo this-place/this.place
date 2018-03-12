@@ -21,7 +21,7 @@ public class BlockBehaviour : MonoBehaviour
     private bool _isPlayerStandingOn;
     private BlockFace _lastClickedFace;
     private BlockFaceBehaviour _blockFaceBehaviour;
-
+    private List<BlockPlugin> _plugins = new List<BlockPlugin>();
 
     // Use this for initialization
     private void Start()
@@ -33,6 +33,7 @@ public class BlockBehaviour : MonoBehaviour
         {
             BlockPlugin pluginInstance = Instantiate(plugin);
             SubscribePlugin(pluginInstance);
+            _plugins.Add(pluginInstance);
         }
     }
 
@@ -148,5 +149,10 @@ public class BlockBehaviour : MonoBehaviour
     public void SetCurrentSpeed(float newSpeed)
     {
         _currentSpeed = newSpeed;
+    }
+
+    public List<BlockPlugin> GetPlugins()
+    {
+        return _plugins;
     }
 }

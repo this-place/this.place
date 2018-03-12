@@ -16,9 +16,11 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody _rb;
     private BoxCollider _boxCollider;
-    private Animator _animator;
+    private PlayerAnimatorController _animator;
     private Vector3[] _groundSkinVertices = new Vector3[40];
     private Vector3[] _forwardSkinVertices = new Vector3[16];
+    private bool _isMobile = true;
+
     private const float GroundSkinOffset = 0.5f;
     private const float ForwardSkinOffset = 0.1f;
 
@@ -28,7 +30,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _animator = GetComponentInChildren<Animator>();
+        _animator = GetComponentInChildren<PlayerAnimatorController>();
         _boxCollider = this.gameObject.GetComponent<BoxCollider>();
         _heading = Vector3.forward;
         float groundXBound = _boxCollider.bounds.extents.x - GroundSkinOffset;
@@ -86,17 +88,18 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Mathf.Abs(Input.GetAxis("Horizontal")) != 0 || Mathf.Abs(Input.GetAxis("Vertical")) != 0)
+
+        if ((Mathf.Abs(Input.GetAxis("Horizontal")) != 0 || Mathf.Abs(Input.GetAxis("Vertical")) != 0) && _isMobile)
         {
-            _animator.SetBool("IsMoving", true);
+            _animator.MovePlayer();
             Move();
         }
         else
         {
-            _animator.SetBool("IsMoving", false);
+            _animator.StopPlayer();
         }
 
-        if (Input.GetAxis("Jump") == 1.0f && IsOnGround())
+        if (Input.GetAxis("Jump") == 1.0f && IsOnGround() && _isMobile)
         {
             Jump();
         }
@@ -222,5 +225,15 @@ public class PlayerController : MonoBehaviour
         }
 
         return false;
+    }
+
+    public bool IsMobile()
+    {
+        return _isMobile;
+    }
+
+    public void SetMobility(bool mobility)
+    {
+        _isMobile = mobility;
     }
 }

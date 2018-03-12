@@ -54,18 +54,18 @@ public class BlockFaceBehaviour : MonoBehaviour
         return false;
     }
 
-    public void OnMouseClick(BlockFace clickedFace)
+    public void MoveClickedFace(BlockFace clickedFace)
     {
         _block.OnFaceClick(clickedFace);
     }
 
-    public void OnMouseHover(BlockFace hoveredFace)
+    public void HighlightFace(BlockFace face)
     {
         if (_uvMap != null)
-            _uvMap.SetFaceHighlight(hoveredFace);
+            _uvMap.SetFaceHighlight(face);
     }
 
-    public void OnMouseLeave()
+    public void UnhighlightFace()
     {
         if (_uvMap != null)
             _uvMap.SetNormalTexture();

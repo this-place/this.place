@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +8,30 @@ public class PlayerMouse : MonoBehaviour
     public LayerMask CollidableLayer;
 
     private BlockFaceBehaviour _lastBlock;
-    private BlockFace _lastFace;
+    private Dictionary<BlockFaceBehaviour, BlockFace> _faceMap = new Dictionary<BlockFaceBehaviour, BlockFace>();
+    private Vector3[] _directions = new Vector3[5]
+        { Vector3.down, Vector3.forward, Vector3.back, Vector3.left, Vector3.right };
+
+    private PlayerAnimatorController _animator;
+    private PlayerController _playerController;
+
+    void Start()
+    {
+        _animator = GetComponentInChildren<PlayerAnimatorController>();
+        _playerController = GetComponent<PlayerController>();
+    }
+
     void Update()
+    {
+        ResetFaces();
+
+        if (Input.GetMouseButtonDown(0) && _playerController.IsMobile())
+        {
+            HandleMouseClick();
+        }
+    }
+
+    private void HandleMouseClick()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -23,41 +46,75 @@ public class PlayerMouse : MonoBehaviour
         {
             BlockFaceBehaviour blockFace = hit.transform.gameObject.GetComponent<BlockFaceBehaviour>();
             BlockFace face = BlockFaceMethods.BlockFaceFromNormal(hit.normal);
-            if (Input.GetMouseButtonDown(0))
+            if (_faceMap.ContainsKey(blockFace) && face == _faceMap[blockFace])
             {
-                blockFace.OnMouseClick(face);
+                _animator.MoveBlock(blockFace, face);
             }
-            else
-            {
-                ChangeFaceHighlight(blockFace, face);
-            }
-        }
-        else
-        {
-            LeaveLastBlock();
         }
     }
 
-    void LeaveLastBlock()
+    void ResetFaces()
     {
-        if (_lastBlock != null)
+        foreach (KeyValuePair<BlockFaceBehaviour, BlockFace> entry in _faceMap)
         {
-            _lastBlock.OnMouseLeave();
-            _lastBlock = null;
+            entry.Key.UnhighlightFace();
+        }
+
+        _faceMap.Clear();
+        SetNewFaces();
+    }
+
+    void SetNewFaces()
+    {
+        foreach (Vector3 direction in _directions)
+        {
+            GameObject blockGameObject = GetGameObjInDir(direction);
+            BlockFace blockFaceOfNeighbouringBlock = BlockFaceMethods.BlockFaceFromNormal(-direction);
+
+            if (blockGameObject == null) continue;
+
+            BlockFaceBehaviour blockFaceBehaviour = blockGameObject.GetComponent<BlockFaceBehaviour>();
+            BlockBehaviour blockBehaviour = blockGameObject.GetComponent<BlockBehaviour>();
+
+            if (blockBehaviour.IsTranslating()) continue;
+
+            foreach (BlockPlugin plugin in blockBehaviour.GetPlugins())
+            {
+                MoveablePlugin moveable = plugin as MoveablePlugin;
+                if (moveable == null) continue;
+
+                if (!moveable.IsDisplaced() ||
+                    blockFaceOfNeighbouringBlock == moveable.GetDisplacedFace())
+                {
+                    BlockFace moveableFace = moveable.IsDisplaced()
+                        ? moveable.GetDisplacedFace()
+                        : blockFaceOfNeighbouringBlock;
+                    blockFaceBehaviour.HighlightFace(blockFaceOfNeighbouringBlock);
+                    _faceMap.Add(blockFaceBehaviour, moveableFace); ;
+                }
+
+                break;
+            }
         }
     }
 
-    void ChangeFaceHighlight(BlockFaceBehaviour blockFace, BlockFace face)
+    GameObject GetGameObjInDir(Vector3 dir)
     {
-        if (_lastBlock != blockFace || _lastFace != face)
+        RaycastHit hit;
+
+        Vector3 GridSpaceCoordinate = new Vector3(
+            Mathf.Round(transform.position.x),
+            Mathf.Round(transform.position.y),
+            Mathf.Round(transform.position.z));
+
+        //Debug.Log(GridSpaceCoordinate);
+
+        Ray ray = new Ray(GridSpaceCoordinate, dir);
+        if (Physics.Raycast(ray, out hit, 0.6f, CollidableLayer))
         {
-            if (_lastBlock != null)
-            {
-                _lastBlock.OnMouseLeave();
-            }
-            _lastBlock = blockFace;
-            _lastFace = face;
-            blockFace.OnMouseHover(face);
+            return hit.transform.gameObject;
         }
+
+        return null;
     }
 }

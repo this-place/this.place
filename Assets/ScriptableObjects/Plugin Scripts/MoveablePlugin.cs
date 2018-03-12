@@ -32,4 +32,14 @@ public class MoveablePlugin : BlockPlugin
             }
         }
     }
+
+    public bool IsDisplaced()
+    {
+        return _isDisplaced;
+    }
+
+    public BlockFace GetDisplacedFace()
+    {
+        return _displacedFace;
+    }
 }
