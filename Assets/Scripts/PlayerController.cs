@@ -154,6 +154,13 @@ public class PlayerController : MonoBehaviour
         transform.position += movement;
     }
 
+    public void MoveInDir(Vector3 dir)
+    {
+        if (dir != Vector3.zero)
+            transform.forward = dir.normalized;
+        transform.position += dir * MoveSpeed * Time.deltaTime;
+    }
+
     private Vector3 CheckCollision(Vector3 movement)
     {
         float closestPoint = float.MaxValue;
@@ -235,5 +242,16 @@ public class PlayerController : MonoBehaviour
     public void SetMobility(bool mobility)
     {
         _isMobile = mobility;
+    }
+
+    public void SetGravity(bool useGravity)
+    {
+        _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
+        _rb.useGravity = useGravity;
+    }
+
+    public BoxCollider GetBoxCollider()
+    {
+        return _boxCollider;
     }
 }

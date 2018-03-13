@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerMouse : MonoBehaviour
 {
     public LayerMask CollidableLayer;
-
     private BlockFaceBehaviour _lastBlock;
     private Dictionary<BlockFaceBehaviour, BlockFace> _faceMap = new Dictionary<BlockFaceBehaviour, BlockFace>();
     private Vector3[] _directions = new Vector3[5]
@@ -106,8 +105,6 @@ public class PlayerMouse : MonoBehaviour
             Mathf.Round(transform.position.x),
             Mathf.Round(transform.position.y),
             Mathf.Round(transform.position.z));
-
-        //Debug.Log(GridSpaceCoordinate);
 
         Ray ray = new Ray(GridSpaceCoordinate, dir);
         if (Physics.Raycast(ray, out hit, 0.6f, CollidableLayer))
