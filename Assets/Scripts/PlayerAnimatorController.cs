@@ -14,6 +14,7 @@ public class PlayerAnimatorController : MonoBehaviour
     private Vector3 _direction;
     private bool _isMovingTowardsBlock = false;
     private Vector3 _blockFacePosition;
+    private bool _isMovingBlock = false;
 
     // Use this for initialization
     private void Start()
@@ -28,6 +29,14 @@ public class PlayerAnimatorController : MonoBehaviour
         {
             HandleMoveTowardsBlock();
         }
+
+        if (_isMovingBlock && _blockFace == null)
+        {
+            _playerController.SetMobility(true);
+            _playerController.SetGravity(true);
+            transform.parent.parent = null;
+            _isMovingBlock = false;
+        }
     }
 
     private void OnMoveBlockStart()
@@ -40,6 +49,7 @@ public class PlayerAnimatorController : MonoBehaviour
         _playerController.SetMobility(true);
         _playerController.SetGravity(true);
         transform.parent.parent = null;
+        _isMovingBlock = false;
     }
 
     private void HandleMoveTowardsBlock()
@@ -78,6 +88,7 @@ public class PlayerAnimatorController : MonoBehaviour
 
             }
             // player will translate with block
+            _isMovingBlock = true;
             SetAsChildOfBlock();
         }
     }

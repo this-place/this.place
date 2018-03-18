@@ -44,6 +44,8 @@ public class BlockBehaviour : MonoBehaviour
         {
             Destroy(plugin);
         }
+
+        transform.DetachChildren();
     }
 
     private void SubscribePlugin(BlockPlugin plugin)
