@@ -1,19 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
-public class UVMap : MonoBehaviour
+public class UVMap : MonoBehaviour, ITransparentRenderer
 {
 
     public Material BlockMaterial;
+    public Material TransparentMaterial;
     private float x = 0;
     private float y = 1;
     private const float PixelSize = 2;
     private Mesh _mesh;
+    private Renderer _renderer;
 
     void Start()
     {
-        GetComponent<Renderer>().material = BlockMaterial;
+        _renderer = GetComponent<Renderer>();
+        _renderer.material = BlockMaterial;
         _mesh = GetComponent<MeshFilter>().mesh;
         SetUVs();
     }
@@ -124,5 +128,12 @@ public class UVMap : MonoBehaviour
         }
 
         _mesh.uv = blockUVs;
+    }
+
+    public void SetTransparent(bool transparency)
+    {
+        _renderer.shadowCastingMode = transparency ? ShadowCastingMode.Off : ShadowCastingMode.On;
+
+        _renderer.material = transparency ? TransparentMaterial : BlockMaterial;
     }
 }

@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockMaterial: {fileID: 2100000, guid: 307ed3d5f8575d94e881c6c9faa212c5, type: 2}
+  TransparentMaterial: {fileID: 2100000, guid: ec7c3502cebd1a84798b2d30cf3d81e0, type: 2}
 --- !u!114 &114369474810760800
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 54079145394049576}
   - component: {fileID: 114146954693817322}
   - component: {fileID: 114766251993781770}
+  - component: {fileID: 114669047098474864}
   m_Layer: 9
   m_Name: GravelBlock
   m_TagString: Untagged
@@ -131,7 +132,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5b8b66d25ec0bde42b870324961b5d70, type: 2}
   - {fileID: 11400000, guid: 1eff8afe822b67f4a9a9ffcebf986aec, type: 2}
   SkinToLengthRatio: 0.1
-  Speed: 2
+  InitialSpeed: 1
+--- !u!114 &114669047098474864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1938227601445150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597bee63ad769be478daed22cff110f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransparentMaterial: {fileID: 2100000, guid: ec7c3502cebd1a84798b2d30cf3d81e0, type: 2}
 --- !u!114 &114766251993781770
 MonoBehaviour:
   m_ObjectHideFlags: 1

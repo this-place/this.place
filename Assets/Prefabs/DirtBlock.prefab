@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockMaterial: {fileID: 2100000, guid: 2f67213338a9d7d489cfe431548cd163, type: 2}
+  TransparentMaterial: {fileID: 2100000, guid: 01045ed71a9be0646a8f1dece78a2313, type: 2}
 --- !u!114 &114354391151299642
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -155,4 +156,4 @@ MonoBehaviour:
   Plugins:
   - {fileID: 11400000, guid: 5b8b66d25ec0bde42b870324961b5d70, type: 2}
   SkinToLengthRatio: 0.1
-  Speed: 2
+  InitialSpeed: 1
