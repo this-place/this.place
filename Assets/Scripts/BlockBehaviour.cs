@@ -155,4 +155,14 @@ public class BlockBehaviour : MonoBehaviour
     {
         return _plugins;
     }
+
+    public void SelfDestruct()
+    {
+        Destroy(gameObject);
+    }
+
+    public GameObject GetCollidableObject(BlockFace face)
+    {
+        return _blockFaceBehaviour.GetRaycastObjectRef(SkinToLengthRatio, CollidableLayers, face);
+    }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class MoveablePlugin : BlockPlugin
+public class MoveablePlugin : BlockPlugin, IDisplaceable
 {
     private bool _isDisplaced;
     private BlockFace _displacedFace;
@@ -33,13 +33,12 @@ public class MoveablePlugin : BlockPlugin
         }
     }
 
-    public bool IsDisplaced()
+    public bool DisplaceableInFaceDirection(BlockFace face)
     {
-        return _isDisplaced;
-    }
-
-    public BlockFace GetDisplacedFace()
-    {
-        return _displacedFace;
+        if (_isDisplaced)
+        {
+            return face.Equals(_displacedFace);
+        }
+        return true;
     }
 }

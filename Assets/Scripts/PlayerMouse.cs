@@ -79,18 +79,12 @@ public class PlayerMouse : MonoBehaviour
 
             foreach (BlockPlugin plugin in blockBehaviour.GetPlugins())
             {
-                MoveablePlugin moveable = plugin as MoveablePlugin;
-                if (moveable == null) continue;
+                IDisplaceable displaceable = plugin as IDisplaceable;
 
-                if (!moveable.IsDisplaced() ||
-                    blockFaceOfNeighbouringBlock == moveable.GetDisplacedFace())
-                {
-                    BlockFace moveableFace = moveable.IsDisplaced()
-                        ? moveable.GetDisplacedFace()
-                        : blockFaceOfNeighbouringBlock;
-                    blockFaceBehaviour.HighlightFace(blockFaceOfNeighbouringBlock);
-                    _faceMap.Add(blockFaceBehaviour, moveableFace); ;
-                }
+                if (displaceable == null || !displaceable.DisplaceableInFaceDirection(blockFaceOfNeighbouringBlock)) continue;
+
+                blockFaceBehaviour.HighlightFace(blockFaceOfNeighbouringBlock);
+                _faceMap.Add(blockFaceBehaviour, blockFaceOfNeighbouringBlock); ;
 
                 break;
             }

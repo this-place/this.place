@@ -27,10 +27,9 @@ public class BlockFaceBehaviour : MonoBehaviour
         return FaceLength;
     }
 
-    public bool FireRaycastFromFace(float skinToLengthRatio, LayerMask collidableLayers, BlockFace face)
+    public Vector3[] GetSkinVertices(float skinToLengthRatio, LayerMask collidableLayers, Vector3 normal, BlockFace face)
     {
         float centerToSkin = FaceLength * (1 - skinToLengthRatio) / 2;
-        Vector3 normal = face.GetNormal();
         Vector3[] perpendicularNormals = face.GetPerpendicularNormals();
         Vector3 quadCenter = transform.position + (centerToSkin * normal);
 
@@ -43,6 +42,14 @@ public class BlockFaceBehaviour : MonoBehaviour
         skinVertices[2] = quadCenter - scaledPNormal1 + scaledPNormal2;
         skinVertices[3] = quadCenter - scaledPNormal1 - scaledPNormal2;
 
+        return skinVertices;
+    }
+
+    public bool FireRaycastFromFace(float skinToLengthRatio, LayerMask collidableLayers, BlockFace face)
+    {
+        Vector3 normal = face.GetNormal();
+        Vector3[] skinVertices = GetSkinVertices(skinToLengthRatio, collidableLayers, normal, face);
+
         foreach (Vector3 skinVertex in skinVertices)
         {
             Debug.DrawRay(skinVertex, normal * FaceLength, Color.red, 1f);
@@ -50,8 +57,27 @@ public class BlockFaceBehaviour : MonoBehaviour
             {
                 return true;
             }
+
         }
         return false;
+    }
+
+    public GameObject GetRaycastObjectRef(float skinToLengthRatio, LayerMask collidableLayers, BlockFace face)
+    {
+        Vector3 normal = face.GetNormal();
+        Vector3[] skinVertices = GetSkinVertices(skinToLengthRatio, collidableLayers, normal, face);
+
+        foreach (Vector3 skinVertex in skinVertices)
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(skinVertex, normal, out hit))
+            {
+                return hit.collider.gameObject;
+            }
+
+        }
+        return null;
     }
 
     public void MoveClickedFace(BlockFace clickedFace)
