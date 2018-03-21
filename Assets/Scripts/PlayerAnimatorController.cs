@@ -118,6 +118,7 @@ public class PlayerAnimatorController : MonoBehaviour
 
     public void Jump()
     {
+        _animator.ResetTrigger("Ground");
         _animator.SetTrigger("Jump");
     }
 

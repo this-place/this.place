@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public LayerMask Layer;
+    public float LandingPredictionMultiplier = 20f;
 
     [SerializeField]
     public float MoveSpeed = 2.5f;
@@ -87,27 +88,17 @@ public class PlayerController : MonoBehaviour
         _right = Quaternion.Euler(new Vector3(0, 90, 0)) * _forward;
     }
 
-    bool _airborne = false;
+    private bool _isGrounded;
     // Update is called once per frame
     private void Update()
     {
-
-        bool isGrounded = IsOnGround();
-
-        if (_airborne && isGrounded)
-        {
-            _animator.Ground();
-        }
-
-        if (!_airborne && !isGrounded)
-        {
-            _airborne = true;
-        }
+        bool moved = false;
 
         if ((Mathf.Abs(Input.GetAxis("Horizontal")) != 0 || Mathf.Abs(Input.GetAxis("Vertical")) != 0) && _isMobile)
         {
             _animator.MovePlayer();
-            Move(isGrounded);
+            Move();
+            moved = true;
         }
         else
         {
@@ -116,36 +107,35 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetAxis("Jump") == 1.0f && _currentDelay > JumpDelay && _isMobile)
         {
+            _isGrounded = false;
             Jump();
         }
 
+
         // Checking for blocks the player is standing on
-        foreach (BlockBehaviour block in _blockList)
+
+        if (moved && _isGrounded || !_isGrounded)
         {
-            block.SetIsPlayerStandingOn(false);
+            foreach (BlockBehaviour block in _blockList)
+            {
+                block.SetIsPlayerStandingOn(false);
+            }
+            _blockList = new List<BlockBehaviour>();
         }
 
-        _blockList = new List<BlockBehaviour>();
-
-        for (int i = 0; i < 40; i++)
+        if (!_isGrounded && _rb.velocity.y <= 0 || moved && _isGrounded)
         {
+            CheckOnGround();
+        }
 
-            RaycastHit hit;
-           
-            if (Physics.Raycast(_boxCollider.bounds.center + _groundSkinVertices[i], Vector3.down, out hit))
-            {
-                BlockBehaviour hitBlock = hit.collider.GetComponent<BlockBehaviour>();
-                BlockFaceBehaviour hitBlockFace = hit.collider.GetComponent<BlockFaceBehaviour>();
-                if (hitBlock != null && hit.normal == Vector3.up && !hitBlockFace.FireRaycastFromFace(0.1f, Layer, BlockFace.Top))
-                {
-                    hitBlock.SetIsPlayerStandingOn(true);
+        if (_isGrounded)
+        {
+            _currentDelay += Time.deltaTime;
+        }
+        else
+        {
+            _currentDelay = 0;
 
-                    if (!_blockList.Contains(hitBlock))
-                    {
-                        _blockList.Add(hitBlock);
-                    }
-                }
-            }
         }
     }
 
@@ -155,7 +145,7 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = new Vector3(0, Input.GetAxis("Jump") * JumpForce, 0);
     }
 
-    private void Move(bool isGrounded)
+    private void Move()
     {
         Vector3 rightMovement = _right * MoveSpeed * Time.deltaTime * Input.GetAxis("Horizontal") * (Input.GetAxisRaw("Run") == 1 ? RunMultiplier : 1);
         Vector3 upMovement = _forward * MoveSpeed * Time.deltaTime * Input.GetAxis("Vertical") * (Input.GetAxisRaw("Run") == 1 ? RunMultiplier : 1);
@@ -165,7 +155,7 @@ public class PlayerController : MonoBehaviour
         if (_heading != Vector3.zero)
             transform.forward = _heading;
 
-        Vector3 movement = CheckCollision(rightMovement + upMovement, isGrounded);
+        Vector3 movement = CheckCollision(rightMovement + upMovement);
 
         transform.position += movement;
     }
@@ -177,7 +167,7 @@ public class PlayerController : MonoBehaviour
         transform.position += dir * MoveSpeed * Time.deltaTime;
     }
 
-    private Vector3 CheckCollision(Vector3 movement, bool isGrounded)
+    private Vector3 CheckCollision(Vector3 movement)
     {
         float closestPoint = float.MaxValue;
         Vector3 correctNormal = Vector3.zero;
@@ -211,10 +201,10 @@ public class PlayerController : MonoBehaviour
 
         if (hit)
         {
-            if (correctNormal != -transform.forward && (closestPoint - _boxCollider.bounds.extents.x) < 0.01 && isGrounded)
+            if (correctNormal != -transform.forward && (closestPoint - _boxCollider.bounds.extents.x) < 0.01 && _isGrounded)
             {
                 transform.forward = Vector3.Normalize(transform.forward - Vector3.Project(transform.forward, correctNormal));
-                return CheckCollision(movement, isGrounded);
+                return CheckCollision(movement);
             }
             return (closestPoint - _boxCollider.bounds.extents.x) * Vector3.Normalize(movement) * 0.95f;
         }
@@ -224,32 +214,39 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private bool IsOnGround()
+
+    private void CheckOnGround()
     {
         float angle = Mathf.Atan2(_heading.x, _heading.z);
         foreach (Vector3 skinVertex in _groundSkinVertices)
         {
+
             float newXValue = Mathf.Cos(angle) * skinVertex.x - Mathf.Sin(angle) * skinVertex.z;
             float newZValue = Mathf.Cos(angle) * skinVertex.z + Mathf.Sin(angle) * skinVertex.x;
-            Debug.DrawRay(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), Vector3.up * 2f, Color.red, DistToGround);
-
-
             RaycastHit hit;
             Debug.DrawRay(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), Vector3.down, Color.magenta, DistToGround);
-            if (Physics.Raycast(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), Vector3.down, out hit, DistToGround, Layer))
+            if (Physics.Raycast(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), Vector3.down, out hit, DistToGround + (Mathf.Abs(_rb.velocity.y) * Time.deltaTime * LandingPredictionMultiplier), Layer))
             {
                 BlockFaceBehaviour hitBlockFace = hit.collider.GetComponent<BlockFaceBehaviour>();
+                BlockBehaviour hitBlock = hit.collider.GetComponent<BlockBehaviour>();
+                if (hitBlockFace.FireRaycastFromFace(0.1f, Layer, BlockFace.Top)) continue;
 
-                if (!hitBlockFace.FireRaycastFromFace(0.1f, Layer, BlockFace.Top))
+                if (!_isGrounded)
                 {
-                    _currentDelay += Time.deltaTime;
-                    return true;
+                    _animator.Ground();
+                }
+
+                if (hit.distance <= DistToGround + (Mathf.Abs(_rb.velocity.y) * Time.deltaTime))
+                {
+                    _isGrounded = true;
+                    hitBlock.SetIsPlayerStandingOn(true);
+                    if (!_blockList.Contains(hitBlock))
+                    {
+                        _blockList.Add(hitBlock);
+                    }
                 }
             }
         }
-
-        _currentDelay = 0;
-        return false;
     }
 
     public bool IsMobile()
