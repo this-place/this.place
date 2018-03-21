@@ -7,4 +7,6 @@ public interface IDisplaceable
 
     bool DisplaceableInFaceDirection(BlockFace face);
 
+    Vector3 GetDisplaceDirection(BlockFace face);
+
 }

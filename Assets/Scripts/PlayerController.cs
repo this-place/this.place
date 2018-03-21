@@ -87,14 +87,27 @@ public class PlayerController : MonoBehaviour
         _right = Quaternion.Euler(new Vector3(0, 90, 0)) * _forward;
     }
 
+    bool _airborne = false;
     // Update is called once per frame
     private void Update()
     {
-        IsOnGround();
+
+        bool isGrounded = IsOnGround();
+
+        if (_airborne && isGrounded)
+        {
+            _animator.Ground();
+        }
+
+        if (!_airborne && !isGrounded)
+        {
+            _airborne = true;
+        }
+
         if ((Mathf.Abs(Input.GetAxis("Horizontal")) != 0 || Mathf.Abs(Input.GetAxis("Vertical")) != 0) && _isMobile)
         {
             _animator.MovePlayer();
-            Move();
+            Move(isGrounded);
         }
         else
         {
@@ -118,7 +131,7 @@ public class PlayerController : MonoBehaviour
         {
 
             RaycastHit hit;
-            Debug.DrawRay(_boxCollider.bounds.center + _groundSkinVertices[i], Vector3.down);
+           
             if (Physics.Raycast(_boxCollider.bounds.center + _groundSkinVertices[i], Vector3.down, out hit))
             {
                 BlockBehaviour hitBlock = hit.collider.GetComponent<BlockBehaviour>();
@@ -138,10 +151,11 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
+        _animator.Jump();
         _rb.velocity = new Vector3(0, Input.GetAxis("Jump") * JumpForce, 0);
     }
 
-    private void Move()
+    private void Move(bool isGrounded)
     {
         Vector3 rightMovement = _right * MoveSpeed * Time.deltaTime * Input.GetAxis("Horizontal") * (Input.GetAxisRaw("Run") == 1 ? RunMultiplier : 1);
         Vector3 upMovement = _forward * MoveSpeed * Time.deltaTime * Input.GetAxis("Vertical") * (Input.GetAxisRaw("Run") == 1 ? RunMultiplier : 1);
@@ -151,7 +165,7 @@ public class PlayerController : MonoBehaviour
         if (_heading != Vector3.zero)
             transform.forward = _heading;
 
-        Vector3 movement = CheckCollision(rightMovement + upMovement);
+        Vector3 movement = CheckCollision(rightMovement + upMovement, isGrounded);
 
         transform.position += movement;
     }
@@ -163,7 +177,7 @@ public class PlayerController : MonoBehaviour
         transform.position += dir * MoveSpeed * Time.deltaTime;
     }
 
-    private Vector3 CheckCollision(Vector3 movement)
+    private Vector3 CheckCollision(Vector3 movement, bool isGrounded)
     {
         float closestPoint = float.MaxValue;
         Vector3 correctNormal = Vector3.zero;
@@ -197,10 +211,10 @@ public class PlayerController : MonoBehaviour
 
         if (hit)
         {
-            if (correctNormal != -transform.forward && (closestPoint - _boxCollider.bounds.extents.x) < 0.01 && IsOnGround())
+            if (correctNormal != -transform.forward && (closestPoint - _boxCollider.bounds.extents.x) < 0.01 && isGrounded)
             {
                 transform.forward = Vector3.Normalize(transform.forward - Vector3.Project(transform.forward, correctNormal));
-                return CheckCollision(movement);
+                return CheckCollision(movement, isGrounded);
             }
             return (closestPoint - _boxCollider.bounds.extents.x) * Vector3.Normalize(movement) * 0.95f;
         }
@@ -217,11 +231,11 @@ public class PlayerController : MonoBehaviour
         {
             float newXValue = Mathf.Cos(angle) * skinVertex.x - Mathf.Sin(angle) * skinVertex.z;
             float newZValue = Mathf.Cos(angle) * skinVertex.z + Mathf.Sin(angle) * skinVertex.x;
-            Debug.DrawRay(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), Vector3.up * 2f, Color.red, 1f);
+            Debug.DrawRay(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), Vector3.up * 2f, Color.red, DistToGround);
 
 
             RaycastHit hit;
-
+            Debug.DrawRay(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), Vector3.down, Color.magenta, DistToGround);
             if (Physics.Raycast(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), Vector3.down, out hit, DistToGround, Layer))
             {
                 BlockFaceBehaviour hitBlockFace = hit.collider.GetComponent<BlockFaceBehaviour>();

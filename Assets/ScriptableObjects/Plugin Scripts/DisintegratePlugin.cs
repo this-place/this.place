@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -70,5 +71,10 @@ public class DisintegratePlugin : BlockPlugin, IDisplaceable
             return false;
         }
         return true;
+    }
+
+    public Vector3 GetDisplaceDirection(BlockFace face)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -7,7 +7,7 @@ public class PlayerMouse : MonoBehaviour
 {
     public LayerMask CollidableLayer;
     private BlockFaceBehaviour _lastBlock;
-    private Dictionary<BlockFaceBehaviour, BlockFace> _faceMap = new Dictionary<BlockFaceBehaviour, BlockFace>();
+    private Dictionary<BlockFaceBehaviour, BlockMoveInfo> _faceMap = new Dictionary<BlockFaceBehaviour, BlockMoveInfo>();
     private Vector3[] _directions = new Vector3[5]
         { Vector3.down, Vector3.forward, Vector3.back, Vector3.left, Vector3.right };
 
@@ -45,16 +45,16 @@ public class PlayerMouse : MonoBehaviour
         {
             BlockFaceBehaviour blockFace = hit.transform.gameObject.GetComponent<BlockFaceBehaviour>();
             BlockFace face = BlockFaceMethods.BlockFaceFromNormal(hit.normal);
-            if (_faceMap.ContainsKey(blockFace) && face == _faceMap[blockFace])
+            if (_faceMap.ContainsKey(blockFace) && _faceMap[blockFace].ClickableFace == face)
             {
-                _animator.MoveBlock(blockFace, face);
+                _animator.MoveBlock(blockFace, face, _faceMap[blockFace].DirectionOfMovement);
             }
         }
     }
 
     void ResetFaces()
     {
-        foreach (KeyValuePair<BlockFaceBehaviour, BlockFace> entry in _faceMap)
+        foreach (KeyValuePair<BlockFaceBehaviour, BlockMoveInfo> entry in _faceMap)
         {
             entry.Key.UnhighlightFace();
         }
@@ -84,7 +84,9 @@ public class PlayerMouse : MonoBehaviour
                 if (displaceable == null || !displaceable.DisplaceableInFaceDirection(blockFaceOfNeighbouringBlock)) continue;
 
                 blockFaceBehaviour.HighlightFace(blockFaceOfNeighbouringBlock);
-                _faceMap.Add(blockFaceBehaviour, blockFaceOfNeighbouringBlock); ;
+                Vector3 moveDirection = displaceable.GetDisplaceDirection(blockFaceOfNeighbouringBlock);
+                BlockMoveInfo moveInfo = new BlockMoveInfo(moveDirection, blockFaceOfNeighbouringBlock);
+                _faceMap.Add(blockFaceBehaviour, moveInfo);
 
                 break;
             }
@@ -108,4 +110,16 @@ public class PlayerMouse : MonoBehaviour
 
         return null;
     }
+
+    private class BlockMoveInfo {
+        public Vector3 DirectionOfMovement;
+        public BlockFace ClickableFace;
+
+        public BlockMoveInfo(Vector3 dir, BlockFace face)
+        {
+            DirectionOfMovement = dir;
+            ClickableFace = face;
+        }
+    }
+   
 }

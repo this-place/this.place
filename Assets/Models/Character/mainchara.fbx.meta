@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 7dd096766d2bd064d95fc25902b3c1a8
-timeCreated: 1520853865
+guid: 9bcc184f0841bb14aaf6ef0057fb1e6e
+timeCreated: 1521618438
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -92,10 +92,14 @@ ModelImporter:
     4300016: hair
     4300018: hat
     4300020: head
-    7400000: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|pull_back"
-    7400002: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|pull_up"
-    7400004: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|wait"
-    7400006: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|walk"
+    7400000: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|jump"
+    7400002: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|landing"
+    7400004: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|pull_back"
+    7400006: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|pull_up"
+    7400008: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|push_back"
+    7400010: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|push_down"
+    7400012: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|wait"
+    7400014: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|walk"
     9500000: //RootNode
     10800000: Lamp
     13700000: arm
@@ -137,6 +141,62 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
+      name: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|jump"
+      takeName: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|jump"
+      firstFrame: 0
+      lastFrame: 11
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|landing"
+      takeName: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|landing"
+      firstFrame: 0
+      lastFrame: 4
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
       name: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|pull_back"
       takeName: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|pull_back"
       firstFrame: 0
@@ -160,15 +220,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 1
-        functionName: OnMoveBlockEnd
+      - time: 0.11438979
+        functionName: OnMoveBlockStart
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.09585492
-        functionName: OnMoveBlockStart
+      - time: 0.90683484
+        functionName: OnMoveBlockEnd
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -202,15 +262,99 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 1
+      - time: 0.14317907
+        functionName: OnMoveBlockStart
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9772509
         functionName: OnMoveBlockEnd
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.39205527
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|push_back"
+      takeName: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|push_back"
+      firstFrame: 0
+      lastFrame: 28
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.1448249
         functionName: OnMoveBlockStart
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9221477
+        functionName: OnMoveBlockEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|push_down"
+      takeName: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|push_down"
+      firstFrame: 0
+      lastFrame: 16
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.2867487
+        functionName: OnMoveBlockStart
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.93422824
+        functionName: OnMoveBlockEnd
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -252,7 +396,7 @@ ModelImporter:
       name: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|walk"
       takeName: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|walk"
       firstFrame: 0
-      lastFrame: 18
+      lastFrame: 8
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

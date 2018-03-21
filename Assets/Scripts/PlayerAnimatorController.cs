@@ -11,6 +11,7 @@ public class PlayerAnimatorController : MonoBehaviour
 
     private BlockFaceBehaviour _blockFace;
     private BlockFace _face;
+    private Vector3 _direction;
     private bool _isMovingTowardsBlock = false;
     private Vector3 _blockFacePosition;
 
@@ -54,12 +55,27 @@ public class PlayerAnimatorController : MonoBehaviour
             _isMovingTowardsBlock = false;
             if (_face == BlockFace.Top)
             {
-                _animator.SetTrigger("Pull Up");
+                if (_face.GetNormal() == _direction)
+                {
+                    _animator.SetTrigger("Pull Up");
+                }
+                else
+                {
+                    _animator.SetTrigger("Push Down");
+                }
             }
             else
             {
                 LookAtBlock();
-                _animator.SetTrigger("Pull Back");
+                if (_face.GetNormal() == _direction)
+                {
+                    _animator.SetTrigger("Pull Back");
+                }
+                else
+                {
+                    _animator.SetTrigger("Push Back");
+                }
+
             }
             // player will translate with block
             SetAsChildOfBlock();
@@ -77,10 +93,11 @@ public class PlayerAnimatorController : MonoBehaviour
         transform.parent.Rotate(Vector3.up, angle);
     }
 
-    public void MoveBlock(BlockFaceBehaviour blockFaceBehaviour, BlockFace face)
+    public void MoveBlock(BlockFaceBehaviour blockFaceBehaviour, BlockFace face, Vector3 direction)
     {
         _blockFace = blockFaceBehaviour;
         _face = face;
+        _direction = direction;
 
         _playerController.SetMobility(false);
         _playerController.SetGravity(false);
@@ -97,5 +114,15 @@ public class PlayerAnimatorController : MonoBehaviour
     public void StopPlayer()
     {
         _animator.SetBool("IsMoving", false);
+    }
+
+    public void Jump()
+    {
+        _animator.SetTrigger("Jump");
+    }
+
+    public void Ground()
+    {
+        _animator.SetTrigger("Ground");
     }
 }

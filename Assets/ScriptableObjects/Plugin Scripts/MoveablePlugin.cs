@@ -41,4 +41,19 @@ public class MoveablePlugin : BlockPlugin, IDisplaceable
         }
         return true;
     }
+    
+    public Vector3 GetDisplaceDirection(BlockFace face)
+    {
+        if (!_isDisplaced)
+        {
+            return face.GetNormal();
+        }
+
+        if (face.Equals(_displacedFace))
+        {
+            return -face.GetNormal();
+        }
+
+        throw new System.ArgumentException();
+    }
 }
