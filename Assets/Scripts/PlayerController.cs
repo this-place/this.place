@@ -167,8 +167,13 @@ public class PlayerController : MonoBehaviour
         transform.position += dir * MoveSpeed * Time.deltaTime;
     }
 
-    private Vector3 CheckCollision(Vector3 movement)
+    private Vector3 CheckCollision(Vector3 movement, int count = 2)
     {
+        if (count == 0)
+        {
+            return movement;
+        }
+
         float closestPoint = float.MaxValue;
         Vector3 correctNormal = Vector3.zero;
         bool hit = false;
@@ -204,7 +209,7 @@ public class PlayerController : MonoBehaviour
             if (correctNormal != -transform.forward && (closestPoint - _boxCollider.bounds.extents.x) < 0.01 && _isGrounded)
             {
                 transform.forward = Vector3.Normalize(transform.forward - Vector3.Project(transform.forward, correctNormal));
-                return CheckCollision(movement);
+                return CheckCollision(movement, count - 1);
             }
             return (closestPoint - _boxCollider.bounds.extents.x) * Vector3.Normalize(movement) * 0.95f;
         }
