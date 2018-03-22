@@ -208,7 +208,10 @@ public class PlayerController : MonoBehaviour
         {
             if (correctNormal != -transform.forward && (closestPoint - _boxCollider.bounds.extents.x) < 0.01 && _isGrounded)
             {
-                transform.forward = Vector3.Normalize(transform.forward - Vector3.Project(transform.forward, correctNormal));
+                Vector3 forward = Vector3.Normalize(transform.forward - Vector3.Project(transform.forward, correctNormal));
+                // ensure that rotation is always fixed about the y axis
+                forward.y = 0;
+                transform.forward = forward;
                 return CheckCollision(movement, count - 1);
             }
             return (closestPoint - _boxCollider.bounds.extents.x) * Vector3.Normalize(movement) * 0.95f;
