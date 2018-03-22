@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class CameraController : MonoBehaviour
 {
@@ -18,14 +17,11 @@ public class CameraController : MonoBehaviour
 
     //used for rotation
     private bool _isKeyboardRotating;
-    private bool _isMouseRotating;
     private const float KeyboardSpeed = 380f;
-    private float _mouseX;
-    private float _mouseY;
-    private const float MouseXSpeed = 0.3f;
-    private const float MouseYSpeed = 0.1f;
+    private const float MouseXSpeed = 3f;
+    private const float MouseYSpeed = 1f;
     private float _currentYDisplacement;
-    private const float MaxYDisplacement = 30;
+    private const float MaxYDisplacement = 50f;
     private PlayerController _playerController;
     private ArrayList _fadeBlocks = new ArrayList();
 
@@ -35,16 +31,15 @@ public class CameraController : MonoBehaviour
         transform.eulerAngles = new Vector3(StartingXRotation, StartingYRotation, StartingZRotation);
         _playerController = PlayerObject.GetComponent<PlayerController>();
         _playerController.UpdateCamera();
-        
-        _mouseX = Input.mousePosition.x;
-        _mouseY = Input.mousePosition.y;
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
     {
         Vector3 newPosition = PlayerObject.transform.position + _offset;
         transform.position = newPosition;
-
+        Debug.DrawRay(Camera.main.ScreenPointToRay(Input.mousePosition).origin, Camera.main.ScreenPointToRay(Input.mousePosition).direction * 100, Color.blue);
         if (Input.GetAxis("CameraControl") != 0)
         {
             _isKeyboardRotating = true;
@@ -76,7 +71,6 @@ public class CameraController : MonoBehaviour
                 cameraPosition - fadeoutPlugin.GetBlock().transform.position;
             cameraToBlockPosition.y = 0;
             fadeoutPlugin.SetIsFading(cameraToBlockPosition.magnitude < cameraToPlayerPosition.magnitude);
-
         }
     }
 
@@ -101,8 +95,8 @@ public class CameraController : MonoBehaviour
 
     private void RotateMouseCamera()
     {
-        float rotateXAmount = (Input.mousePosition.x - _mouseX) * MouseXSpeed;
-        float rotateYAmount = (Input.mousePosition.y - _mouseY) * MouseYSpeed;
+        float rotateXAmount = (Input.GetAxisRaw("Mouse X")) * MouseXSpeed;
+        float rotateYAmount = (Input.GetAxisRaw("Mouse Y")) * MouseYSpeed;
         _currentYDisplacement += rotateYAmount;
         if (_currentYDisplacement > MaxYDisplacement)
         {
@@ -117,9 +111,7 @@ public class CameraController : MonoBehaviour
         transform.RotateAround(PlayerObject.transform.position, Vector3.up, rotateXAmount);
         Vector3 normalVector = GetNormalVector();
         transform.RotateAround(PlayerObject.transform.position, normalVector, rotateYAmount);
-        _mouseX = Input.mousePosition.x;
-        _mouseY = Input.mousePosition.y;
-
+        
         _playerController.UpdateCamera();
         _offset = transform.position - PlayerObject.transform.position;
     }
