@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
     private const float KeyboardSpeed = 380f;
     private float _mouseX;
     private float _mouseY;
-    private const float MouseXSpeed = 1;
+    private const float MouseXSpeed = 0.3f;
     private const float MouseYSpeed = 0.1f;
     private float _currentYDisplacement;
     private const float MaxYDisplacement = 30;
@@ -34,6 +34,10 @@ public class CameraController : MonoBehaviour
         _offset = new Vector3(StartingXOffset, StartingYOffset, StartingZOffset);
         transform.eulerAngles = new Vector3(StartingXRotation, StartingYRotation, StartingZRotation);
         _playerController = PlayerObject.GetComponent<PlayerController>();
+        _playerController.UpdateCamera();
+        
+        _mouseX = Input.mousePosition.x;
+        _mouseY = Input.mousePosition.y;
     }
 
     private void Update()
@@ -41,39 +45,24 @@ public class CameraController : MonoBehaviour
         Vector3 newPosition = PlayerObject.transform.position + _offset;
         transform.position = newPosition;
 
-        if (Input.GetAxis("CameraControl") != 0 && !_isMouseRotating)
+        if (Input.GetAxis("CameraControl") != 0)
         {
             _isKeyboardRotating = true;
         }
 
-        if (Input.GetAxis("CameraControl") == 0 && !_isMouseRotating)
+        if (Input.GetAxis("CameraControl") == 0)
         {
             _isKeyboardRotating = false;
         }
-
-        if (Input.GetMouseButtonDown(1) && !_isKeyboardRotating)
-        {
-            _isMouseRotating = true;
-            _mouseX = Input.mousePosition.x;
-            _mouseY = Input.mousePosition.y;
-        }
-
-        if (Input.GetMouseButtonUp(1) && !_isKeyboardRotating)
-            _isMouseRotating = false;
 
         if (_isKeyboardRotating)
         {
             RotateKeyboardCamera();
         }
 
-        if (_isMouseRotating)
-        {
-            RotateMouseCamera();
-        }
+        RotateMouseCamera();
 
- 
         UpdateFadingBlocks();
-
     }
 
     private void UpdateFadingBlocks()
@@ -112,8 +101,8 @@ public class CameraController : MonoBehaviour
 
     private void RotateMouseCamera()
     {
-        float rotateXAmount = (_mouseX - Input.mousePosition.x) * MouseXSpeed;
-        float rotateYAmount = (_mouseY - Input.mousePosition.y) * MouseYSpeed;
+        float rotateXAmount = (Input.mousePosition.x - _mouseX) * MouseXSpeed;
+        float rotateYAmount = (Input.mousePosition.y - _mouseY) * MouseYSpeed;
         _currentYDisplacement += rotateYAmount;
         if (_currentYDisplacement > MaxYDisplacement)
         {

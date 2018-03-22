@@ -6,9 +6,12 @@ public class PlayerController : MonoBehaviour
     public LayerMask Layer;
 
     [SerializeField]
-    private const float MoveSpeed = 2f;
-    private const float JumpForce = 5.2f;
+    public float MoveSpeed = 2.5f;
+    public float JumpDelay = 0.2f;
+    public float JumpForce = 5.2f;
+    public float RunMultiplier = 1.3f;
     private const float DistToGround = 0.5f;
+    private float _currentDelay = 0.0f;
 
     private Vector3 _forward;
     private Vector3 _right;
@@ -41,8 +44,8 @@ public class PlayerController : MonoBehaviour
         _groundSkinVertices[3] = new Vector3(-groundXBound, 0, groundZBound);
         for (int i = 0; i < 4; i++)
         {
-            float xDiff = _groundSkinVertices[(i + 1) % 3].x - _groundSkinVertices[i].x;
-            float zDiff = _groundSkinVertices[(i + 1) % 3].z - _groundSkinVertices[i].z;
+            float xDiff = _groundSkinVertices[(i + 1) % 4].x - _groundSkinVertices[i].x;
+            float zDiff = _groundSkinVertices[(i + 1) % 4].z - _groundSkinVertices[i].z;
             float zStart = _groundSkinVertices[i].z;
             float xStart = _groundSkinVertices[i].x;
 
@@ -62,8 +65,8 @@ public class PlayerController : MonoBehaviour
         _forwardSkinVertices[3] = new Vector3(0, -forwardYBound, forwardZBound);
         for (int i = 0; i < 4; i++)
         {
-            float yDiff = _forwardSkinVertices[(i + 1) % 3].y - _forwardSkinVertices[i].y;
-            float zDiff = _forwardSkinVertices[(i + 1) % 3].z - _forwardSkinVertices[i].z;
+            float yDiff = _forwardSkinVertices[(i + 1) % 4].y - _forwardSkinVertices[i].y;
+            float zDiff = _forwardSkinVertices[(i + 1) % 4].z - _forwardSkinVertices[i].z;
             float yStart = _forwardSkinVertices[i].y;
             float zStart = _forwardSkinVertices[i].z;
 
@@ -74,7 +77,6 @@ public class PlayerController : MonoBehaviour
                                                                     zStart + ((zDiff / 4) * (j + 1)));
             }
         }
-        UpdateCamera();
     }
 
     public void UpdateCamera()
@@ -88,7 +90,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-
+        IsOnGround();
         if ((Mathf.Abs(Input.GetAxis("Horizontal")) != 0 || Mathf.Abs(Input.GetAxis("Vertical")) != 0) && _isMobile)
         {
             _animator.MovePlayer();
@@ -99,7 +101,7 @@ public class PlayerController : MonoBehaviour
             _animator.StopPlayer();
         }
 
-        if (Input.GetAxis("Jump") == 1.0f && IsOnGround() && _isMobile)
+        if (Input.GetAxis("Jump") == 1.0f && _currentDelay > JumpDelay && _isMobile)
         {
             Jump();
         }
@@ -141,8 +143,8 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        Vector3 rightMovement = _right * MoveSpeed * Time.deltaTime * Input.GetAxis("Horizontal");
-        Vector3 upMovement = _forward * MoveSpeed * Time.deltaTime * Input.GetAxis("Vertical");
+        Vector3 rightMovement = _right * MoveSpeed * Time.deltaTime * Input.GetAxis("Horizontal") * (Input.GetAxisRaw("Run") == 1 ? RunMultiplier : 1);
+        Vector3 upMovement = _forward * MoveSpeed * Time.deltaTime * Input.GetAxis("Vertical") * (Input.GetAxisRaw("Run") == 1 ? RunMultiplier : 1);
 
         _heading = Vector3.Normalize(rightMovement + upMovement);
 
@@ -226,11 +228,13 @@ public class PlayerController : MonoBehaviour
 
                 if (!hitBlockFace.FireRaycastFromFace(0.1f, Layer, BlockFace.Top))
                 {
+                    _currentDelay += Time.deltaTime;
                     return true;
                 }
             }
         }
 
+        _currentDelay = 0;
         return false;
     }
 
