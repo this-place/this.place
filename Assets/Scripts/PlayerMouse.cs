@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// class should be renamed when control is finalized
 public class PlayerMouse : MonoBehaviour
 {
     public LayerMask CollidableLayer;
@@ -24,24 +25,38 @@ public class PlayerMouse : MonoBehaviour
     {
         ResetFaces();
 
-        if (Input.GetMouseButtonDown(0) && _playerController.IsMobile())
+        if (Input.GetKeyDown(KeyCode.F) && _playerController.IsMobile())
         {
-            HandleMouseClick();
+            HandleInteractForward();
+        }
+        else if (Input.GetKeyDown(KeyCode.V) && _playerController.IsMobile())
+        {
+            HandleInteractDownward();
         }
     }
 
-    private void HandleMouseClick()
+    private void HandleInteractForward()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
         bool didRayCastHit = Physics.Raycast(ray, out hit);
+        if (didRayCastHit)
+        {
+            BlockFaceBehaviour blockFace = hit.transform.gameObject.GetComponent<BlockFaceBehaviour>();
+            BlockFace face = BlockFaceMethods.BlockFaceFromNormal(hit.normal);
+            if (_faceMap.ContainsKey(blockFace) && _faceMap[blockFace].ClickableFace == face)
+            {
+                _animator.MoveBlock(blockFace, face, _faceMap[blockFace].DirectionOfMovement);
+            }
+        }
+    }
 
-        // https://answers.unity.com/questions/50279/check-if-layer-is-in-layermask.html
-        // looking for block collisions only
-        bool isHitTargetInCollidableLayer =
-            didRayCastHit ? CollidableLayer == (CollidableLayer | (1 << hit.transform.gameObject.layer)) : false;
-
-        if (didRayCastHit && isHitTargetInCollidableLayer)
+    private void HandleInteractDownward()
+    {
+        Ray ray = new Ray(transform.position, Vector3.down);
+        RaycastHit hit;
+        bool didRayCastHit = Physics.Raycast(ray, out hit);
+        if (didRayCastHit)
         {
             BlockFaceBehaviour blockFace = hit.transform.gameObject.GetComponent<BlockFaceBehaviour>();
             BlockFace face = BlockFaceMethods.BlockFaceFromNormal(hit.normal);
@@ -111,7 +126,8 @@ public class PlayerMouse : MonoBehaviour
         return null;
     }
 
-    private class BlockMoveInfo {
+    private class BlockMoveInfo
+    {
         public Vector3 DirectionOfMovement;
         public BlockFace ClickableFace;
 
@@ -121,5 +137,5 @@ public class PlayerMouse : MonoBehaviour
             ClickableFace = face;
         }
     }
-   
+
 }
