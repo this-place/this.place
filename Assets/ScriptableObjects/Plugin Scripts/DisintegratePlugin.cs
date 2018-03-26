@@ -75,6 +75,6 @@ public class DisintegratePlugin : BlockPlugin, IDisplaceable
 
     public Vector3 GetDisplaceDirection(BlockFace face)
     {
-        throw new NotImplementedException();
+        return face.GetNormal();
     }
 }
