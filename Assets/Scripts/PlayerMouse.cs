@@ -43,6 +43,7 @@ public class PlayerMouse : MonoBehaviour
         if (didRayCastHit)
         {
             BlockFaceBehaviour blockFace = hit.transform.gameObject.GetComponent<BlockFaceBehaviour>();
+            if (blockFace == null) return;
             BlockFace face = BlockFaceMethods.BlockFaceFromNormal(hit.normal);
             if (_faceMap.ContainsKey(blockFace) && _faceMap[blockFace].ClickableFace == face)
             {
@@ -59,6 +60,7 @@ public class PlayerMouse : MonoBehaviour
         if (didRayCastHit)
         {
             BlockFaceBehaviour blockFace = hit.transform.gameObject.GetComponent<BlockFaceBehaviour>();
+            if (blockFace == null) return;
             BlockFace face = BlockFaceMethods.BlockFaceFromNormal(hit.normal);
             if (_faceMap.ContainsKey(blockFace) && _faceMap[blockFace].ClickableFace == face)
             {
