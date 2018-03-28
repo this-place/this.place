@@ -8,21 +8,34 @@ public class UVMap : MonoBehaviour, ITransparentRenderer
 
     public Material BlockMaterial;
     public Material TransparentMaterial;
+    public bool useDefaultMapping;
     private Mesh _mesh;
     private Renderer _renderer;
+    private Color _color;
 
     void Start()
     {
         _renderer = GetComponent<Renderer>();
         _renderer.material = BlockMaterial;
         _mesh = GetComponent<MeshFilter>().mesh;
-        SetUVs();
+        _color = _renderer.material.GetColor("_Color");
+        if (!useDefaultMapping)
+        {
+            SetUVs();
+        }
     }
 
 
     public void SetNormalTexture()
     {
-        SetUVs();
+        if (!useDefaultMapping)
+        {
+            SetUVs();
+        }
+        else
+        {
+            _renderer.material.SetColor("_Color", _color);
+        }
     }
 
     private void SetUVs()
@@ -70,54 +83,61 @@ public class UVMap : MonoBehaviour, ITransparentRenderer
 
     public void SetFaceHighlight(BlockFace face)
     {
-        Vector2[] blockUVs = (Vector2[])_mesh.uv.Clone();
-
-        switch (face)
+        if (!useDefaultMapping)
         {
-            case BlockFace.Top:
-                blockUVs[4] = new Vector2(0.0f, 0.25f);
-                blockUVs[5] = new Vector2(0.25f, 0.25f);
-                blockUVs[8] = new Vector2(0.0f, 0.5f);
-                blockUVs[9] = new Vector2(0.25f, 0.5f);
-                break;
+            Vector2[] blockUVs = (Vector2[])_mesh.uv.Clone();
 
-            case BlockFace.Bottom:
-                blockUVs[15] = new Vector2(0.0f, 0.0f);
-                blockUVs[12] = new Vector2(0.25f, 0.0f);
-                blockUVs[14] = new Vector2(0.0f, 0.25f);
-                blockUVs[13] = new Vector2(0.25f, 0.25f);
-                break;
+            switch (face)
+            {
+                case BlockFace.Top:
+                    blockUVs[4] = new Vector2(0.0f, 0.25f);
+                    blockUVs[5] = new Vector2(0.25f, 0.25f);
+                    blockUVs[8] = new Vector2(0.0f, 0.5f);
+                    blockUVs[9] = new Vector2(0.25f, 0.5f);
+                    break;
 
-            case BlockFace.North:
-                blockUVs[0] = new Vector2(0.25f, 0.25f);
-                blockUVs[1] = new Vector2(0.5f, 0.25f);
-                blockUVs[2] = new Vector2(0.25f, 0.5f);
-                blockUVs[3] = new Vector2(0.5f, 0.5f);
-                break;
+                case BlockFace.Bottom:
+                    blockUVs[15] = new Vector2(0.0f, 0.0f);
+                    blockUVs[12] = new Vector2(0.25f, 0.0f);
+                    blockUVs[14] = new Vector2(0.0f, 0.25f);
+                    blockUVs[13] = new Vector2(0.25f, 0.25f);
+                    break;
 
-            case BlockFace.South:
-                blockUVs[6] = new Vector2(0.5f, 0.25f);
-                blockUVs[7] = new Vector2(0.75f, 0.25f);
-                blockUVs[10] = new Vector2(0.5f, 0.5f);
-                blockUVs[11] = new Vector2(0.75f, 0.5f);
-                break;
+                case BlockFace.North:
+                    blockUVs[0] = new Vector2(0.25f, 0.25f);
+                    blockUVs[1] = new Vector2(0.5f, 0.25f);
+                    blockUVs[2] = new Vector2(0.25f, 0.5f);
+                    blockUVs[3] = new Vector2(0.5f, 0.5f);
+                    break;
 
-            case BlockFace.East:
-                blockUVs[23] = new Vector2(0.25f, 0.0f);
-                blockUVs[20] = new Vector2(0.5f, 0.0f);
-                blockUVs[22] = new Vector2(0.25f, 0.25f);
-                blockUVs[21] = new Vector2(0.5f, 0.25f);
-                break;
+                case BlockFace.South:
+                    blockUVs[6] = new Vector2(0.5f, 0.25f);
+                    blockUVs[7] = new Vector2(0.75f, 0.25f);
+                    blockUVs[10] = new Vector2(0.5f, 0.5f);
+                    blockUVs[11] = new Vector2(0.75f, 0.5f);
+                    break;
 
-            case BlockFace.West:
-                blockUVs[19] = new Vector2(0.5f, 0.0f);
-                blockUVs[16] = new Vector2(0.75f, 0.0f);
-                blockUVs[18] = new Vector2(0.5f, 0.25f);
-                blockUVs[17] = new Vector2(0.75f, 0.25f);
-                break;
+                case BlockFace.East:
+                    blockUVs[23] = new Vector2(0.25f, 0.0f);
+                    blockUVs[20] = new Vector2(0.5f, 0.0f);
+                    blockUVs[22] = new Vector2(0.25f, 0.25f);
+                    blockUVs[21] = new Vector2(0.5f, 0.25f);
+                    break;
+
+                case BlockFace.West:
+                    blockUVs[19] = new Vector2(0.5f, 0.0f);
+                    blockUVs[16] = new Vector2(0.75f, 0.0f);
+                    blockUVs[18] = new Vector2(0.5f, 0.25f);
+                    blockUVs[17] = new Vector2(0.75f, 0.25f);
+                    break;
+            }
+
+            _mesh.uv = blockUVs;
         }
-
-        _mesh.uv = blockUVs;
+        else
+        {
+            _renderer.material.SetColor("_Color", Color.white);
+        }
     }
 
     public void SetTransparent(bool transparency)
