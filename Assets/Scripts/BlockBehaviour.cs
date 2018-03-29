@@ -7,12 +7,13 @@ public class BlockBehaviour : MonoBehaviour
 {
     public LayerMask CollidableLayers;
     public List<BlockPlugin> Plugins = new List<BlockPlugin>();
+    public GameObject Root;
 
     [Range(0f, 1f)]
     public float SkinToLengthRatio = 0.1f;
     public float InitialSpeed = 1f;
     public ITransparentRenderer TransparentRenderer;
-    
+
     private Vector3 _targetPosition;
     private float _currentSpeed;
     private float _acceleration;
@@ -29,6 +30,8 @@ public class BlockBehaviour : MonoBehaviour
         TransparentRenderer = GetComponent<ITransparentRenderer>();
         _blockFaceBehaviour = GetComponent<BlockFaceBehaviour>();
         _currentSpeed = InitialSpeed;
+
+        Root = Root == null ? gameObject : Root;
 
         foreach (BlockPlugin plugin in Plugins)
         {
@@ -97,7 +100,7 @@ public class BlockBehaviour : MonoBehaviour
     }
 
     public bool MoveBlock(BlockFace face, float initialSpeed = 1, float acceleration = 0)
-    { 
+    {
         if (_isTranslating)
         {
             return false;
@@ -109,12 +112,12 @@ public class BlockBehaviour : MonoBehaviour
         bool hit = _blockFaceBehaviour.FireRaycastFromFace(SkinToLengthRatio, CollidableLayers, face);
         if (!hit)
         {
-            _targetPosition = transform.position + (face.GetNormal() * _blockFaceBehaviour.GetFaceLength());
+            _targetPosition = Root.transform.position + (face.GetNormal() * _blockFaceBehaviour.GetFaceLength());
             _isTranslating = true;
             _lastClickedFace = face;
             return true;
         }
-        
+
         return false;
     }
 
@@ -122,20 +125,19 @@ public class BlockBehaviour : MonoBehaviour
     {
         _currentSpeed += _acceleration * Time.deltaTime;
 
-        Vector3 translateDir = _targetPosition - transform.position;
+        Vector3 translateDir = _targetPosition - Root.transform.position;
         Vector3 translate = translateDir.normalized * Time.deltaTime * _currentSpeed;
 
-        if (Vector3.Distance(transform.position, _targetPosition) > translate.magnitude)
+        if (Vector3.Distance(Root.transform.position, _targetPosition) > translate.magnitude)
         {
-            transform.Translate(translate);
+            Root.transform.Translate(translate);
         }
         else
         {
-            transform.position = _targetPosition;
+            Root.transform.position = _targetPosition;
             _isTranslating = false;
         }
     }
-
 
     public void SetIsPlayerStandingOn(bool isPlayerStandingOn)
     {
