@@ -175,15 +175,9 @@ public class PlayerController : MonoBehaviour
         transform.position += dir * MoveSpeed * Time.deltaTime;
     }
 
-    private Vector3 CheckCollision(Vector3 movement, int count = 2)
+    private Vector3 CheckCollision(Vector3 movement)
     {
-        if (count == 0)
-        {
-            return movement;
-        }
-
         float closestPoint = float.MaxValue;
-        Vector3 correctNormal = Vector3.zero;
         bool hit = false;
         float angle = Mathf.Atan2(transform.forward.z, transform.forward.x);
         foreach (Vector3 skinVertex in _forwardSkinVertices)
@@ -195,11 +189,6 @@ public class PlayerController : MonoBehaviour
                 transform.forward, movement.magnitude + _boxCollider.bounds.extents.x);
             if (rayHits.Length != 0)
             {
-                if (Physics.Raycast(_boxCollider.bounds.center, transform.forward, 2f))
-                    correctNormal = Physics.RaycastAll(_boxCollider.bounds.center, transform.forward, 2f)[0].normal;
-                else
-                    correctNormal = rayHits[0].normal;
-
                 foreach (RaycastHit rayHit in rayHits)
                 {
                     float distance = rayHit.distance;
@@ -214,15 +203,7 @@ public class PlayerController : MonoBehaviour
 
         if (hit)
         {
-            if (correctNormal != -transform.forward && (closestPoint - _boxCollider.bounds.extents.x) < 0.01 && _isGrounded)
-            {
-                Vector3 forward = Vector3.Normalize(transform.forward - Vector3.Project(transform.forward, correctNormal));
-                // ensure that rotation is always fixed about the y axis
-                forward.y = 0;
-                transform.forward = forward;
-                return CheckCollision(movement, count - 1);
-            }
-            return (closestPoint - _boxCollider.bounds.extents.x) * Vector3.Normalize(movement) * 0.95f;
+            return Vector3.zero;
         }
         else
         {
