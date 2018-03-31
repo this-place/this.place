@@ -79,6 +79,8 @@ public class PlayerController : MonoBehaviour
                                                                     zStart + ((zDiff / 4) * (j + 1)));
             }
         }
+
+        CheckOnGround();
     }
 
     public void UpdateCamera()
@@ -129,7 +131,7 @@ public class PlayerController : MonoBehaviour
             _blockList = new List<BlockBehaviour>();
         }
 
-        if (!_isGrounded && _rb.velocity.y <= 0 || moved && _isGrounded)
+        if (_rb.velocity.y < 0 || moved && _isGrounded)
         {
             CheckOnGround();
         }
@@ -231,6 +233,8 @@ public class PlayerController : MonoBehaviour
 
     private void CheckOnGround()
     {
+        // assume not grounded, and only ground when raycast hit
+        _isGrounded = false;
         float angle = Mathf.Atan2(_heading.x, _heading.z);
         foreach (Vector3 skinVertex in _groundSkinVertices)
         {
