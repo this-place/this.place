@@ -33,6 +33,7 @@ public class CameraController : MonoBehaviour
         _playerController.UpdateCamera();
 
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Update()
