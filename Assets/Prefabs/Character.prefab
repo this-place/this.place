@@ -457,6 +457,8 @@ GameObject:
   - component: {fileID: 114937443919403186}
   - component: {fileID: 54966781706318204}
   - component: {fileID: 114003550498515442}
+  - component: {fileID: 136842659261828906}
+  - component: {fileID: 114064984984281854}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -748,7 +750,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1925440072047652}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: 1, z: 1}
+  m_LocalPosition: {x: 4, y: 1, z: -0.145}
   m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_Children:
   - {fileID: 4123162420498874}
@@ -984,7 +986,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1925440072047652}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -1007,6 +1009,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114003550498515442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1925440072047652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fffdfe65b53b5f409ce74fcaf2f10ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollidableLayer:
+    serializedVersion: 2
+    m_Bits: 512
+--- !u!114 &114064984984281854
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1045,6 +1061,11 @@ MonoBehaviour:
   Layer:
     serializedVersion: 2
     m_Bits: 512
+  LandingPredictionMultiplier: 20
+  MoveSpeed: 2.5
+  JumpDelay: 0.2
+  JumpForce: 5.2
+  RunMultiplier: 1.3
 --- !u!114 &114937443919403186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1059,6 +1080,19 @@ MonoBehaviour:
   CollidableLayer:
     serializedVersion: 2
     m_Bits: 512
+--- !u!136 &136842659261828906
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1925440072047652}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 0.9436979
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.008043766, z: 0}
 --- !u!137 &137193892907759968
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
