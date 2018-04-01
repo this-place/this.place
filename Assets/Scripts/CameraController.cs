@@ -40,7 +40,6 @@ public class CameraController : MonoBehaviour
     {
         Vector3 newPosition = PlayerObject.transform.position + _offset;
         transform.position = newPosition;
-        Debug.DrawRay(Camera.main.ScreenPointToRay(Input.mousePosition).origin, Camera.main.ScreenPointToRay(Input.mousePosition).direction * 100, Color.blue);
         if (Input.GetAxis("CameraControl") != 0)
         {
             _isKeyboardRotating = true;
