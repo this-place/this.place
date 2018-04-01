@@ -49,6 +49,22 @@ namespace UnityEngine.PostProcessing
         DitheringComponent m_Dithering;
         FxaaComponent m_Fxaa;
 
+        bool enabled = false;
+
+        public void UpdateDof(float newDoF)
+        {
+            try
+            {
+                DepthOfFieldModel.Settings DoFModelSettings = m_DepthOfField.model.settings;
+                DoFModelSettings.focusDistance = newDoF;
+                m_DepthOfField.model.settings = DoFModelSettings;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+            }
+        }
+
         void OnEnable()
         {
             m_CommandBuffers = new Dictionary<Type, KeyValuePair<CameraEvent, CommandBuffer>>();

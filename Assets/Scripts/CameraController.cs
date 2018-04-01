@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.PostProcessing;
 
 public class CameraController : MonoBehaviour
 {
 
     public GameObject PlayerObject;
+    public PostProcessingBehaviour PostProcessingObject;
     public const float StartingXOffset = -4;
     public const float StartingYOffset = 4;
     public const float StartingZOffset = -4;
@@ -69,6 +72,13 @@ public class CameraController : MonoBehaviour
         }
 
         UpdateFadingBlocks();
+
+        UpdatePostProcessingDof();
+    }
+
+    private void UpdatePostProcessingDof()
+    {
+        PostProcessingObject.UpdateDof(_offset.magnitude);
     }
 
     //returns true if zoom happened, false if not
