@@ -94,6 +94,7 @@ public class CameraController : MonoBehaviour
         cameraToPlayerPosition.y = 0;
         foreach (FadeoutPlugin fadeoutPlugin in _fadeBlocks)
         {
+            if (fadeoutPlugin.GetBlock() == null) continue;
             Vector3 cameraToBlockPosition =
                 cameraPosition - fadeoutPlugin.GetBlock().transform.position;
             cameraToBlockPosition.y = 0;

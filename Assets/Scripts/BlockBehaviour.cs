@@ -48,7 +48,11 @@ public class BlockBehaviour : MonoBehaviour
             Destroy(plugin);
         }
 
-        transform.DetachChildren();
+        PlayerAnimatorController playerAnimControl = GetComponentInChildren<PlayerAnimatorController>();
+        if (playerAnimControl != null)
+        {
+            playerAnimControl.UnParentPlayer();
+        }
     }
 
     private void SubscribePlugin(BlockPlugin plugin)

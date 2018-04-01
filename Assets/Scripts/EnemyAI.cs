@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    public GameObject Player;
+    private GameObject _player;
     public float AttentionRadius;
     public float IdleTime;
     public BoxCollider TopCollider;
@@ -21,6 +21,7 @@ public class EnemyAI : MonoBehaviour
         _animator = GetComponent<Animator>();
         _enemyController = GetComponentInParent<EnemyController>();
         _block = GetComponent<BlockBehaviour>();
+        _player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -54,7 +55,7 @@ public class EnemyAI : MonoBehaviour
 
     private void CheckIfPlayerIsClose()
     {
-        Vector3 enemyToPlayer = Player.transform.position - transform.position;
+        Vector3 enemyToPlayer = _player.transform.position - transform.position;
         if (enemyToPlayer.magnitude < AttentionRadius)
         {
             MoveEnemy(enemyToPlayer);
@@ -68,7 +69,7 @@ public class EnemyAI : MonoBehaviour
 
         if (_state == EnemyState.Dead) yield break;
 
-        Vector3 enemyToPlayer = Player.transform.position - transform.position;
+        Vector3 enemyToPlayer = _player.transform.position - transform.position;
         if (enemyToPlayer.magnitude >= AttentionRadius)
         {
             _state = EnemyState.Asleep;

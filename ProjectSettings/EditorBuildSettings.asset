@@ -4,4 +4,37 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Stages/Main.unity
+    guid: fab73d67695a2e64b8b12e2ebd820892
+  - enabled: 1
+    path: Assets/Scenes/Stages/Stage 3/Stage_3_Part_1.unity
+    guid: dda8aac7a0ec89d49bdd6bbdd3fcec91
+  - enabled: 1
+    path: Assets/Scenes/Stages/Stage 3/Stage_3_Part_2.unity
+    guid: af0d39963bd9b934888de9ac14ca830a
+  - enabled: 1
+    path: Assets/Scenes/Stages/Stage 3/Stage_3_Part_3.unity
+    guid: 61aeae1992be0c94f9dc1221929c66b5
+  - enabled: 1
+    path: Assets/Scenes/Stages/Stage 3/Stage_3_Part_4.unity
+    guid: f1c29495cfb100845b962b6b62816993
+  - enabled: 1
+    path: Assets/Scenes/Stages/Stage 2/Stage_2_Part_1.unity
+    guid: a338f7eb335af7e42b329f665deb7d1a
+  - enabled: 1
+    path: Assets/Scenes/Stages/Stage 2/Stage_2_Part_2.unity
+    guid: 348726f7e0fb8034eb7b0a6ebe87d6cb
+  - enabled: 1
+    path: Assets/Scenes/Stages/Stage 2/Stage_2_Part_3.unity
+    guid: 5c5206353a173dc48877f577f55f1e5e
+  - enabled: 1
+    path: Assets/Scenes/Stages/Stage 1/Stage_1.unity
+    guid: 296d94514024a354eb4cb65aee53747e
+  - enabled: 1
+    path: Assets/Scenes/Stages/Player.unity
+    guid: 10d7bbc6a4b301b4dae96a6a6eb2ab6d
+  - enabled: 1
+    path: Assets/Scenes/Stages/Tutorial.unity
+    guid: 68a96a1eaa2c8a74da596187d3a285d7

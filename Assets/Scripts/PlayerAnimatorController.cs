@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerAnimatorController : MonoBehaviour
 {
@@ -15,10 +16,12 @@ public class PlayerAnimatorController : MonoBehaviour
     private bool _isMovingTowardsBlock = false;
     private Vector3 _blockFacePosition;
     private bool _isMovingBlock = false;
+    private Scene _originalScene;
 
     // Use this for initialization
     private void Start()
     {
+        _originalScene = gameObject.scene;
         _animator = GetComponent<Animator>();
         _playerController = GetComponentInParent<PlayerController>();
     }
@@ -48,8 +51,16 @@ public class PlayerAnimatorController : MonoBehaviour
     {
         _playerController.SetMobility(true);
         _playerController.SetGravity(true);
-        transform.parent.parent = null;
         _isMovingBlock = false;
+
+       UnParentPlayer();
+    }
+
+    public void UnParentPlayer()
+    {
+        // set character to its original scene
+        transform.parent.parent = null;
+        SceneManager.MoveGameObjectToScene(transform.parent.gameObject, _originalScene);
     }
 
     private void HandleMoveTowardsBlock()
