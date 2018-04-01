@@ -536,7 +536,6 @@ GameObject:
   - component: {fileID: 54729249498023668}
   - component: {fileID: 114837789017465952}
   - component: {fileID: 136503161426927788}
-  - component: {fileID: 114777041591496028}
   - component: {fileID: 114189079846166174}
   m_Layer: 0
   m_Name: Character
@@ -1318,20 +1317,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c851a3580aa41f4981c1b88d0b2a2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114777041591496028
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1938360465822802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fffdfe65b53b5f409ce74fcaf2f10ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollidableLayer:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!114 &114837789017465952
 MonoBehaviour:
   m_ObjectHideFlags: 1
