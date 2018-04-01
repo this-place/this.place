@@ -16,7 +16,7 @@ public class EnemyAI : MonoBehaviour
     private Animator _animator;
     private BlockFace _face;
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         _animator = GetComponent<Animator>();
         _enemyController = GetComponentInParent<EnemyController>();

@@ -19,7 +19,7 @@ public class PlayerAnimatorController : MonoBehaviour
     private Scene _originalScene;
 
     // Use this for initialization
-    private void Start()
+    private void Awake()
     {
         _originalScene = gameObject.scene;
         _animator = GetComponent<Animator>();

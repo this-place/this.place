@@ -34,15 +34,18 @@ public class CameraController : MonoBehaviour
     private const float zoomSpeed = 3;
     private float currentZoom = 0;
 
-    private void Start()
+    private void Awake()
     {
         _offset = new Vector3(StartingXOffset, StartingYOffset, StartingZOffset);
         transform.eulerAngles = new Vector3(StartingXRotation, StartingYRotation, StartingZRotation);
         _playerController = PlayerObject.GetComponent<PlayerController>();
-        _playerController.UpdateCamera();
-
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    private void Start()
+    {
+        _playerController.UpdateCamera();
     }
 
     private void Update()

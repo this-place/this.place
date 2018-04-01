@@ -7,7 +7,7 @@ public class RendererController : MonoBehaviour, ITransparentRenderer
     private Material _originalMaterial;
     private Renderer _renderer;
 
-    void Start()
+    void Awake()
     {
         _renderer = GetComponent<Renderer>();
         _originalMaterial = _renderer.material;

@@ -15,7 +15,7 @@ public class BlockFaceBehaviour : MonoBehaviour
 
     private Vector3 _normal;
 
-    private void Start()
+    private void Awake()
     {
         _block = GetComponent<BlockBehaviour>();
         _uvMap = GetComponent<UVMap>();

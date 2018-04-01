@@ -15,7 +15,7 @@ public class PlayerMouse : MonoBehaviour
     private PlayerAnimatorController _animator;
     private PlayerController _playerController;
 
-    void Start()
+    void Awake()
     {
         _animator = GetComponentInChildren<PlayerAnimatorController>();
         _playerController = GetComponent<PlayerController>();

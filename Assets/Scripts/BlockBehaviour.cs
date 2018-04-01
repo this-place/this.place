@@ -24,15 +24,18 @@ public class BlockBehaviour : MonoBehaviour
     private BlockFaceBehaviour _blockFaceBehaviour;
     private List<BlockPlugin> _plugins = new List<BlockPlugin>();
 
-    // Use this for initialization
-    private void Start()
+    private void Awake()
     {
         TransparentRenderer = GetComponent<ITransparentRenderer>();
         _blockFaceBehaviour = GetComponent<BlockFaceBehaviour>();
         _currentSpeed = InitialSpeed;
 
         Root = Root == null ? gameObject : Root;
+    }
 
+    // Use this for initialization
+    private void Start()
+    {
         foreach (BlockPlugin plugin in Plugins)
         {
             BlockPlugin pluginInstance = Instantiate(plugin);

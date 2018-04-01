@@ -13,7 +13,7 @@ public class UVMap : MonoBehaviour, ITransparentRenderer
     private Renderer _renderer;
     private Color _color;
 
-    void Start()
+    void Awake()
     {
         _renderer = GetComponent<Renderer>();
         _renderer.material = BlockMaterial;
@@ -24,7 +24,6 @@ public class UVMap : MonoBehaviour, ITransparentRenderer
             SetUVs();
         }
     }
-
 
     public void SetNormalTexture()
     {

@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
 
     private bool _isMoving;
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         _inner = GetComponentInChildren<BlockFaceBehaviour>();
     }

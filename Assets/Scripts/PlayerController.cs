@@ -35,12 +35,12 @@ public class PlayerController : MonoBehaviour
 
     private List<BlockBehaviour> _blockList = new List<BlockBehaviour>();
 
-    // Use this for initialization
-    private void Start()
+    private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _animator = GetComponentInChildren<PlayerAnimatorController>();
         _boxCollider = this.gameObject.GetComponent<BoxCollider>();
+
         _heading = Vector3.forward;
         float groundXBound = _boxCollider.bounds.extents.x - GroundSkinOffset;
         float groundZBound = _boxCollider.bounds.extents.z - GroundSkinOffset;
@@ -83,7 +83,11 @@ public class PlayerController : MonoBehaviour
                                                                     zStart + ((zDiff / 4) * (j + 1)));
             }
         }
+    }
 
+    // Use this for initialization
+    private void Start()
+    {
         CheckOnGround();
     }
 
