@@ -230,7 +230,7 @@ public class PlayerController : MonoBehaviour
                 BlockBehaviour hitBlock = hit.collider.GetComponent<BlockBehaviour>();
                 if (hitBlockFace.FireRaycastFromFace(0.1f, Layer, BlockFace.Top)) continue;
 
-                if (!_isGrounded)
+                if (!_isGrounded && _animator != null)
                 {
                     _animator.Ground();
                 }

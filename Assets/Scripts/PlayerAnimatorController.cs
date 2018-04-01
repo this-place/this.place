@@ -135,6 +135,7 @@ public class PlayerAnimatorController : MonoBehaviour
 
     public void Ground()
     {
+        if (_animator == null) return;
         _animator.SetTrigger("Ground");
     }
 }
