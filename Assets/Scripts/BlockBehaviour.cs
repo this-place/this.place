@@ -178,4 +178,14 @@ public class BlockBehaviour : MonoBehaviour
     {
         return _blockFaceBehaviour.GetRaycastObjectRef(SkinToLengthRatio, CollidableLayers, face);
     }
+
+    public void PlayDisplacementSound()
+    {
+        AudioSource displacementSound = GetComponent<AudioSource>();
+
+        if (displacementSound != null)
+        {
+            displacementSound.Play();
+        }
+    }
 }

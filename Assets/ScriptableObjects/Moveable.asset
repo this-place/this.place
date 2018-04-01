@@ -11,3 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 736e4c0d29138d548a541b48368fb470, type: 3}
   m_Name: Moveable
   m_EditorClassIdentifier: 
+  DisplacementSound: {fileID: 82540394929020904, guid: a381a80ab1ade7244aa0292bd7afc239,
+    type: 2}

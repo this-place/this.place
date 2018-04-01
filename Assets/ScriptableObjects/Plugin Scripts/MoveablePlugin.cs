@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class MoveablePlugin : BlockPlugin, IDisplaceable
 {
+
     private bool _isDisplaced;
     private BlockFace _displacedFace;
 
@@ -31,6 +32,7 @@ public class MoveablePlugin : BlockPlugin, IDisplaceable
                 _displacedFace = face;
             }
         }
+        _block.PlayDisplacementSound();
     }
 
     public bool DisplaceableInFaceDirection(BlockFace face)

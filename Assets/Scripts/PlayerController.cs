@@ -12,6 +12,10 @@ public class PlayerController : MonoBehaviour
     public float JumpDelay = 0.2f;
     public float JumpForce = 5.2f;
     public float RunMultiplier = 1.3f;
+
+    public AudioSource JumpingSound;
+    public AudioSource LandingSound;
+
     private const float DistToGround = 0.5f;
     private float _currentDelay = 0.0f;
 
@@ -119,9 +123,7 @@ public class PlayerController : MonoBehaviour
             Jump();
         }
 
-
         // Checking for blocks the player is standing on
-
         if (moved && _isGrounded || !_isGrounded)
         {
             foreach (BlockBehaviour block in _blockList)
@@ -143,7 +145,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             _currentDelay = 0;
-
         }
     }
 
@@ -151,6 +152,7 @@ public class PlayerController : MonoBehaviour
     {
         _animator.Jump();
         _rb.velocity = new Vector3(0, Input.GetAxis("Jump") * JumpForce, 0);
+        JumpingSound.Play();
     }
 
     private void Move()
@@ -211,11 +213,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     private void CheckOnGround()
     {
-        // assume not grounded, and only ground when raycast hit
-        _isGrounded = false;
+        // Assume not grounded, and only ground when raycast hit
+        bool isGroundedFlag = false;
         float angle = Mathf.Atan2(_heading.x, _heading.z);
         foreach (Vector3 skinVertex in _groundSkinVertices)
         {
@@ -233,11 +234,15 @@ public class PlayerController : MonoBehaviour
                 if (!_isGrounded && _animator != null)
                 {
                     _animator.Ground();
+                    if (isGroundedFlag)
+                    {
+                        LandingSound.Play();
+                    }
                 }
 
                 if (hit.distance <= DistToGround + (Mathf.Abs(_rb.velocity.y) * Time.deltaTime))
                 {
-                    _isGrounded = true;
+                    isGroundedFlag = true;
                     hitBlock.SetIsPlayerStandingOn(true);
                     if (!_blockList.Contains(hitBlock))
                     {
@@ -246,6 +251,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        _isGrounded = isGroundedFlag;
     }
 
     public bool IsMobile()
