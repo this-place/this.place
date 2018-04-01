@@ -25,6 +25,12 @@ public class CameraController : MonoBehaviour
     private PlayerController _playerController;
     private ArrayList _fadeBlocks = new ArrayList();
 
+    //used for zoom
+    private const float MaxZoom = 6;
+    private const float MinZoom = -6;
+    private const float zoomSpeed = 3;
+    private float currentZoom = 0;
+
     private void Start()
     {
         _offset = new Vector3(StartingXOffset, StartingYOffset, StartingZOffset);
@@ -57,7 +63,28 @@ public class CameraController : MonoBehaviour
 
         RotateMouseCamera();
 
+        if (Input.GetAxis("CameraZoom") > 0 || Input.GetAxis("CameraZoom") < 0)
+        {
+            ZoomCamera(Input.GetAxis("CameraZoom"));
+        }
+
         UpdateFadingBlocks();
+    }
+
+    //returns true if zoom happened, false if not
+    private bool ZoomCamera(float zoomAmount)
+    {
+        float zoomDifference = zoomSpeed * zoomAmount;
+        if (!(currentZoom + zoomDifference > MaxZoom) && !(currentZoom + zoomDifference < MinZoom))
+        {
+            _offset = transform.position - PlayerObject.transform.position + Vector3.Normalize(transform.position - PlayerObject.transform.position) * zoomDifference;
+            currentZoom += zoomDifference;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private void UpdateFadingBlocks()
