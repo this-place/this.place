@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Animations.meta
 guid: bddd168fc5775624491509f84887337f
 folderAsset: yes
 timeCreated: 1521435802
+=======
+guid: 1fcae00542b65364f8d56c314653ed62
+folderAsset: yes
+timeCreated: 1522505635
+>>>>>>> feat: add deco:Assets/Materials/Shaders/Skybox Shaders/Editor.meta
 licenseType: Free
 DefaultImporter:
   externalObjects: {}
