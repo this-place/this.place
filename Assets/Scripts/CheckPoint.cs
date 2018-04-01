@@ -7,8 +7,11 @@ public class CheckPoint : MonoBehaviour
 {
 
     public string Level;
+    public bool ClearFlags;
+    public Color color;
 
     private Vector3 _position;
+    
 
     private void Start()
     {
@@ -21,6 +24,16 @@ public class CheckPoint : MonoBehaviour
         {
             SendMessageUpwards("SetPosition", _position);
             SendMessageUpwards("SetLevel", Level);
+            Camera.main.backgroundColor = color;
+
+            if (ClearFlags)
+            {
+                Camera.main.clearFlags = CameraClearFlags.SolidColor;
+            }
+            else
+            {
+                Camera.main.clearFlags = CameraClearFlags.Skybox;
+            }
         }
     }
 }

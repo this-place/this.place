@@ -318,6 +318,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Level: Stage_2_Part_3
+  ClearFlags: 1
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &179311244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -594,6 +596,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Level: Stage_3_Part_1
+  ClearFlags: 0
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &600891000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -745,6 +749,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Level: Stage_3_Part_2
+  ClearFlags: 0
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &887348920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -812,6 +818,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Level: Stage_3_Part_3
+  ClearFlags: 0
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &964696766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -879,6 +887,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Level: Stage_2_Part_2
+  ClearFlags: 1
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1169195982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1072,6 +1082,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Level: Stage_1
+  ClearFlags: 0
+  color: {r: 0.97794116, g: 0.15100564, b: 0.15100564, a: 0}
 --- !u!1 &1473793970
 GameObject:
   m_ObjectHideFlags: 0
@@ -1313,6 +1325,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Level: Stage_3_Part_4
+  ClearFlags: 0
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1962084618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1380,6 +1394,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Level: Stage_2_Part_1
+  ClearFlags: 1
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &2030912871
 MonoBehaviour:
   m_ObjectHideFlags: 0
