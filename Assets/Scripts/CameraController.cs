@@ -39,6 +39,7 @@ public class CameraController : MonoBehaviour
         _offset = new Vector3(StartingXOffset, StartingYOffset, StartingZOffset);
         transform.eulerAngles = new Vector3(StartingXRotation, StartingYRotation, StartingZRotation);
         _playerController = PlayerObject.GetComponent<PlayerController>();
+        PostProcessingObject = GetComponent<PostProcessingBehaviour>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
