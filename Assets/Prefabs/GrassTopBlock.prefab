@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 65096161302504434}
   - component: {fileID: 54779749127087434}
   - component: {fileID: 114301485865792518}
-  - component: {fileID: 114863180967313542}
   - component: {fileID: 114520203260517718}
   - component: {fileID: 82509063356827788}
   m_Layer: 9
@@ -206,6 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2e313473df62674b8f963b19e0ef1fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FaceLength: 1
   CollidableLayers:
     serializedVersion: 2
     m_Bits: 512
@@ -228,15 +228,3 @@ MonoBehaviour:
   BlockMaterial: {fileID: 2100000, guid: cf6ec2771fe02f74f8860962de65e2d4, type: 2}
   TransparentMaterial: {fileID: 0}
   useDefaultMapping: 0
---- !u!114 &114863180967313542
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1945461317311280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26d3224b9def85647b13ad6b57e05c75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FaceLength: 1

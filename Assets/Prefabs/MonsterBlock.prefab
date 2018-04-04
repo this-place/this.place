@@ -41,7 +41,6 @@ GameObject:
   - component: {fileID: 23123771044120512}
   - component: {fileID: 95234786200409984}
   - component: {fileID: 114715911418043306}
-  - component: {fileID: 114000152161766914}
   - component: {fileID: 54022563819836698}
   - component: {fileID: 114202935330602156}
   - component: {fileID: 114020279497996862}
@@ -253,18 +252,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114000152161766914
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1105767190486932}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26d3224b9def85647b13ad6b57e05c75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FaceLength: 1
 --- !u!114 &114020279497996862
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -276,7 +263,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 184ae9552f62c854aac15e19440b0f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
   AttentionRadius: 3
   IdleTime: 2
   TopCollider: {fileID: 65177444385297752}
@@ -306,9 +292,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EyesPivot: {fileID: 1863089404679950}
-  BlockLayer:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!114 &114715911418043306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -320,6 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2e313473df62674b8f963b19e0ef1fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FaceLength: 1
   CollidableLayers:
     serializedVersion: 2
     m_Bits: 512
