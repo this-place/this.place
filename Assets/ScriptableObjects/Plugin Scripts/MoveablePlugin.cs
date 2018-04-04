@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class MoveablePlugin : BlockPlugin, IDisplaceable
+public class MoveablePlugin : BlockPlugin
 {
 
     private bool _isDisplaced;
@@ -35,16 +35,13 @@ public class MoveablePlugin : BlockPlugin, IDisplaceable
         _block.PlayDisplacementSound();
     }
 
-    public bool DisplaceableInFaceDirection(BlockFace face)
+    public override void OnFaceSelect(BlockFace face)
     {
-        if (_isDisplaced)
-        {
-            return face.Equals(_displacedFace);
-        }
-        return true;
+        if (_isDisplaced && !face.Equals(_displacedFace)) return;
+        _block._blockFaceBehaviour.HighlightFace(face);
     }
-    
-    public Vector3 GetDisplaceDirection(BlockFace face)
+
+    public override Vector3 GetMoveDirection(BlockFace face)
     {
         if (!_isDisplaced)
         {
@@ -56,6 +53,6 @@ public class MoveablePlugin : BlockPlugin, IDisplaceable
             return -face.GetNormal();
         }
 
-        throw new System.ArgumentException();
+        return Vector3.zero;
     }
 }

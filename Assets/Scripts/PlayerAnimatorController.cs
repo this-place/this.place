@@ -12,7 +12,6 @@ public class PlayerAnimatorController : MonoBehaviour
 
     private BlockFaceBehaviour _blockFace;
     private BlockFace _face;
-    private Vector3 _direction;
     private bool _isMovingTowardsBlock = false;
     private Vector3 _blockFacePosition;
     private bool _isMovingBlock = false;
@@ -74,9 +73,16 @@ public class PlayerAnimatorController : MonoBehaviour
         {
             // we have reached the block face, time to move it
             _isMovingTowardsBlock = false;
+            Vector3 direction = _blockFace._block.GetMoveDirection(_face);
+            if (direction == Vector3.zero)
+            {
+                OnMoveBlockEnd();
+                return;
+            }
+
             if (_face == BlockFace.Top)
             {
-                if (_face.GetNormal() == _direction)
+                if (_face.GetNormal() == direction)
                 {
                     _animator.SetTrigger("Pull Up");
                 }
@@ -88,7 +94,7 @@ public class PlayerAnimatorController : MonoBehaviour
             else
             {
                 LookAtBlock();
-                if (_face.GetNormal() == _direction)
+                if (_face.GetNormal() == direction)
                 {
                     _animator.SetTrigger("Pull Back");
                 }
@@ -115,12 +121,10 @@ public class PlayerAnimatorController : MonoBehaviour
         transform.parent.Rotate(Vector3.up, angle);
     }
 
-    public void MoveBlock(BlockFaceBehaviour blockFaceBehaviour, BlockFace face, Vector3 direction)
+    public void AttemptToInteractWith(BlockFaceBehaviour blockFaceBehaviour, BlockFace face)
     {
         _blockFace = blockFaceBehaviour;
         _face = face;
-        _direction = direction;
-
         _playerController.SetMobility(false);
         _playerController.SetGravity(false);
 

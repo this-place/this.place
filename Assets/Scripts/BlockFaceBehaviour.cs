@@ -7,7 +7,7 @@ public class BlockFaceBehaviour : MonoBehaviour
 {
     public float FaceLength;
 
-    private BlockBehaviour _block;
+    public BlockBehaviour _block;
     private UVMap _uvMap;
     private Color _originalColor;
     private Renderer _renderer;

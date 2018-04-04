@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class DisintegratePlugin : BlockPlugin, IDisplaceable
+public class DisintegratePlugin : BlockPlugin
 {
     private bool _isDisplaced;
     private BlockFace _directionOfTravel;
@@ -71,17 +71,20 @@ public class DisintegratePlugin : BlockPlugin, IDisplaceable
         }
     }
 
-    public bool DisplaceableInFaceDirection (BlockFace face)
+
+    public override void OnFaceSelect(BlockFace face)
+    {
+        if (_isDisplaced || face.Equals(BlockFace.Top)) return;
+        _block._blockFaceBehaviour.HighlightFace(face);
+    }
+
+    public override Vector3 GetMoveDirection(BlockFace face)
     {
         if (_isDisplaced || face.Equals(BlockFace.Top))
         {
-            return false;
+            // use Vector3.zero as error value
+            return Vector3.zero;
         }
-        return true;
-    }
-
-    public Vector3 GetDisplaceDirection(BlockFace face)
-    {
         return face.GetNormal();
     }
 }

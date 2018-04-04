@@ -26,5 +26,13 @@ public class BlockPlugin : ScriptableObject
 
     public virtual void OnFaceClick(BlockFace face) { }
 
+    public virtual void OnFaceSelect(BlockFace face) { }
+
+    public virtual Vector3 GetMoveDirection(BlockFace face)
+    {
+        // use Vector3.zero as error value
+        return Vector3.zero;
+    }
+
     public virtual void OnUpdate() { }
 }

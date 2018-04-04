@@ -21,7 +21,7 @@ public class BlockBehaviour : MonoBehaviour
     private bool _isTranslating;
     private bool _isPlayerStandingOn;
     private BlockFace _lastClickedFace;
-    private BlockFaceBehaviour _blockFaceBehaviour;
+    public BlockFaceBehaviour _blockFaceBehaviour;
     private List<BlockPlugin> _plugins = new List<BlockPlugin>();
 
     private void Awake()
@@ -65,6 +65,9 @@ public class BlockBehaviour : MonoBehaviour
         //subscribe to events
         _onFaceClick += plugin.OnFaceClick;
         _onUpdate += plugin.OnUpdate;
+        _onFaceSelect += plugin.OnFaceSelect;
+        _getMoveDirectionDel += plugin.GetMoveDirection;
+
     }
 
     public void UnsubscribePlugin(BlockPlugin plugin)
@@ -72,6 +75,8 @@ public class BlockBehaviour : MonoBehaviour
         //unsubscribe to events
         _onFaceClick -= plugin.OnFaceClick;
         _onUpdate -= plugin.OnUpdate;
+        _onFaceSelect -= plugin.OnFaceSelect;
+        _getMoveDirectionDel -= plugin.GetMoveDirection;
     }
 
     /**
@@ -105,6 +110,41 @@ public class BlockBehaviour : MonoBehaviour
             _onUpdate();
         }
     }
+
+    private delegate void OnFaceSelectDel(BlockFace face);
+    private OnFaceSelectDel _onFaceSelect;
+
+    public void OnFaceSelect(BlockFace face)
+    {
+        if (_onFaceSelect != null && !_isTranslating)
+        {
+            _onFaceSelect(face);
+        }
+    }
+
+    private delegate Vector3 GetMoveDirectionDel(BlockFace face);
+    private GetMoveDirectionDel _getMoveDirectionDel;
+
+    public Vector3 GetMoveDirection(BlockFace face)
+    {
+        if (_getMoveDirectionDel != null && !_isTranslating)
+        {
+            foreach (GetMoveDirectionDel del in _getMoveDirectionDel.GetInvocationList())
+            {
+                Vector3 direction = del(face);
+
+                // use Vector3.zero as error value
+                if (direction != Vector3.zero)
+                {
+                    return direction;
+                }
+            }
+        }
+
+        // use Vector3.zero as error value
+        return Vector3.zero;
+    }
+
 
     public bool MoveBlock(BlockFace face, float initialSpeed = 1, float acceleration = 0)
     {
