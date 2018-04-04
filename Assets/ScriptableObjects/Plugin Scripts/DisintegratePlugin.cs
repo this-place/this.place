@@ -75,7 +75,7 @@ public class DisintegratePlugin : BlockPlugin
     public override void OnFaceSelect(BlockFace face)
     {
         if (_isDisplaced || face.Equals(BlockFace.Top)) return;
-        _block._blockFaceBehaviour.HighlightFace(face);
+        _block.HighlightFace(face);
     }
 
     public override Vector3 GetMoveDirection(BlockFace face)

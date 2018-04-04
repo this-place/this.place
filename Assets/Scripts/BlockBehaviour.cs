@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BlockBehaviour : MonoBehaviour
 {
+    public float FaceLength = 1;
     public LayerMask CollidableLayers;
     public List<BlockPlugin> Plugins = new List<BlockPlugin>();
     public GameObject Root;
@@ -20,14 +21,14 @@ public class BlockBehaviour : MonoBehaviour
 
     private bool _isTranslating;
     private bool _isPlayerStandingOn;
-    private BlockFace _lastClickedFace;
-    public BlockFaceBehaviour _blockFaceBehaviour;
+    private UVMap _uvMap;
+    
     private List<BlockPlugin> _plugins = new List<BlockPlugin>();
 
     private void Awake()
     {
         TransparentRenderer = GetComponent<ITransparentRenderer>();
-        _blockFaceBehaviour = GetComponent<BlockFaceBehaviour>();
+        _uvMap = GetComponent<UVMap>();
         _currentSpeed = InitialSpeed;
 
         Root = Root == null ? gameObject : Root;
@@ -156,12 +157,11 @@ public class BlockBehaviour : MonoBehaviour
         _acceleration = acceleration;
         _currentSpeed = initialSpeed;
 
-        bool hit = _blockFaceBehaviour.FireRaycastFromFace(SkinToLengthRatio, CollidableLayers, face);
+        bool hit = FireRaycastFromFace(face);
         if (!hit)
         {
-            _targetPosition = Root.transform.position + (face.GetNormal() * _blockFaceBehaviour.GetFaceLength());
+            _targetPosition = Root.transform.position + (face.GetNormal() * FaceLength);
             _isTranslating = true;
-            _lastClickedFace = face;
             return true;
         }
 
@@ -223,7 +223,20 @@ public class BlockBehaviour : MonoBehaviour
 
     public GameObject GetCollidableObject(BlockFace face)
     {
-        return _blockFaceBehaviour.GetRaycastObjectRef(SkinToLengthRatio, CollidableLayers, face);
+        Vector3 normal = face.GetNormal();
+        Vector3[] skinVertices = GetSkinVertices(normal, face);
+
+        foreach (Vector3 skinVertex in skinVertices)
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(skinVertex, normal, out hit))
+            {
+                return hit.collider.gameObject;
+            }
+
+        }
+        return null;
     }
 
     public void PlayDisplacementSound()
@@ -234,5 +247,54 @@ public class BlockBehaviour : MonoBehaviour
         {
             displacementSound.Play();
         }
+    }
+
+    // Face Methods
+
+    public Vector3[] GetSkinVertices(Vector3 normal, BlockFace face)
+    {
+        float centerToSkin = FaceLength * (1 - SkinToLengthRatio) / 2;
+        Vector3[] perpendicularNormals = face.GetPerpendicularNormals();
+        Vector3 quadCenter = transform.position + (centerToSkin * normal);
+
+        Vector3[] skinVertices = new Vector3[4];
+        Vector3 scaledPNormal1 = centerToSkin * perpendicularNormals[0];
+        Vector3 scaledPNormal2 = centerToSkin * perpendicularNormals[1];
+
+        skinVertices[0] = quadCenter + scaledPNormal1 + scaledPNormal2;
+        skinVertices[1] = quadCenter + scaledPNormal1 - scaledPNormal2;
+        skinVertices[2] = quadCenter - scaledPNormal1 + scaledPNormal2;
+        skinVertices[3] = quadCenter - scaledPNormal1 - scaledPNormal2;
+
+        return skinVertices;
+    }
+
+    public bool FireRaycastFromFace(BlockFace face)
+    {
+        Vector3 normal = face.GetNormal();
+        Vector3[] skinVertices = GetSkinVertices(normal, face);
+
+        foreach (Vector3 skinVertex in skinVertices)
+        {
+            Debug.DrawRay(skinVertex, normal * FaceLength, Color.red, 1f);
+            if (Physics.Raycast(skinVertex, normal, FaceLength, CollidableLayers))
+            {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public void HighlightFace(BlockFace face)
+    {
+        if (_uvMap != null)
+            _uvMap.SetFaceHighlight(face);
+    }
+
+    public void UnhighlightFace()
+    {
+        if (_uvMap != null)
+            _uvMap.SetNormalTexture();
     }
 }

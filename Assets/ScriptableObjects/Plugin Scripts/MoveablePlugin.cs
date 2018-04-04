@@ -38,7 +38,7 @@ public class MoveablePlugin : BlockPlugin
     public override void OnFaceSelect(BlockFace face)
     {
         if (_isDisplaced && !face.Equals(_displacedFace)) return;
-        _block._blockFaceBehaviour.HighlightFace(face);
+        _block.HighlightFace(face);
     }
 
     public override Vector3 GetMoveDirection(BlockFace face)

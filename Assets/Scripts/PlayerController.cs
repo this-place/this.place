@@ -226,9 +226,8 @@ public class PlayerController : MonoBehaviour
             Debug.DrawRay(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), Vector3.down, Color.magenta, DistToGround);
             if (Physics.Raycast(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), Vector3.down, out hit, DistToGround + (Mathf.Abs(_rb.velocity.y) * Time.deltaTime * LandingPredictionMultiplier), Layer))
             {
-                BlockFaceBehaviour hitBlockFace = hit.collider.GetComponent<BlockFaceBehaviour>();
                 BlockBehaviour hitBlock = hit.collider.GetComponent<BlockBehaviour>();
-                if (hitBlockFace.FireRaycastFromFace(0.1f, Layer, BlockFace.Top)) continue;
+                if (hitBlock.FireRaycastFromFace(BlockFace.Top)) continue;
 
                 if (!_isGrounded && _animator != null)
                 {

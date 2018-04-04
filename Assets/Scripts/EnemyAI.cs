@@ -11,7 +11,6 @@ public class EnemyAI : MonoBehaviour
 
 
     private EnemyController _enemyController;
-    private BlockBehaviour _block;
     private EnemyState _state = EnemyState.Idle;
     private Animator _animator;
     private BlockFace _face;
@@ -20,7 +19,6 @@ public class EnemyAI : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _enemyController = GetComponentInParent<EnemyController>();
-        _block = GetComponent<BlockBehaviour>();
         _player = GameObject.FindGameObjectWithTag("Player");
     }
 

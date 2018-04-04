@@ -5,15 +5,14 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public GameObject EyesPivot;
-    public LayerMask BlockLayer;
-    private BlockFaceBehaviour _inner;
+    private BlockBehaviour _inner;
     private Vector3 _newPosition;
 
     private bool _isMoving;
     // Use this for initialization
     void Awake()
     {
-        _inner = GetComponentInChildren<BlockFaceBehaviour>();
+        _inner = GetComponentInChildren<BlockBehaviour>();
     }
 
     // Update is called once per frame
@@ -36,7 +35,7 @@ public class EnemyController : MonoBehaviour
 
     public void MoveEnemy(BlockFace face)
     {
-        if (!_inner.FireRaycastFromFace(0.1f, BlockLayer, face))
+        if (!_inner.FireRaycastFromFace(face))
         {
             _newPosition = transform.position + face.GetNormal();
             _isMoving = true;

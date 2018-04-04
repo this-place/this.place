@@ -7,8 +7,7 @@ using UnityEngine;
 public class PlayerMouse : MonoBehaviour
 {
     public LayerMask CollidableLayer;
-    private BlockFaceBehaviour _lastBlock;
-    private HashSet<BlockFaceBehaviour> _faceMap = new HashSet<BlockFaceBehaviour>();
+    private HashSet<BlockBehaviour> _faceMap = new HashSet<BlockBehaviour>();
     private Vector3[] _directions = new Vector3[5]
         { Vector3.down, Vector3.forward, Vector3.back, Vector3.left, Vector3.right };
 
@@ -46,11 +45,11 @@ public class PlayerMouse : MonoBehaviour
         bool didRayCastHit = Physics.Raycast(ray, out hit, 0.6f, CollidableLayer);
         if (didRayCastHit)
         {
-            BlockFaceBehaviour blockFace = hit.transform.gameObject.GetComponent<BlockFaceBehaviour>();
-            if (blockFace == null) return;
+            BlockBehaviour block = hit.transform.gameObject.GetComponent<BlockBehaviour>();
+            if (block == null) return;
             BlockFace face = BlockFaceMethods.BlockFaceFromNormal(hit.normal);
 
-            _animator.AttemptToInteractWith(blockFace, face);
+            _animator.AttemptToInteractWith(block, face);
         }
     }
 
@@ -66,17 +65,17 @@ public class PlayerMouse : MonoBehaviour
         bool didRayCastHit = Physics.Raycast(ray, out hit, 0.6f, CollidableLayer);
         if (didRayCastHit)
         {
-            BlockFaceBehaviour blockFace = hit.transform.gameObject.GetComponent<BlockFaceBehaviour>();
-            if (blockFace == null) return;
+            BlockBehaviour block = hit.transform.gameObject.GetComponent<BlockBehaviour>();
+            if (block == null) return;
             BlockFace face = BlockFaceMethods.BlockFaceFromNormal(hit.normal);
       
-            _animator.AttemptToInteractWith(blockFace, face);
+            _animator.AttemptToInteractWith(block, face);
         }
     }
 
     void ResetFaces()
     {
-        foreach (BlockFaceBehaviour entry in _faceMap)
+        foreach (BlockBehaviour entry in _faceMap)
         {
             entry.UnhighlightFace();
         }
@@ -94,11 +93,10 @@ public class PlayerMouse : MonoBehaviour
 
             if (blockGameObject == null) continue;
 
-            BlockFaceBehaviour blockFaceBehaviour = blockGameObject.GetComponent<BlockFaceBehaviour>();
             BlockBehaviour blockBehaviour = blockGameObject.GetComponent<BlockBehaviour>();
 
             blockBehaviour.OnFaceSelect(blockFaceOfNeighbouringBlock);
-            _faceMap.Add(blockFaceBehaviour);
+            _faceMap.Add(blockBehaviour);
         }
     }
 

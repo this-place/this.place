@@ -10,7 +10,7 @@ public class PlayerAnimatorController : MonoBehaviour
 
     private PlayerController _playerController;
 
-    private BlockFaceBehaviour _blockFace;
+    private BlockBehaviour _block;
     private BlockFace _face;
     private bool _isMovingTowardsBlock = false;
     private Vector3 _blockFacePosition;
@@ -32,7 +32,7 @@ public class PlayerAnimatorController : MonoBehaviour
             HandleMoveTowardsBlock();
         }
 
-        if (_isMovingBlock && _blockFace == null)
+        if (_isMovingBlock && _block == null)
         {
             _playerController.SetMobility(true);
             _playerController.SetGravity(true);
@@ -43,7 +43,7 @@ public class PlayerAnimatorController : MonoBehaviour
 
     private void OnMoveBlockStart()
     {
-        _blockFace.MoveClickedFace(_face);
+        _block.OnFaceClick(_face);
     }
 
     private void OnMoveBlockEnd()
@@ -73,7 +73,7 @@ public class PlayerAnimatorController : MonoBehaviour
         {
             // we have reached the block face, time to move it
             _isMovingTowardsBlock = false;
-            Vector3 direction = _blockFace._block.GetMoveDirection(_face);
+            Vector3 direction = _block.GetMoveDirection(_face);
             if (direction == Vector3.zero)
             {
                 OnMoveBlockEnd();
@@ -112,7 +112,7 @@ public class PlayerAnimatorController : MonoBehaviour
 
     private void SetAsChildOfBlock()
     {
-        transform.parent.transform.parent = _blockFace.transform;
+        transform.parent.transform.parent = _block.transform;
     }
 
     private void LookAtBlock()
@@ -121,15 +121,15 @@ public class PlayerAnimatorController : MonoBehaviour
         transform.parent.Rotate(Vector3.up, angle);
     }
 
-    public void AttemptToInteractWith(BlockFaceBehaviour blockFaceBehaviour, BlockFace face)
+    public void AttemptToInteractWith(BlockBehaviour block, BlockFace face)
     {
-        _blockFace = blockFaceBehaviour;
+        _block = block;
         _face = face;
         _playerController.SetMobility(false);
         _playerController.SetGravity(false);
 
         _isMovingTowardsBlock = true;
-        _blockFacePosition = blockFaceBehaviour.transform.position + face.GetNormal() * (0.5f + _playerController.GetBoxCollider().bounds.extents.z);
+        _blockFacePosition = block.transform.position + face.GetNormal() * (0.5f + _playerController.GetBoxCollider().bounds.extents.z);
     }
 
     public void MovePlayer()
