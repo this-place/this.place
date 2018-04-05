@@ -33,6 +33,11 @@ public class CameraController : MonoBehaviour
     private const float MinZoom = -6;
     private const float zoomSpeed = 3;
     private float currentZoom = 0;
+    
+    //used for autozoom
+    private const float autoZoomSpeed = 0.04f;
+    private float currentAutoZoomValue = 0;
+    private float _zoomLeeway = 3;
 
     private void Awake()
     {
@@ -74,6 +79,11 @@ public class CameraController : MonoBehaviour
         {
             ZoomCamera(Input.GetAxis("CameraZoom"));
         }
+        else
+        {
+            AutoZoom();
+        }
+
 
         UpdateFadingBlocks();
 
@@ -83,6 +93,61 @@ public class CameraController : MonoBehaviour
     private void UpdatePostProcessingDof()
     {
         PostProcessingObject.UpdateDof(_offset.magnitude);
+    }
+
+    private Vector2 CalculateScreenSizeInWorldCoords() {
+        Camera cam = Camera.main;
+        Vector3 p1 = cam.ViewportToWorldPoint(new Vector3(0, 0, cam.nearClipPlane));
+        Vector3 p2 = cam.ViewportToWorldPoint(new Vector3(1, 0, cam.nearClipPlane));
+        Vector3 p3 = cam.ViewportToWorldPoint(new Vector3(1, 1, cam.nearClipPlane));
+
+        float width = (p2 - p1).magnitude;
+        float height = (p3 - p2).magnitude;
+
+        Vector2 dimensions = new Vector2(width, height);
+
+        return dimensions;
+    }
+
+    private bool IsPlayerObstructed(float distance)
+    {
+        Camera cameraObject = Camera.main;
+        Vector2 dimensions = CalculateScreenSizeInWorldCoords();
+        Vector3 centrePositionDifference = transform.position - PlayerObject.transform.position;
+
+        if (Physics.Raycast(PlayerObject.transform.position, (centrePositionDifference + Vector3.left * (dimensions.x / 2) + Vector3.up * (dimensions.y / 2)), distance))
+            return true;
+        if (Physics.Raycast(PlayerObject.transform.position, (centrePositionDifference + Vector3.left * (dimensions.x / 2) - Vector3.up * (dimensions.y / 2)), distance))
+            return true;
+        if (Physics.Raycast(PlayerObject.transform.position, (centrePositionDifference - Vector3.left * (dimensions.x / 2) - Vector3.up * (dimensions.y / 2)), distance))
+            return true;
+        if (Physics.Raycast(PlayerObject.transform.position, (centrePositionDifference - Vector3.left * (dimensions.x / 2) + Vector3.up * (dimensions.y / 2)), distance))
+            return true;
+
+        return false;
+    }
+
+    private void AutoZoom()
+    {
+        if (IsPlayerObstructed(_offset.magnitude))
+        {
+            if (ZoomCamera(-autoZoomSpeed))
+            {
+                currentAutoZoomValue -= autoZoomSpeed;
+            }
+        }
+        else if (currentAutoZoomValue < 0 &&
+            !IsPlayerObstructed(_offset.magnitude + autoZoomSpeed * _zoomLeeway))
+        {
+            if (ZoomCamera(autoZoomSpeed))
+            {
+                currentAutoZoomValue += autoZoomSpeed;
+            }
+            else
+            {
+                currentAutoZoomValue = 0;
+            }
+        }
     }
 
     //returns true if zoom happened, false if not
