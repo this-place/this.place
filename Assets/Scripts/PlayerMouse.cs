@@ -24,11 +24,11 @@ public class PlayerMouse : MonoBehaviour
     {
         ResetFaces();
 
-        if (Input.GetKeyDown(KeyCode.F) && _playerController.IsMobile())
+        if (Input.GetAxisRaw("PullForward") == 1f && _playerController.IsMobile())
         {
             HandleInteractForward();
         }
-        else if (Input.GetKeyDown(KeyCode.V) && _playerController.IsMobile())
+        else if (Input.GetAxisRaw("PullUpward") == 1f && _playerController.IsMobile())
         {
             HandleInteractDownward();
         }
