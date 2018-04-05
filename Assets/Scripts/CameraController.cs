@@ -58,20 +58,6 @@ public class CameraController : MonoBehaviour
     {
         Vector3 newPosition = PlayerObject.transform.position + _offset;
         transform.position = newPosition;
-        if (Input.GetAxis("CameraControl") != 0)
-        {
-            _isKeyboardRotating = true;
-        }
-
-        if (Input.GetAxis("CameraControl") == 0)
-        {
-            _isKeyboardRotating = false;
-        }
-
-        if (_isKeyboardRotating)
-        {
-            RotateKeyboardCamera();
-        }
 
         RotateMouseCamera();
 
@@ -189,15 +175,6 @@ public class CameraController : MonoBehaviour
     public void RemoveFadeoutTarget(FadeoutPlugin fadeoutPlugin)
     {
         _fadeBlocks.Remove(fadeoutPlugin);
-    }
-
-    private void RotateKeyboardCamera()
-    {
-        float moveAmount = Input.GetAxis("CameraControl") * Time.deltaTime * KeyboardSpeed;
-        transform.RotateAround(PlayerObject.transform.position, Vector3.up, moveAmount);
-
-        _playerController.UpdateCamera();
-        _offset = transform.position - PlayerObject.transform.position;
     }
 
     private void RotateMouseCamera()
