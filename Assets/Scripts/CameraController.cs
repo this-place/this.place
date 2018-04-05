@@ -27,6 +27,8 @@ public class CameraController : MonoBehaviour
     private const float MaxYDisplacement = 50f;
     private PlayerController _playerController;
     private ArrayList _fadeBlocks = new ArrayList();
+    private bool _idle = false;
+    private const float SlowRotateSpeed = 0.3f;
 
     //used for zoom
     private const float MaxZoom = 6;
@@ -45,8 +47,6 @@ public class CameraController : MonoBehaviour
         transform.eulerAngles = new Vector3(StartingXRotation, StartingYRotation, StartingZRotation);
         _playerController = PlayerObject.GetComponent<PlayerController>();
         PostProcessingObject = GetComponent<PostProcessingBehaviour>();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     private void Start()
@@ -59,17 +59,23 @@ public class CameraController : MonoBehaviour
         Vector3 newPosition = PlayerObject.transform.position + _offset;
         transform.position = newPosition;
 
-        RotateMouseCamera();
-
-        if (Input.GetAxis("CameraZoom") > 0 || Input.GetAxis("CameraZoom") < 0)
+        if (!_idle)
         {
-            ZoomCamera(Input.GetAxis("CameraZoom"));
+            RotateMouseCamera();
+
+            if (Input.GetAxis("CameraZoom") > 0 || Input.GetAxis("CameraZoom") < 0)
+            {
+                ZoomCamera(Input.GetAxis("CameraZoom"));
+            }
+            else
+            {
+                AutoZoom();
+            }
         }
         else
         {
-            AutoZoom();
+            RotateSlowly();
         }
-
 
         UpdateFadingBlocks();
 
@@ -200,10 +206,25 @@ public class CameraController : MonoBehaviour
         _offset = transform.position - PlayerObject.transform.position;
     }
 
+    private void RotateSlowly()
+    {
+        float rotateXAmount = SlowRotateSpeed;
+        transform.RotateAround(PlayerObject.transform.position, Vector3.up, rotateXAmount);
+        Vector3 normalVector = GetNormalVector();
+
+        _playerController.UpdateCamera();
+        _offset = transform.position - PlayerObject.transform.position;
+    }
+
     private Vector3 GetNormalVector()
     {
         Vector3 playerFacing = transform.position - PlayerObject.transform.position;
         Vector3 planeCompletion = playerFacing - Vector3.up;
         return Vector3.Cross(playerFacing, planeCompletion);
+    }
+
+    public void SetIdle(bool idle)
+    {
+        _idle = idle;
     }
 }
