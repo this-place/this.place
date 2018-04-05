@@ -40,7 +40,7 @@ public class SceneController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R) && !_isReloading)
+        if (Input.GetAxisRaw("Reload") == 1f && !_isReloading)
         {
             _isReloading = true;
             StartCoroutine(ReloadScene());
