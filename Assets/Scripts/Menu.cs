@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
@@ -14,15 +15,26 @@ public class Menu : MonoBehaviour
     private GameObject _sceneMenu;
     private GameObject _mainMenu;
     private GameObject _exitButtom;
+    public Button _levelSelect;
+
+    public Sprite[] levelTextures;
+    public Image[] levelButtons;
+    public Color defaultImageColor;
+    public Color currentlyChosenImageColor = Color.black;
+    private int currentLevelSelected = 0;
+    public Text _levelName;
 
     // Use this for initialization
     void Awake()
     {
         _canvas = GetComponent<Canvas>();
-
+        defaultImageColor = levelButtons[0].color;
         HideMenu(_sceneMenu = GameObject.Find("SceneMenu"));
         _mainMenu = GameObject.Find("MainMenu");
         _exitButtom = GameObject.Find("ExitButton");
+        levelButtons[currentLevelSelected].color = currentlyChosenImageColor;
+        _levelName.text = levelTextures[currentLevelSelected].name.Split('.')[0];
+        _levelSelect.image.sprite = levelTextures[currentLevelSelected];
     }
 
     // Update is called once per frame
@@ -89,9 +101,27 @@ public class Menu : MonoBehaviour
         menuToRemove.SetActive(false);
     }
 
+    public void JumpToCurrentlySelectedLevel()
+    {
+        JumpToLevel(levelTextures[currentLevelSelected].name.Split('.')[0]);
+    }
+
     public void JumpToLevel(string sceneName)
     {
         Camera.main.GetComponent<CameraController>().ResetCameraAngle();
         SceneController.Instance.LoadNewScene(sceneName);
+    }
+
+    public void changeLevelSelected(int value)
+    {
+        levelButtons[currentLevelSelected].color = defaultImageColor;
+        currentLevelSelected += value;
+        if (currentLevelSelected < 0)
+            currentLevelSelected += levelTextures.Length;
+        if (currentLevelSelected >= levelTextures.Length)
+            currentLevelSelected -= levelTextures.Length;
+        levelButtons[currentLevelSelected].color = currentlyChosenImageColor;
+        _levelName.text = levelTextures[currentLevelSelected].name.Split('.')[0];
+        _levelSelect.image.sprite = levelTextures[currentLevelSelected];
     }
 }
