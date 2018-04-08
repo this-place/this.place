@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         bool moved = false;
-        
+
         if ((Mathf.Abs(Input.GetAxis("Horizontal")) != 0 || Mathf.Abs(Input.GetAxis("Vertical")) != 0) && _isMobile)
         {
             _animator.MovePlayer();
@@ -259,12 +259,15 @@ public class PlayerController : MonoBehaviour
 
     public void SetMobility(bool mobility)
     {
+        if (mobility == false)
+        {
+            _rb.velocity = new Vector3(0, 0, 0);
+        }
         _isMobile = mobility;
     }
 
     public void SetGravity(bool useGravity)
     {
-        _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
         _rb.useGravity = useGravity;
     }
 
