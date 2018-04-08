@@ -103,6 +103,12 @@ public class PlayerAnimatorController : MonoBehaviour
 
     public void AttemptToInteractWith(BlockBehaviour block, BlockFace face)
     {
+        Vector3 direction = block.GetMoveDirection(face);
+        if (direction == Vector3.zero)
+        {
+            return;
+        }
+
         _block = block;
         _face = face;
         _playerController.SetMobility(false);
@@ -110,7 +116,7 @@ public class PlayerAnimatorController : MonoBehaviour
 
         _isMovingTowardsBlock = true;
         _blockFacePosition = block.transform.position + face.GetNormal() * (0.5f + _playerController.GetBoxCollider().bounds.extents.z);
-    }
+    }       
 
     public void MovePlayer()
     {
