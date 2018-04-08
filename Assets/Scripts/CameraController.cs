@@ -35,7 +35,8 @@ public class CameraController : MonoBehaviour
     private const float MinZoom = -6;
     private const float zoomSpeed = 3;
     private float currentZoom = 0;
-    
+    private BoxCollider _playerCollider;
+
     //used for autozoom
     private const float autoZoomSpeed = 0.04f;
     private float currentAutoZoomValue = 0;
@@ -45,12 +46,13 @@ public class CameraController : MonoBehaviour
     {
         _offset = new Vector3(StartingXOffset, StartingYOffset, StartingZOffset);
         transform.eulerAngles = new Vector3(StartingXRotation, StartingYRotation, StartingZRotation);
-        _playerController = PlayerObject.GetComponent<PlayerController>();
-        PostProcessingObject = GetComponent<PostProcessingBehaviour>();
     }
 
     private void Start()
     {
+        _playerController = PlayerObject.GetComponent<PlayerController>();
+        _playerCollider = PlayerObject.GetComponent<BoxCollider>();
+        PostProcessingObject = GetComponent<PostProcessingBehaviour>();
         _playerController.UpdateCamera();
     }
 
@@ -105,15 +107,16 @@ public class CameraController : MonoBehaviour
     {
         Camera cameraObject = Camera.main;
         Vector2 dimensions = CalculateScreenSizeInWorldCoords();
-        Vector3 centrePositionDifference = transform.position - PlayerObject.transform.position;
+        Vector3 playerTarget = PlayerObject.transform.position + Vector3.up * _playerCollider.bounds.extents.y;
+        Vector3 centrePositionDifference = transform.position - playerTarget;
 
-        if (Physics.Raycast(PlayerObject.transform.position, (centrePositionDifference + Vector3.left * (dimensions.x / 2) + Vector3.up * (dimensions.y / 2)), distance))
+        if (Physics.Raycast(playerTarget, (centrePositionDifference + Vector3.left * (dimensions.x / 2) + Vector3.up * (dimensions.y / 2)), distance))
             return true;
-        if (Physics.Raycast(PlayerObject.transform.position, (centrePositionDifference + Vector3.left * (dimensions.x / 2) - Vector3.up * (dimensions.y / 2)), distance))
+        if (Physics.Raycast(playerTarget, (centrePositionDifference + Vector3.left * (dimensions.x / 2) - Vector3.up * (dimensions.y / 2)), distance))
             return true;
-        if (Physics.Raycast(PlayerObject.transform.position, (centrePositionDifference - Vector3.left * (dimensions.x / 2) - Vector3.up * (dimensions.y / 2)), distance))
+        if (Physics.Raycast(playerTarget, (centrePositionDifference - Vector3.left * (dimensions.x / 2) - Vector3.up * (dimensions.y / 2)), distance))
             return true;
-        if (Physics.Raycast(PlayerObject.transform.position, (centrePositionDifference - Vector3.left * (dimensions.x / 2) + Vector3.up * (dimensions.y / 2)), distance))
+        if (Physics.Raycast(playerTarget, (centrePositionDifference - Vector3.left * (dimensions.x / 2) + Vector3.up * (dimensions.y / 2)), distance))
             return true;
 
         return false;
