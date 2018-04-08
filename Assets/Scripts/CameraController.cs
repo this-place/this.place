@@ -23,8 +23,8 @@ public class CameraController : MonoBehaviour
     private const float KeyboardSpeed = 380f;
     private const float MouseXSpeed = 3f;
     private const float MouseYSpeed = 1f;
-    private float _currentYDisplacement;
-    private const float MaxYDisplacement = 50f;
+    private float _currentYDisplacement = -20f;
+    private const float MaxYDisplacement = 70f;
     private PlayerController _playerController;
     private ArrayList _fadeBlocks = new ArrayList();
     private bool _idle = false;
