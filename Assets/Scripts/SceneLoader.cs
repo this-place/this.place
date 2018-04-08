@@ -13,7 +13,7 @@ public class SceneLoader : MonoBehaviour
         if (!_loaded && other.CompareTag("Player"))
         {
             _loaded = true;
-            SendMessageUpwards("Load", Load);
+            SendMessageUpwards("LoadNext");
         }
     }
 }

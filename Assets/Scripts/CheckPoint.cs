@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class CheckPoint : MonoBehaviour
 {
 
-    public string Level;
+    //public string Level;
     public bool ClearFlags;
     public Color color;
 
@@ -16,16 +16,15 @@ public class CheckPoint : MonoBehaviour
     private void Start()
     {
         _position = transform.position;
+        SendMessageUpwards("RegisterCheckpoint", _position);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            SendMessageUpwards("SetPosition", _position);
-            SendMessageUpwards("SetLevel", Level);
+            SendMessageUpwards("UnloadPrevious");
             Camera.main.backgroundColor = color;
-
             if (ClearFlags)
             {
                 Camera.main.clearFlags = CameraClearFlags.SolidColor;
