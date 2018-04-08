@@ -22,8 +22,11 @@ public class BlockBehaviour : MonoBehaviour
     private bool _isTranslating;
     private bool _isPlayerStandingOn;
     private UVMap _uvMap;
-    
+
     private List<BlockPlugin> _plugins = new List<BlockPlugin>();
+
+    private bool _isError = false;
+    private Vector3 _originalPosition;
 
     private void Awake()
     {
@@ -147,7 +150,7 @@ public class BlockBehaviour : MonoBehaviour
     }
 
 
-    public bool MoveBlock(BlockFace face, float initialSpeed = 1, float acceleration = 0)
+    public bool MoveBlock(BlockFace face, float initialSpeed = 1, float acceleration = 0, bool isError = false)
     {
         if (_isTranslating)
         {
@@ -160,8 +163,19 @@ public class BlockBehaviour : MonoBehaviour
         bool hit = FireRaycastFromFace(face);
         if (!hit)
         {
-            _targetPosition = Root.transform.position + (face.GetNormal() * FaceLength);
             _isTranslating = true;
+
+
+            _isError = isError;
+
+            _targetPosition = _isError ? Root.transform.position + (face.GetNormal() * FaceLength / 2) :
+                Root.transform.position + (face.GetNormal() * FaceLength);
+
+            if (_isError)
+            {
+                _originalPosition = transform.position;
+            }
+
             return true;
         }
 
@@ -182,7 +196,16 @@ public class BlockBehaviour : MonoBehaviour
         else
         {
             Root.transform.position = _targetPosition;
-            _isTranslating = false;
+
+            if (_isError)
+            {
+                _targetPosition = _originalPosition;
+                _isError = false;
+            }
+            else
+            {
+                _isTranslating = false;
+            }
         }
     }
 
@@ -269,15 +292,15 @@ public class BlockBehaviour : MonoBehaviour
         return skinVertices;
     }
 
-    public bool FireRaycastFromFace(BlockFace face)
+    public bool FireRaycastFromFace(BlockFace face, int faceLengths = 1)
     {
         Vector3 normal = face.GetNormal();
         Vector3[] skinVertices = GetSkinVertices(normal, face);
 
         foreach (Vector3 skinVertex in skinVertices)
         {
-            Debug.DrawRay(skinVertex, normal * FaceLength, Color.red, 1f);
-            if (Physics.Raycast(skinVertex, normal, FaceLength, CollidableLayers))
+            Debug.DrawRay(skinVertex, normal * FaceLength * faceLengths, Color.red, 1f);
+            if (Physics.Raycast(skinVertex, normal, FaceLength * faceLengths, CollidableLayers))
             {
                 return true;
             }

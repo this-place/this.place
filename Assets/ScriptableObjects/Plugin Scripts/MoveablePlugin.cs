@@ -18,9 +18,11 @@ public class MoveablePlugin : BlockPlugin
     {
         if (_isDisplaced) return;
 
-        if (_block.MoveBlock(face))
+        bool isError = _block.FireRaycastFromFace(face, 2);
+
+        if (_block.MoveBlock(face, isError: isError))
         {
-            _isDisplaced = true;
+            _isDisplaced = isError ? false : true;
             _displacedFace = face;
             _block.PlayDisplacementSound();
         }
