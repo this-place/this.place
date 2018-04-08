@@ -91,6 +91,7 @@ public class Menu : MonoBehaviour
 
     public void JumpToLevel(string sceneName)
     {
+        Camera.main.GetComponent<CameraController>().ResetCameraAngle();
         SceneController.Instance.LoadNewScene(sceneName);
     }
 }

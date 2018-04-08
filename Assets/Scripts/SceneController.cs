@@ -116,7 +116,8 @@ public class SceneController : MonoBehaviour
         _toLoad = Scenes;
         _toLoad.Add(sceneName);
         Load("Player");
-        
+        Camera.main.GetComponent<CameraController>().ResetCameraAngle();
+
         int index = _toLoad.IndexOf(sceneName);
         Debug.Log(index);
         _toLoad = _toLoad.GetRange(index, _toLoad.Count - index);
@@ -148,6 +149,7 @@ public class SceneController : MonoBehaviour
         string sceneName = _toLoad[_sceneIndex];
         yield return SceneManager.UnloadSceneAsync(sceneName);
         yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        Camera.main.GetComponent<CameraController>().ResetCameraAngle();
         _player = GameObject.FindGameObjectWithTag("Player");
         _player.transform.position = _position;
         _isReloading = false;

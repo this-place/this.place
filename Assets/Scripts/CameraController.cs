@@ -8,11 +8,11 @@ public class CameraController : MonoBehaviour
 
     public GameObject PlayerObject;
     public PostProcessingBehaviour PostProcessingObject;
-    public const float StartingXOffset = -4;
-    public const float StartingYOffset = 4;
-    public const float StartingZOffset = -4;
+    public const float StartingXOffset = 0;
+    public const float StartingYOffset = 3;
+    public const float StartingZOffset = -6;
     public const float StartingXRotation = 30;
-    public const float StartingYRotation = 45;
+    public const float StartingYRotation = 0;
     public const float StartingZRotation = 0;
 
     //used for translation
@@ -235,7 +235,15 @@ public class CameraController : MonoBehaviour
     private void RotateX(float rotateAmount)
     {
         transform.RotateAround(PlayerObject.transform.position, Vector3.up, rotateAmount);
+
+        _playerController.UpdateCamera();
+        _offset = transform.position - PlayerObject.transform.position;
+    }
+
+    private void RotateY(float rotateAmount)
+    {
         Vector3 normalVector = GetNormalVector();
+        transform.RotateAround(PlayerObject.transform.position, normalVector, rotateAmount);
 
         _playerController.UpdateCamera();
         _offset = transform.position - PlayerObject.transform.position;
@@ -251,5 +259,18 @@ public class CameraController : MonoBehaviour
     public void SetIdle(bool idle)
     {
         _idle = idle;
+    }
+
+    public void ResetCameraAngle()
+    {
+        float yDiff = transform.eulerAngles.y - StartingYRotation;
+        RotateX(-yDiff);
+        RotateX(-currentAutoRotate);
+        currentAutoRotate = 0;
+        RotateY(-_currentYDisplacement);
+        _currentYDisplacement = 0;
+        _offset = transform.position - PlayerObject.transform.position + Vector3.Normalize(transform.position - PlayerObject.transform.position) * -currentZoom;
+        currentZoom = 0;
+        currentAutoZoomValue = 0;
     }
 }
