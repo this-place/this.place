@@ -152,6 +152,7 @@ public class SceneController : MonoBehaviour
         Camera.main.GetComponent<CameraController>().ResetCameraAngle();
         _player = GameObject.FindGameObjectWithTag("Player");
         _player.transform.position = _position;
+        _player.GetComponent<PlayerController>().SetMobility(true);
         _isReloading = false;
     }
 
