@@ -151,6 +151,10 @@ MonoBehaviour:
   Root: {fileID: 0}
   SkinToLengthRatio: 0.1
   InitialSpeed: 1
+  DisplacementSound: {fileID: 82536967849056954, guid: cb9b3e5251c00b6458283b3509cbba9c,
+    type: 2}
+  DestroyedSound: {fileID: 82828001692260854, guid: b47ef45978d91a5469544238047d57c4,
+    type: 2}
 --- !u!114 &114688097473526958
 MonoBehaviour:
   m_ObjectHideFlags: 1

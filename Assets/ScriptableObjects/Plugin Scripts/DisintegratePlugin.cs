@@ -32,6 +32,7 @@ public class DisintegratePlugin : BlockPlugin
             {
                 _isDisplaced = true;
                 _directionOfTravel = face.GetOppositeFace();
+                _block.PlayDisplacementSound();
             }
         }
 
@@ -55,6 +56,7 @@ public class DisintegratePlugin : BlockPlugin
 
                 if (collidedBlock != null)
                 {
+                    collidedBlock.GetComponent<BlockBehaviour>().PlayDestroyedSound();
                     Destroy(collidedBlock);
                 }
             }

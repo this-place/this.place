@@ -28,6 +28,9 @@ public class BlockBehaviour : MonoBehaviour
     private bool _isError = false;
     private Vector3 _originalPosition;
 
+    public AudioSource DisplacementSound;
+    public AudioSource DestroyedSound;
+
     private void Awake()
     {
         TransparentRenderer = GetComponent<ITransparentRenderer>();
@@ -262,18 +265,7 @@ public class BlockBehaviour : MonoBehaviour
         return null;
     }
 
-    public void PlayDisplacementSound()
-    {
-        AudioSource displacementSound = GetComponent<AudioSource>();
-
-        if (displacementSound != null)
-        {
-            displacementSound.Play();
-        }
-    }
-
     // Face Methods
-
     public Vector3[] GetSkinVertices(Vector3 normal, BlockFace face)
     {
         float centerToSkin = FaceLength * (1 - SkinToLengthRatio) / 2;
@@ -319,5 +311,21 @@ public class BlockBehaviour : MonoBehaviour
     {
         if (_uvMap != null)
             _uvMap.SetNormalTexture();
+    }
+
+    public void PlayDisplacementSound()
+    {
+        if (DisplacementSound.clip != null)
+        {
+            AudioSource.PlayClipAtPoint(DisplacementSound.clip, transform.position);
+        }
+    }
+
+    public void PlayDestroyedSound()
+    {
+        if (DisplacementSound.clip != null)
+        {
+            AudioSource.PlayClipAtPoint(DestroyedSound.clip, transform.position);
+        }
     }
 }

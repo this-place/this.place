@@ -22,6 +22,7 @@ public class FragilePlugin : BlockPlugin
             Destroy(_block.gameObject, BreakAfterTime);
             _isDestroyingItself = true;
         }
+
         if (_isDestroyingItself && _block.IsTranslating())  // To make the emitter follow the block
         {
             _fragileEmitterInstantiated.gameObject.transform.position = _block.gameObject.transform.position;
