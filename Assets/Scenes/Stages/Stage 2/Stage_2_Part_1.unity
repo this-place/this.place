@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.1273174, g: 0.13414761, b: 0.12107885, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2284,15 +2284,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4779020972502248, guid: b5cbb8963e500b246a5063aee1cc6a1c, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4779020972502248, guid: b5cbb8963e500b246a5063aee1cc6a1c, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4779020972502248, guid: b5cbb8963e500b246a5063aee1cc6a1c, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 77
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4779020972502248, guid: b5cbb8963e500b246a5063aee1cc6a1c, type: 2}
       propertyPath: m_LocalRotation.x
@@ -2316,11 +2316,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4492769278999778, guid: b5cbb8963e500b246a5063aee1cc6a1c, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: 78
       objectReference: {fileID: 0}
     - target: {fileID: 4492769278999778, guid: b5cbb8963e500b246a5063aee1cc6a1c, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 3.48
       objectReference: {fileID: 0}
     - target: {fileID: 65862089837483020, guid: b5cbb8963e500b246a5063aee1cc6a1c,
         type: 2}
@@ -2339,15 +2339,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4206750964447578, guid: b5cbb8963e500b246a5063aee1cc6a1c, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 20
+      value: 97
       objectReference: {fileID: 0}
     - target: {fileID: 4206750964447578, guid: b5cbb8963e500b246a5063aee1cc6a1c, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -6.95
+      value: -2.95
       objectReference: {fileID: 0}
     - target: {fileID: 4206750964447578, guid: b5cbb8963e500b246a5063aee1cc6a1c, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 65358853718965688, guid: b5cbb8963e500b246a5063aee1cc6a1c,
         type: 2}
@@ -2368,6 +2368,10 @@ Prefab:
         type: 2}
       propertyPath: ClearFlags
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492769278999778, guid: b5cbb8963e500b246a5063aee1cc6a1c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b5cbb8963e500b246a5063aee1cc6a1c, type: 2}
