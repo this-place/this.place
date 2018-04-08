@@ -89,12 +89,12 @@ public class CameraController : MonoBehaviour
                     rotateAmount += currentAutoRotate;
                     currentAutoRotate = 0;
                 }
-                RotateX(-rotateAmount);
+                RotateHorizontal(-rotateAmount);
             }
         }
         else
         {
-            RotateX(IdleRotateSpeed);
+            RotateHorizontal(IdleRotateSpeed);
             currentAutoRotate += IdleRotateSpeed;
             if (currentAutoRotate > 360)
             {
@@ -232,7 +232,7 @@ public class CameraController : MonoBehaviour
         _offset = transform.position - PlayerObject.transform.position;
     }
 
-    private void RotateX(float rotateAmount)
+    private void RotateHorizontal(float rotateAmount)
     {
         transform.RotateAround(PlayerObject.transform.position, Vector3.up, rotateAmount);
 
@@ -240,7 +240,7 @@ public class CameraController : MonoBehaviour
         _offset = transform.position - PlayerObject.transform.position;
     }
 
-    private void RotateY(float rotateAmount)
+    private void RotateVertical(float rotateAmount)
     {
         Vector3 normalVector = GetNormalVector();
         transform.RotateAround(PlayerObject.transform.position, normalVector, rotateAmount);
@@ -264,10 +264,10 @@ public class CameraController : MonoBehaviour
     public void ResetCameraAngle()
     {
         float yDiff = transform.eulerAngles.y - StartingYRotation;
-        RotateX(-yDiff);
-        RotateX(-currentAutoRotate);
+        RotateHorizontal(-yDiff);
+        RotateHorizontal(-currentAutoRotate);
         currentAutoRotate = 0;
-        RotateY(-_currentYDisplacement);
+        RotateVertical(-_currentYDisplacement);
         _currentYDisplacement = 0;
         _offset = transform.position - PlayerObject.transform.position + Vector3.Normalize(transform.position - PlayerObject.transform.position) * -currentZoom;
         currentZoom = 0;
