@@ -16,43 +16,25 @@ public class MoveablePlugin : BlockPlugin
 
     public override void OnFaceClick(BlockFace face)
     {
-        if (_isDisplaced)
+        if (_isDisplaced) return;
+
+        if (_block.MoveBlock(face))
         {
-            if (_block.MoveBlock(_displacedFace.GetOppositeFace()))
-            {
-                _isDisplaced = false;
-                _displacedFace = BlockFace.Unknown;
-            }
+            _isDisplaced = true;
+            _displacedFace = face;
+            _block.PlayDisplacementSound();
         }
-        else
-        {
-            if (_block.MoveBlock(face))
-            {
-                _isDisplaced = true;
-                _displacedFace = face;
-            }
-        }
-        _block.PlayDisplacementSound();
     }
 
     public override void OnFaceSelect(BlockFace face)
     {
-        if (_isDisplaced && !face.Equals(_displacedFace)) return;
+        if (_isDisplaced) return;
         _block.HighlightFace(face);
     }
 
     public override Vector3 GetMoveDirection(BlockFace face)
     {
-        if (!_isDisplaced)
-        {
-            return face.GetNormal();
-        }
-
-        if (face.Equals(_displacedFace))
-        {
-            return -face.GetNormal();
-        }
-
-        return Vector3.zero;
+        if (_isDisplaced) return Vector3.zero;
+        return face.GetNormal();
     }
 }

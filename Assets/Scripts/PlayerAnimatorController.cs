@@ -52,7 +52,7 @@ public class PlayerAnimatorController : MonoBehaviour
         _playerController.SetGravity(true);
         _isMovingBlock = false;
 
-       UnParentPlayer();
+        UnParentPlayer();
     }
 
     public void UnParentPlayer()
@@ -80,30 +80,10 @@ public class PlayerAnimatorController : MonoBehaviour
                 return;
             }
 
-            if (_face == BlockFace.Top)
-            {
-                if (_face.GetNormal() == direction)
-                {
-                    _animator.SetTrigger("Pull Up");
-                }
-                else
-                {
-                    _animator.SetTrigger("Push Down");
-                }
-            }
-            else
-            {
-                LookAtBlock();
-                if (_face.GetNormal() == direction)
-                {
-                    _animator.SetTrigger("Pull Back");
-                }
-                else
-                {
-                    _animator.SetTrigger("Push Back");
-                }
 
-            }
+            LookAtBlock();
+            _animator.SetTrigger("Pull Back");
+
             // player will translate with block
             _isMovingBlock = true;
             SetAsChildOfBlock();
