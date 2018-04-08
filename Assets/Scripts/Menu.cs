@@ -14,6 +14,7 @@ public class Menu : MonoBehaviour
     private bool _menuShowing = true;
     private GameObject _sceneMenu;
     private GameObject _mainMenu;
+    private GameObject _UI;
     private GameObject _exitButtom;
     public Button _levelSelect;
 
@@ -32,6 +33,7 @@ public class Menu : MonoBehaviour
         HideMenu(_sceneMenu = GameObject.Find("SceneMenu"));
         _mainMenu = GameObject.Find("MainMenu");
         _exitButtom = GameObject.Find("ExitButton");
+        HideMenu(_UI = GameObject.Find("UI"));
         levelButtons[currentLevelSelected].color = currentlyChosenImageColor;
         _levelName.text = levelTextures[currentLevelSelected].name.Split('.')[0];
         _levelSelect.image.sprite = levelTextures[currentLevelSelected];
@@ -73,6 +75,7 @@ public class Menu : MonoBehaviour
         Cursor.visible = false;
         _exitButtom.SetActive(false);
         _menuShowing = false;
+        ShowMenu(_UI);
     }
 
     public void StopGame()
@@ -83,6 +86,7 @@ public class Menu : MonoBehaviour
         Cursor.visible = true;
         _exitButtom.SetActive(true);
         _menuShowing = true;
+        HideMenu(_UI);
     }
 
     public void ShowMenu(GameObject menu)
