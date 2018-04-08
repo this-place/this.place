@@ -28,7 +28,11 @@ public class CameraController : MonoBehaviour
     private PlayerController _playerController;
     private ArrayList _fadeBlocks = new ArrayList();
     private bool _idle = false;
-    private const float SlowRotateSpeed = 0.3f;
+
+    //used for auto-rotate
+    private const float IdleRotateSpeed = 0.3f;
+    private const float repositionMultiplier = 10f;
+    private float currentAutoRotate = 0f;
 
     //used for zoom
     private const float MaxZoom = 6;
@@ -73,10 +77,29 @@ public class CameraController : MonoBehaviour
             {
                 AutoZoom();
             }
+
+            if (currentAutoRotate > 0)
+            {
+                float rotateAmount = IdleRotateSpeed * repositionMultiplier;
+                if (currentAutoRotate > 180)
+                    rotateAmount *= -1;
+                currentAutoRotate -= rotateAmount;
+                if (currentAutoRotate < 0 || currentAutoRotate > 360)
+                {
+                    rotateAmount += currentAutoRotate;
+                    currentAutoRotate = 0;
+                }
+                RotateX(-rotateAmount);
+            }
         }
         else
         {
-            RotateSlowly();
+            RotateX(IdleRotateSpeed);
+            currentAutoRotate += IdleRotateSpeed;
+            if (currentAutoRotate > 360)
+            {
+                currentAutoRotate -= 360;
+            }
         }
 
         UpdateFadingBlocks();
@@ -209,10 +232,9 @@ public class CameraController : MonoBehaviour
         _offset = transform.position - PlayerObject.transform.position;
     }
 
-    private void RotateSlowly()
+    private void RotateX(float rotateAmount)
     {
-        float rotateXAmount = SlowRotateSpeed;
-        transform.RotateAround(PlayerObject.transform.position, Vector3.up, rotateXAmount);
+        transform.RotateAround(PlayerObject.transform.position, Vector3.up, rotateAmount);
         Vector3 normalVector = GetNormalVector();
 
         _playerController.UpdateCamera();
