@@ -12,7 +12,7 @@ public class CollectiblesScript : MonoBehaviour
         transform.RotateAround(transform.position, Vector3.up, rotateSpeed);
     }
 
-    private void OnTriggerEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         Destroy(this.gameObject);
     }
