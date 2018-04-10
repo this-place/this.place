@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18749061, g: 0.9268341, b: 1.4464028, a: 1}
+  m_IndirectSpecularColor: {r: 0.1874527, g: 0.9268129, b: 1.446381, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2145,6 +2145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Scenes:
+  - Tutorial
   - Stage_0
   - Stage_1
   - Stage_2

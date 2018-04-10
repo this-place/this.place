@@ -17962,7 +17962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80941ca2ba954b944bc965ce45b5cef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Load: 
+  Load: Stage_1
 --- !u!4 &389642911 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4617227921920762, guid: a7d44ed2d77b7334f921650fa2a77e93,
