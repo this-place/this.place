@@ -71,7 +71,7 @@ MonoBehaviour:
   depthOfField:
     m_Enabled: 0
     m_Settings:
-      focusDistance: 90
+      focusDistance: 2.9881942
       aperture: 15
       focalLength: 100
       useCameraFov: 0
@@ -134,7 +134,7 @@ MonoBehaviour:
       colorWheels:
         mode: 1
         log:
-          slope: {r: 1, g: 1, b: 1, a: 0}
+          slope: {r: 1, g: 0.92760473, b: 0.84483653, a: 0}
           power: {r: 1, g: 1, b: 1, a: 0.11678832}
           offset: {r: 1, g: 1, b: 1, a: -0.02919708}
         linear:
