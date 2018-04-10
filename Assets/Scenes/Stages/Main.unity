@@ -2145,7 +2145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Scenes:
-  - Tutorial
+  - Stage_0
   - Stage_1
   - Stage_2
   - Stage_3
