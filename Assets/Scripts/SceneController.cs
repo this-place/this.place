@@ -178,4 +178,8 @@ public class SceneController : MonoBehaviour
         }
     }
 
+    public string GetCurrentSceneName()
+    {
+        return _toLoad[_sceneIndex];
+    }
 }
