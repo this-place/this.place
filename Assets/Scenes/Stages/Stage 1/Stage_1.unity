@@ -11690,7 +11690,7 @@ Transform:
   - {fileID: 141988305}
   - {fileID: 259543808}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &462333663 stripped
 Transform:
@@ -16073,7 +16073,7 @@ Transform:
   - {fileID: 10314413}
   - {fileID: 145143558}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &621323416
 Prefab:
@@ -46848,7 +46848,7 @@ Transform:
   - {fileID: 694869848}
   - {fileID: 283387557}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1859340105
 Prefab:
@@ -50277,7 +50277,7 @@ Transform:
   - {fileID: 2102959445}
   - {fileID: 2027913880}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1980686819
 Prefab:
@@ -54472,7 +54472,7 @@ Transform:
   - {fileID: 729798471}
   - {fileID: 887836371}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2142222771
 Prefab:
