@@ -14,6 +14,12 @@ public class CollectiblesScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
+        SendMessageUpwards("UpdateScore", this);
         Destroy(this.gameObject);
+    }
+
+    public void SetCollected()
+    {
+        GetComponent<Renderer>().material.color = Color.grey;
     }
 }

@@ -17,6 +17,7 @@ public class SceneController : MonoBehaviour
     private bool _isReloading = false;
     
     private int _sceneIndex = 0;
+    private CollectibleScore _collectibleScore;
 
     // we use Singleton Pattern
     public static SceneController Instance;
@@ -69,6 +70,11 @@ public class SceneController : MonoBehaviour
         }
     }
 
+    public void RegisterCollectibleScore(CollectibleScore cs)
+    {
+        _collectibleScore = cs;
+    }
+
     public void LoadNext()
     {
         Instance._loadNext();
@@ -76,7 +82,7 @@ public class SceneController : MonoBehaviour
 
     private void _loadNext()
     {
-
+        _collectibleScore.SaveScore();
         _sceneIndex++;
         if (_sceneIndex >= _toLoad.Count)
         {

@@ -6,37 +6,41 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
+    [Header("Main Menu")]
+    public Button LevelSelect;
+    
+    [Header("Scene Menu UI")]
+    public Text LevelName;
+    public Text PrimaryCollectibleNumber;
+    public Color DefaultImageColor;
+    public Color CurrentlyChosenImageColor = Color.black;
+    public Sprite[] LevelTextures;
+    public CollectibleScore[] CollectibleScores;
+    public Image[] LevelButtons;
+
     private GameObject _player;
     private PlayerController _playerController;
 
-    private Canvas _canvas;
     private CameraController _camera;
     private bool _menuShowing = true;
     private GameObject _sceneMenu;
     private GameObject _mainMenu;
-    private GameObject _UI;
-    private GameObject _exitButtom;
-    public Button _levelSelect;
-
-    public Sprite[] levelTextures;
-    public Image[] levelButtons;
-    public Color defaultImageColor;
-    public Color currentlyChosenImageColor = Color.black;
-    private int currentLevelSelected = 0;
-    public Text _levelName;
-
+    private GameObject _ui;
+    private GameObject _exitButton;
+    
+    private int _currentLevelSelected = 0;
+    
     // Use this for initialization
     void Awake()
     {
-        _canvas = GetComponent<Canvas>();
-        defaultImageColor = levelButtons[0].color;
+        DefaultImageColor = LevelButtons[0].color;
         HideMenu(_sceneMenu = GameObject.Find("SceneMenu"));
         _mainMenu = GameObject.Find("MainMenu");
-        _exitButtom = GameObject.Find("ExitButton");
-        HideMenu(_UI = GameObject.Find("UI"));
-        levelButtons[currentLevelSelected].color = currentlyChosenImageColor;
-        _levelName.text = levelTextures[currentLevelSelected].name.Split('.')[0];
-        _levelSelect.image.sprite = levelTextures[currentLevelSelected];
+        _exitButton = GameObject.Find("ExitButton");
+        HideMenu(_ui = GameObject.Find("UI"));
+        LevelButtons[_currentLevelSelected].color = CurrentlyChosenImageColor;
+        LevelName.text = LevelTextures[_currentLevelSelected].name.Split('.')[0];
+        LevelSelect.image.sprite = LevelTextures[_currentLevelSelected];
     }
 
     // Update is called once per frame
@@ -73,9 +77,9 @@ public class Menu : MonoBehaviour
         _playerController.SetMobility(true);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        _exitButtom.SetActive(false);
+        _exitButton.SetActive(false);
         _menuShowing = false;
-        ShowMenu(_UI);
+        ShowMenu(_ui);
     }
 
     public void StopGame()
@@ -84,13 +88,17 @@ public class Menu : MonoBehaviour
         _playerController.SetMobility(false);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        _exitButtom.SetActive(true);
+        _exitButton.SetActive(true);
         _menuShowing = true;
-        HideMenu(_UI);
+        HideMenu(_ui);
     }
 
     public void ShowMenu(GameObject menu)
     {
+        if (menu == _sceneMenu)
+        {
+            ChangeLevelSelected(0);
+        }
         menu.SetActive(true);
     }
 
@@ -107,7 +115,7 @@ public class Menu : MonoBehaviour
 
     public void JumpToCurrentlySelectedLevel()
     {
-        JumpToLevel(levelTextures[currentLevelSelected].name.Split('.')[0]);
+        JumpToLevel(LevelTextures[_currentLevelSelected].name.Split('.')[0]);
     }
 
     public void JumpToLevel(string sceneName)
@@ -116,16 +124,17 @@ public class Menu : MonoBehaviour
         SceneController.Instance.LoadNewScene(sceneName);
     }
 
-    public void changeLevelSelected(int value)
+    public void ChangeLevelSelected(int value)
     {
-        levelButtons[currentLevelSelected].color = defaultImageColor;
-        currentLevelSelected += value;
-        if (currentLevelSelected < 0)
-            currentLevelSelected += levelTextures.Length;
-        if (currentLevelSelected >= levelTextures.Length)
-            currentLevelSelected -= levelTextures.Length;
-        levelButtons[currentLevelSelected].color = currentlyChosenImageColor;
-        _levelName.text = levelTextures[currentLevelSelected].name.Split('.')[0];
-        _levelSelect.image.sprite = levelTextures[currentLevelSelected];
+        LevelButtons[_currentLevelSelected].color = DefaultImageColor;
+        _currentLevelSelected += value;
+        if (_currentLevelSelected < 0)
+            _currentLevelSelected += LevelTextures.Length;
+        if (_currentLevelSelected >= LevelTextures.Length)
+            _currentLevelSelected -= LevelTextures.Length;
+        LevelButtons[_currentLevelSelected].color = CurrentlyChosenImageColor;
+        LevelName.text = LevelTextures[_currentLevelSelected].name.Split('.')[0];
+        LevelSelect.image.sprite = LevelTextures[_currentLevelSelected];
+        PrimaryCollectibleNumber.text = CollectibleScores[_currentLevelSelected].GetPrimaryCollectedInStage().Count.ToString();
     }
 }
