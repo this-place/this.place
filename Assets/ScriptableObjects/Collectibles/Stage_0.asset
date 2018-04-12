@@ -9,9 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f7de22cf90dbe64380430db31146f6d, type: 3}
-  m_Name: Stage_1
+  m_Name: Stage_0
   m_EditorClassIdentifier: 
   IsPuzzle: 1
   SubScores: []
-  PrimaryCollectiblesCollected: 0000
-  SecondaryCollectiblesCollected: 00
+  PrimaryCollectiblesCollected: 000000
+  SecondaryCollectiblesCollected: 

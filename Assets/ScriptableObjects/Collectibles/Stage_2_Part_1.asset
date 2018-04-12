@@ -13,5 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsPuzzle: 1
   SubScores: []
-  PrimaryCollectiblesCollected: 
+  PrimaryCollectiblesCollected: 0000
   SecondaryCollectiblesCollected: 
