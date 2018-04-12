@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class CollectiblesScript : MonoBehaviour
 {
-    public int optionalNumber = 0;
-    private float rotateSpeed = 0.3f;
+    public int OptionalNumber = 0;
+    private float _rotateSpeed = 0.3f;
 
     void Update()
     {
-        transform.RotateAround(transform.position, Vector3.up, rotateSpeed);
+        transform.RotateAround(transform.position, Vector3.up, _rotateSpeed);
     }
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter(Collider colider)
     {
-        SendMessageUpwards("UpdateScore", this);
-        Destroy(this.gameObject);
+        if (colider.CompareTag("Player"))
+        {
+            SendMessageUpwards("UpdateScore", this);
+            Destroy(gameObject);
+        }
     }
 
     public void SetCollected()
