@@ -36,15 +36,19 @@ public class CameraController : MonoBehaviour
 
     //used for zoom
     private const float MaxZoom = 6;
-    private const float MinZoom = -6;
+    private const float MinZoom = -5.5f;
     private const float zoomSpeed = 3;
     private float currentZoom = 0;
+    private float zoomSpeedDistance = 6.5f;
     private BoxCollider _playerCollider;
 
     //used for autozoom
     private const float autoZoomSpeed = 0.04f;
     private float currentAutoZoomValue = 0;
-    private float _zoomLeeway = 3;
+    private float _zoomLeeway = 5;
+    private float _currentZoomDelay = 0;
+    public float ZoomDelay = 0.2f;
+    private bool _isZooming = false;
 
     private void Awake()
     {
@@ -141,30 +145,61 @@ public class CameraController : MonoBehaviour
             return true;
         if (Physics.Raycast(playerTarget, (centrePositionDifference - Vector3.left * (dimensions.x / 2) + Vector3.up * (dimensions.y / 2)), distance))
             return true;
+        if (Physics.Raycast(playerTarget, centrePositionDifference, distance))
+            return true;
 
         return false;
     }
 
     private void AutoZoom()
     {
+        float zoomAmount = autoZoomSpeed * (_offset.magnitude / zoomSpeedDistance);
         if (IsPlayerObstructed(_offset.magnitude))
         {
-            if (ZoomCamera(-autoZoomSpeed))
+            if (_isZooming || _currentZoomDelay > ZoomDelay)
             {
-                currentAutoZoomValue -= autoZoomSpeed;
-            }
-        }
-        else if (currentAutoZoomValue < 0 &&
-            !IsPlayerObstructed(_offset.magnitude + autoZoomSpeed * _zoomLeeway))
-        {
-            if (ZoomCamera(autoZoomSpeed))
-            {
-                currentAutoZoomValue += autoZoomSpeed;
+                _isZooming = true;
+                _currentZoomDelay = 0;
+                if (ZoomCamera(-zoomAmount))
+                {
+                    currentAutoZoomValue -= zoomAmount;
+                }
+                else
+                {
+                    _isZooming = false;
+                }
             }
             else
             {
-                currentAutoZoomValue = 0;
+                _currentZoomDelay += Time.deltaTime;
             }
+        }
+        else if (currentAutoZoomValue < 0 &&
+            !IsPlayerObstructed(_offset.magnitude + zoomAmount * _zoomLeeway))
+        {
+            if (_isZooming || _currentZoomDelay > ZoomDelay)
+            {
+                _isZooming = true;
+                _currentZoomDelay = 0;
+                if (ZoomCamera(zoomAmount))
+                {
+                    currentAutoZoomValue += zoomAmount;
+                }
+                else
+                {
+                    currentAutoZoomValue = 0;
+                    _isZooming = false;
+                }
+            }
+            else
+            {
+                _currentZoomDelay += Time.deltaTime;
+            }
+        }
+        else
+        {
+            _currentZoomDelay = 0;
+            _isZooming = false;
         }
     }
 
