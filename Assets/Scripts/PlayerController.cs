@@ -17,7 +17,9 @@ public class PlayerController : MonoBehaviour
     public AudioSource LandingSound;
 
     private const float DistToGround = 0.5f;
-    private float _currentDelay = 0.0f;
+    private float _currentTimeOnGround = 0.0f;
+    private float _currentTimeInAir = 0.0f;
+    public float ResetDelay = 5.0f;
 
     private Vector3 _forward;
     private Vector3 _right;
@@ -116,7 +118,7 @@ public class PlayerController : MonoBehaviour
             _animator.StopPlayer();
         }
 
-        if (Input.GetAxis("Jump") == 1.0f && _currentDelay > JumpDelay && _isMobile)
+        if (Input.GetAxis("Jump") == 1.0f && _currentTimeOnGround > JumpDelay && _isMobile)
         {
             _isGrounded = false;
             Jump();
@@ -137,13 +139,23 @@ public class PlayerController : MonoBehaviour
             CheckOnGround();
         }
 
+        //
         if (_isGrounded)
         {
-            _currentDelay += Time.deltaTime;
+            _currentTimeInAir = 0;
+            _currentTimeOnGround += Time.deltaTime;
         }
         else
         {
-            _currentDelay = 0;
+            _currentTimeOnGround = 0;
+            _currentTimeInAir += Time.deltaTime;
+        }
+
+        //reload game
+        if (_currentTimeInAir > ResetDelay)
+        {
+            _currentTimeInAir = 0;
+            SceneController.Instance.ReloadCurrentScene();
         }
     }
 
@@ -274,5 +286,10 @@ public class PlayerController : MonoBehaviour
     public BoxCollider GetBoxCollider()
     {
         return _boxCollider;
+    }
+
+    public Rigidbody GetRigidbody()
+    {
+        return _rb;
     }
 }

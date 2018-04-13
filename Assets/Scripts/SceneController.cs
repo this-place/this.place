@@ -157,8 +157,10 @@ public class SceneController : MonoBehaviour
         yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         Camera.main.GetComponent<CameraController>().ResetCameraAngle();
         _player = GameObject.FindGameObjectWithTag("Player");
+        PlayerController playerController = _player.GetComponent<PlayerController>();
+        playerController.GetRigidbody().velocity.Set(0, 0, 0);
         _player.transform.position = _position;
-        _player.GetComponent<PlayerController>().SetMobility(true);
+        playerController.SetMobility(true);
         _isReloading = false;
     }
 
