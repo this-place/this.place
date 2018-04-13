@@ -27,11 +27,12 @@ public class PlayerController : MonoBehaviour
     private BoxCollider _boxCollider;
     private PlayerAnimatorController _animator;
     private Vector3[] _groundSkinVertices = new Vector3[40];
-    private Vector3[] _forwardSkinVertices = new Vector3[16];
+    private Vector3[] _forwardSkinVertices = new Vector3[32];
     private bool _isMobile = true;
 
     private const float GroundSkinOffset = 0.5f;
-    private const float ForwardSkinOffset = 0.1f;
+    private const float ForwardSkinOffset = 0.05f;
+    private const float ForwardLeeway = 0.1f;
 
     private List<BlockBehaviour> _blockList = new List<BlockBehaviour>();
 
@@ -75,12 +76,11 @@ public class PlayerController : MonoBehaviour
             float zDiff = _forwardSkinVertices[(i + 1) % 4].z - _forwardSkinVertices[i].z;
             float yStart = _forwardSkinVertices[i].y;
             float zStart = _forwardSkinVertices[i].z;
-
-            for (int j = 0; j < 3; j++)
+            for (int j = 0; j < 7; j++)
             {
-                _forwardSkinVertices[j + 4 + (3 * i)] = new Vector3(0,
-                                                                    yStart + ((yDiff / 4) * (j + 1)),
-                                                                    zStart + ((zDiff / 4) * (j + 1)));
+                _forwardSkinVertices[j + 4 + (7 * i)] = new Vector3(0,
+                                                                    yStart + ((yDiff / 8) * (j + 1)),
+                                                                    zStart + ((zDiff / 8) * (j + 1)));
             }
         }
     }
@@ -185,9 +185,9 @@ public class PlayerController : MonoBehaviour
         {
             float newXValue = Mathf.Cos(angle) * skinVertex.x - Mathf.Sin(angle) * skinVertex.z;
             float newZValue = Mathf.Sin(angle) * skinVertex.x + Mathf.Cos(angle) * skinVertex.z;
-            Debug.DrawRay(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), transform.forward * 2f, Color.red);
+            Debug.DrawRay(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue), transform.forward * 2f, Color.yellow);
             RaycastHit[] rayHits = Physics.RaycastAll(_boxCollider.bounds.center + new Vector3(newXValue, skinVertex.y, newZValue),
-                transform.forward, movement.magnitude + _boxCollider.bounds.extents.x);
+                transform.forward, movement.magnitude + _boxCollider.bounds.extents.x + ForwardLeeway);
             if (rayHits.Length != 0)
             {
                 foreach (RaycastHit rayHit in rayHits)
