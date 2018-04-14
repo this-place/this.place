@@ -17,7 +17,7 @@ public class SceneController : MonoBehaviour
     private bool _isReloading = false;
     
     private int _sceneIndex = 0;
-    private CollectibleScore _collectibleScore;
+    public CollectibleScore _collectibleScore;
 
     // we use Singleton Pattern
     public static SceneController Instance;
@@ -123,12 +123,11 @@ public class SceneController : MonoBehaviour
         _toLoad.Add(sceneName);
         Load("Player");
         Camera.main.GetComponent<CameraController>().ResetCameraAngle();
-
         int index = _toLoad.IndexOf(sceneName);
-        Debug.Log(index);
         _toLoad = _toLoad.GetRange(index, _toLoad.Count - index);
         Load(_toLoad[0]);
         _sceneIndex = 0;
+        Menu.Instance.UpdateUIScores();
     }
 
     void UnloadAllScenes()
@@ -155,6 +154,7 @@ public class SceneController : MonoBehaviour
         string sceneName = _toLoad[_sceneIndex];
         yield return SceneManager.UnloadSceneAsync(sceneName);
         yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        _collectibleScore.ResetScore();
         Camera.main.GetComponent<CameraController>().ResetCameraAngle();
         _player = GameObject.FindGameObjectWithTag("Player");
         PlayerController playerController = _player.GetComponent<PlayerController>();
@@ -162,6 +162,7 @@ public class SceneController : MonoBehaviour
         _player.transform.position = _position;
         playerController.SetMobility(true);
         _isReloading = false;
+        Menu.Instance.UpdateUIScores();
     }
 
     void Load(string sceneName)
