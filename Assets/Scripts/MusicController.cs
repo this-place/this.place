@@ -58,7 +58,7 @@ public class MusicController : MonoBehaviour {
     IEnumerator FadeOutMusic(AudioSource track)
     {
         float startVolume = track.volume;
-        float FadeOutTime = 20.0f;
+        float FadeOutTime = 12.5f;
 
         while (track.volume > 0.001f)
         {
