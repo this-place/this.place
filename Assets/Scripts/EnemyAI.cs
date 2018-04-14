@@ -15,11 +15,13 @@ public class EnemyAI : MonoBehaviour
     private EnemyState _state = EnemyState.Idle;
     private Animator _animator;
     private BlockFace _face;
+    private Renderer _renderer;
     // Use this for initialization
     void Awake()
     {
         _animator = GetComponent<Animator>();
         _enemyController = GetComponentInParent<EnemyController>();
+        _renderer = GetComponentInChildren<Renderer>();
     }
 
     private void Start()
@@ -124,6 +126,7 @@ public class EnemyAI : MonoBehaviour
         _enemyController.LookAtFaceDir(face);
         _face = face;
         _animator.SetTrigger("Bounce");
+        _renderer.material.color = Color.red + Color.white;
     }
 
     // Animation Events found in Bounce
@@ -135,6 +138,7 @@ public class EnemyAI : MonoBehaviour
     private void OnBounceEnd()
     {
         _state = EnemyState.Idle;
+        _renderer.material.color = Color.white;
     }
 
     private enum EnemyState

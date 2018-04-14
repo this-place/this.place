@@ -51,6 +51,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1597194224308736
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4470565390940810}
+  - component: {fileID: 108904955921707044}
+  m_Layer: 9
+  m_Name: Glow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1861331974986530
 GameObject:
   m_ObjectHideFlags: 1
@@ -124,17 +140,31 @@ Transform:
   m_Father: {fileID: 4869944850807714}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4470565390940810
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1597194224308736}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4869944850807714}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4869944850807714
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1081310232630108}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.195599, y: 11.046022, z: 88.81758}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8, y: 14, z: 11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4122264976487182}
+  - {fileID: 4470565390940810}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -152,7 +182,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 4903a6782b59f5f45bc716519811290e, type: 2}
+  - {fileID: 2100000, guid: 251005e5dcc04784a99fbf70532eab7b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -252,6 +282,42 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!108 &108904955921707044
+Light:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1597194224308736}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 2
+  m_Color: {r: 0, g: 0.95862055, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 5
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!114 &114020279497996862
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -263,8 +329,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 184ae9552f62c854aac15e19440b0f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttentionRadius: 3
-  IdleTime: 2
+  AttentionRadius: 4
+  IdleTime: 1
   TopCollider: {fileID: 65177444385297752}
   CollidableLayers:
     serializedVersion: 2
@@ -280,8 +346,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b6057242c125454aaed79b03f217a43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlockMaterial: {fileID: 2100000, guid: cf6ec2771fe02f74f8860962de65e2d4, type: 2}
-  TransparentMaterial: {fileID: 2100000, guid: 01045ed71a9be0646a8f1dece78a2313, type: 2}
+  BlockMaterial: {fileID: 2100000, guid: 307ed3d5f8575d94e881c6c9faa212c5, type: 2}
+  TransparentMaterial: {fileID: 2100000, guid: 307ed3d5f8575d94e881c6c9faa212c5, type: 2}
   useDefaultMapping: 0
 --- !u!114 &114589613215353372
 MonoBehaviour:
@@ -312,6 +378,7 @@ MonoBehaviour:
     m_Bits: 512
   Plugins:
   - {fileID: 11400000, guid: 5b8b66d25ec0bde42b870324961b5d70, type: 2}
+  - {fileID: 11400000, guid: 759350186e48ca441b664570026cbf7b, type: 2}
   Root: {fileID: 1081310232630108}
   SkinToLengthRatio: 0.1
   InitialSpeed: 1

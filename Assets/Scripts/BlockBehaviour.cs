@@ -214,6 +214,17 @@ public class BlockBehaviour : MonoBehaviour
         }
     }
 
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (Vector3.Distance(collision.transform.position, transform.position) < 0.5f)
+            {
+                SceneController.Instance.ReloadCurrentScene();
+            }
+        }
+    }
+
     public void SetIsPlayerStandingOn(bool isPlayerStandingOn)
     {
         _isPlayerStandingOn = isPlayerStandingOn;
