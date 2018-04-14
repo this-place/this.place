@@ -7,10 +7,7 @@ using UnityEngine;
 public class PlayerMouse : MonoBehaviour
 {
     public LayerMask CollidableLayer;
-    private HashSet<BlockBehaviour> _faceMap = new HashSet<BlockBehaviour>();
-    private Vector3[] _directions = new Vector3[4]
-        { Vector3.forward, Vector3.back, Vector3.left, Vector3.right };
-
+    private BlockBehaviour _highlighted;
     private PlayerAnimatorController _animator;
     private PlayerController _playerController;
 
@@ -22,7 +19,7 @@ public class PlayerMouse : MonoBehaviour
 
     void Update()
     {
-        ResetFaces();
+        ResetFace();
 
         if (Input.GetAxisRaw("PullForward") == 1f && _playerController.IsMobile())
         {
@@ -36,7 +33,8 @@ public class PlayerMouse : MonoBehaviour
             Mathf.Round(transform.position.x),
             Mathf.Round(transform.position.y),
             Mathf.Round(transform.position.z));
-        Ray ray = new Ray(GridSpaceCoordinate, transform.forward);
+        Vector3 direction = SnapToCardinal(transform.forward);
+        Ray ray = new Ray(GridSpaceCoordinate, direction);
         RaycastHit hit;
         bool didRayCastHit = Physics.Raycast(ray, out hit, 0.6f, CollidableLayer);
         if (didRayCastHit)
@@ -49,32 +47,27 @@ public class PlayerMouse : MonoBehaviour
         }
     }
 
-    void ResetFaces()
+    void ResetFace()
     {
-        foreach (BlockBehaviour entry in _faceMap)
+       if (_highlighted != null)
         {
-            entry.UnhighlightFace();
+            _highlighted.UnhighlightFace();
         }
-
-        _faceMap.Clear();
-        SetNewFaces();
+        SetNewFace();
     }
 
-    void SetNewFaces()
+    void SetNewFace()
     {
-        foreach (Vector3 direction in _directions)
-        {
-            GameObject blockGameObject = GetGameObjInDir(direction);
-            BlockFace blockFaceOfNeighbouringBlock = BlockFaceMethods.BlockFaceFromNormal(-direction);
+        Vector3 direction = SnapToCardinal(transform.forward);
+        GameObject blockGameObject = GetGameObjInDir(direction);
+        BlockFace blockFaceOfNeighbouringBlock = BlockFaceMethods.BlockFaceFromNormal(-direction);
 
-            if (blockGameObject == null) continue;
+        if (blockGameObject == null) return;
 
-            BlockBehaviour blockBehaviour = blockGameObject.GetComponent<BlockBehaviour>();
-            if (blockBehaviour == null) return;
+        BlockBehaviour blockBehaviour = blockGameObject.GetComponent<BlockBehaviour>();
+        blockBehaviour.OnFaceSelect(blockFaceOfNeighbouringBlock);
+        _highlighted = blockBehaviour;
 
-            blockBehaviour.OnFaceSelect(blockFaceOfNeighbouringBlock);
-            _faceMap.Add(blockBehaviour);
-        }
     }
 
     GameObject GetGameObjInDir(Vector3 dir)
@@ -93,5 +86,20 @@ public class PlayerMouse : MonoBehaviour
         }
 
         return null;
+    }
+
+    Vector3 SnapToCardinal(Vector3 direction)
+    {
+        float x = direction.x;
+        float z = direction.z;
+
+        if (Math.Abs(x) > Math.Abs(z))
+        {
+            return new Vector3(x, 0, 0).normalized;
+        }
+        else
+        {
+            return new Vector3(0, 0, z).normalized;
+        }
     }
 }
