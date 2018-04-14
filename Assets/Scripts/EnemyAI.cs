@@ -19,6 +19,10 @@ public class EnemyAI : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _enemyController = GetComponentInParent<EnemyController>();
+    }
+
+    private void Start()
+    {
         _player = GameObject.FindGameObjectWithTag("Player");
     }
 

@@ -131,7 +131,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1081310232630108}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -7}
+  m_LocalPosition: {x: 13.195599, y: 11.046022, z: 88.81758}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4122264976487182}
@@ -312,6 +312,10 @@ MonoBehaviour:
   Root: {fileID: 1081310232630108}
   SkinToLengthRatio: 0.1
   InitialSpeed: 1
+  DisplacementSound: {fileID: 82333230681467520, guid: 12f11542da3b1164ba1b612baacdec8d,
+    type: 2}
+  DestroyedSound: {fileID: 82828001692260854, guid: b47ef45978d91a5469544238047d57c4,
+    type: 2}
 --- !u!212 &212884392673552770
 SpriteRenderer:
   m_ObjectHideFlags: 1
