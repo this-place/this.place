@@ -70,6 +70,7 @@ public class PlayerMouse : MonoBehaviour
             if (blockGameObject == null) continue;
 
             BlockBehaviour blockBehaviour = blockGameObject.GetComponent<BlockBehaviour>();
+            if (blockBehaviour == null) return;
 
             blockBehaviour.OnFaceSelect(blockFaceOfNeighbouringBlock);
             _faceMap.Add(blockBehaviour);
