@@ -57,7 +57,8 @@ public class DisintegratePlugin : BlockPlugin
                 if (collidedBlock != null)
                 {
                     collidedBlock.GetComponent<BlockBehaviour>().PlayDestroyedSound();
-                    Destroy(collidedBlock);
+                    collidedBlock.GetComponent<BlockBehaviour>().SelfDestruct();
+                    //Destroy(collidedBlock);
                 }
             }
         }

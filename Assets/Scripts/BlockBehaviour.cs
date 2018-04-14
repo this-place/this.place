@@ -31,6 +31,8 @@ public class BlockBehaviour : MonoBehaviour
     public AudioSource DisplacementSound;
     public AudioSource DestroyedSound;
 
+    public ParticleSystem SelfDestructEmitter;
+
     private void Awake()
     {
         TransparentRenderer = GetComponent<ITransparentRenderer>();
@@ -244,6 +246,11 @@ public class BlockBehaviour : MonoBehaviour
 
     public void SelfDestruct()
     {
+        ParticleSystem SelfDestructEmitterInstantiated = Instantiate(SelfDestructEmitter, transform.position, transform.rotation) as ParticleSystem;
+        UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(SelfDestructEmitterInstantiated.gameObject, gameObject.scene);
+        //SelfDestructEmitterInstantiated.GetComponent<ParticleSystemRenderer>().material = GetComponent<Renderer>().material;
+        SelfDestructEmitterInstantiated.Play();
+        Destroy(SelfDestructEmitterInstantiated.gameObject, 6.0f);
         Destroy(gameObject);
     }
 
