@@ -144,6 +144,7 @@ MonoBehaviour:
   - Stage_2_Part_1
   - Stage_2_Part_2
   - Stage_2_Part_3
+  - Stage_2_Part_4
   SceneName: Stage_2
 --- !u!4 &690889760
 Transform:
