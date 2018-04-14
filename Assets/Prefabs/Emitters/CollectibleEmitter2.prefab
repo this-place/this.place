@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198860921960255342}
   - component: {fileID: 199352270061202660}
   m_Layer: 0
-  m_Name: CollectiblesEmitter
+  m_Name: CollectibleEmitter2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
