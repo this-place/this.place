@@ -115,7 +115,7 @@ public class Menu : MonoBehaviour
             totalCollectibles.ToString();
 
         currentCollectibles = 0;
-        foreach (bool isCollected in CollectibleScores[_currentLevelSelected + 1].GetPrimaryCollectedInStage())
+        foreach (bool isCollected in CollectibleScores[_currentLevelSelected].GetPrimaryCollectedInStage())
         {
             if (isCollected)
             {
@@ -124,9 +124,9 @@ public class Menu : MonoBehaviour
         }
         ScenePrimaryCollectibleNumber.text = currentCollectibles.ToString() +
             "/" +
-            CollectibleScores[_currentLevelSelected + 1].GetPrimaryCollectedInStage().Count.ToString();
+            CollectibleScores[_currentLevelSelected].GetPrimaryCollectedInStage().Count.ToString();
         
-        List<bool> collectibleScore = CollectibleScores[_currentLevelSelected + 1].GetSecondaryCollectedInStage();
+        List<bool> collectibleScore = CollectibleScores[_currentLevelSelected].GetSecondaryCollectedInStage();
         for (int i = 0; i < collectibleScore.Count; i++)
         {
             SceneSecondaryCollectibles[i].enabled = true;
