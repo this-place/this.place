@@ -154,29 +154,11 @@ public class CameraController : MonoBehaviour
     private void AutoZoom()
     {
         float zoomAmount = autoZoomSpeed * (_offset.magnitude / zoomSpeedDistance);
-        if (IsPlayerObstructed(_offset.magnitude))
-        {
-            if (_isZooming || _currentZoomDelay > ZoomDelay)
-            {
-                _isZooming = true;
-                _currentZoomDelay = 0;
-                if (ZoomCamera(-zoomAmount))
-                {
-                    currentAutoZoomValue -= zoomAmount;
-                }
-                else
-                {
-                    _isZooming = false;
-                }
-            }
-            else
-            {
-                _currentZoomDelay += Time.deltaTime;
-            }
-        }
-        else if (currentAutoZoomValue < 0 &&
+        bool isActionTried = false;
+        if (currentAutoZoomValue < 0 &&
             !IsPlayerObstructed(_offset.magnitude + zoomAmount * _zoomLeeway))
         {
+            isActionTried = true;
             if (_isZooming || _currentZoomDelay > ZoomDelay)
             {
                 _isZooming = true;
@@ -196,7 +178,28 @@ public class CameraController : MonoBehaviour
                 _currentZoomDelay += Time.deltaTime;
             }
         }
-        else
+        if(IsPlayerObstructed(_offset.magnitude))
+        {
+            isActionTried = true;
+            if (_isZooming || _currentZoomDelay > ZoomDelay)
+            {
+                _isZooming = true;
+                _currentZoomDelay = 0;
+                if (ZoomCamera(-zoomAmount))
+                {
+                    currentAutoZoomValue -= zoomAmount;
+                }
+                else
+                {
+                    _isZooming = false;
+                }
+            }
+            else
+            {
+                _currentZoomDelay += Time.deltaTime;
+            }
+        } 
+        if(!isActionTried)
         {
             _currentZoomDelay = 0;
             _isZooming = false;
