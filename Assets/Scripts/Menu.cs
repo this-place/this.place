@@ -12,8 +12,17 @@ public class Menu : MonoBehaviour
     [Header("Scene Menu UI")]
     public Text LevelName;
     public Text ScenePrimaryCollectibleNumber;
+    public Renderer SceneSecondaryCollectible;
+    public List<Renderer> SceneSecondaryCollectibles = new List<Renderer>();
+    private float _sceneSecondaryTranslateAmount;
+    private float _sceneSecondaryOffset = 10;
     public Text LevelPrimaryCollectibleNumber;
+    public Renderer LevelSecondaryCollectible;
     public Text GamePrimaryCollectibleNumber;
+    public Renderer GameSecondaryCollectible;
+    public List<Renderer> GameSecondaryCollectibles = new List<Renderer>();
+    private float _gameSecondaryTranslateAmount;
+    private float _gameSecondaryOffset = 5;
     public Color DefaultImageColor;
     public Color CurrentlyChosenImageColor = Color.black;
     public Sprite[] LevelTextures;
@@ -74,6 +83,10 @@ public class Menu : MonoBehaviour
         _camera.SetIdle(true);
         _player = GameObject.FindGameObjectWithTag("Player");
         (_playerController = _player.GetComponent<PlayerController>()).SetMobility(false);
+        _gameSecondaryTranslateAmount = 0;
+        _sceneSecondaryTranslateAmount = 0;
+        _gameSecondaryOffset = (GameSecondaryCollectibles[1].transform.position.x - GameSecondaryCollectibles[0].transform.position.x)/2;
+        _sceneSecondaryOffset = (SceneSecondaryCollectibles[1].transform.position.x - SceneSecondaryCollectibles[0].transform.position.x) / 2;
         foreach (CollectibleScore cs in CollectibleScores)
         {
             cs.WipeScore();
@@ -112,6 +125,66 @@ public class Menu : MonoBehaviour
         ScenePrimaryCollectibleNumber.text = currentCollectibles.ToString() +
             "/" +
             CollectibleScores[_currentLevelSelected + 1].GetPrimaryCollectedInStage().Count.ToString();
+        
+        List<bool> collectibleScore = CollectibleScores[_currentLevelSelected + 1].GetSecondaryCollectedInStage();
+        for (int i = 0; i < collectibleScore.Count; i++)
+        {
+            SceneSecondaryCollectibles[i].enabled = true;
+            if (collectibleScore[i]) //collected
+            {
+                SceneSecondaryCollectibles[i].material.color = Color.white;
+            }
+            else
+            {
+                SceneSecondaryCollectibles[i].material.color = Color.black;
+            }
+        }
+        for (int i = collectibleScore.Count; i < SceneSecondaryCollectibles.Count; i++)
+        {
+            SceneSecondaryCollectibles[i].enabled = false;
+        }
+        float offset = _sceneSecondaryOffset * (SceneSecondaryCollectibles.Count - collectibleScore.Count);
+        for (int i = 0; i < SceneSecondaryCollectibles.Count; i++)
+        {
+            SceneSecondaryCollectibles[i].GetComponent<CollectiblesScript>().ResetRotation();
+            SceneSecondaryCollectibles[i].transform.Translate(Vector3.left * _sceneSecondaryTranslateAmount);
+            SceneSecondaryCollectibles[i].transform.Translate(Vector3.right * offset);
+        }
+        _sceneSecondaryTranslateAmount = offset;
+
+        CollectibleScore tempCS;
+        int currentValue = 0;
+        for (int j=0; j< CollectibleScores.Length; j++)
+        {
+            tempCS = CollectibleScores[j];
+            collectibleScore = tempCS.GetSecondaryCollectedInStage();
+            for (int i = 0; i < collectibleScore.Count; i++)
+            {
+                GameSecondaryCollectibles[currentValue].enabled = true;
+                if (collectibleScore[i]) //collected
+                {
+                    GameSecondaryCollectibles[currentValue].material.color = Color.white;
+                }
+                else
+                {
+                    GameSecondaryCollectibles[currentValue].material.color = Color.black;
+                }
+                currentValue++;
+            }
+        }
+        for (int i = currentValue; i < GameSecondaryCollectibles.Count; i++)
+        {
+            GameSecondaryCollectibles[i].enabled = false;
+        }
+        offset = _gameSecondaryOffset * (GameSecondaryCollectibles.Count - currentValue);
+        for (int i=0; i< GameSecondaryCollectibles.Count; i++)
+        {
+            GameSecondaryCollectibles[i].transform.Translate(Vector3.left * _gameSecondaryTranslateAmount);
+            //GameSecondaryCollectibles[i].transform.
+            GameSecondaryCollectibles[i].transform.Translate(Vector3.right * offset);
+        }
+        _gameSecondaryTranslateAmount = offset;
+        
     }
 
     public void UpdateUIScores()
@@ -127,6 +200,43 @@ public class Menu : MonoBehaviour
         LevelPrimaryCollectibleNumber.text = currentCollectibles +
             "/" +
             SceneController.Instance._collectibleScore.GetPrimaryCollectedInStage().Count.ToString();
+
+        int previousCollectibles = 0;
+        currentCollectibles = 0;
+        foreach (bool isCollected in SceneController.Instance._collectibleScore.GetSecondaryRecordInStage())
+        {
+            if (isCollected)
+            {
+                currentCollectibles++;
+            }
+        }
+        foreach (bool isCollected in SceneController.Instance._collectibleScore.GetSecondaryCollectedInStage())
+        {
+            if (isCollected)
+            {
+                previousCollectibles++;
+            }
+        }
+        if (SceneController.Instance._collectibleScore.GetSecondaryCollectedInStage().Count < 1)
+        {
+            LevelSecondaryCollectible.enabled = false;
+        }
+        else
+        {
+            LevelSecondaryCollectible.enabled = true;
+            if (currentCollectibles < 1 && previousCollectibles < 1) //uncollected previously and currently
+            {
+                LevelSecondaryCollectible.material.color = Color.white;
+            }
+            else if (currentCollectibles > 0) //collected
+            {
+                LevelSecondaryCollectible.material.color = Color.blue;
+            }
+            else //uncollected but previously collected
+            {
+                LevelSecondaryCollectible.material.color = Color.black;
+            }
+        }
     }
 
     public void ExitGame()

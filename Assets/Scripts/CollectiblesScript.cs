@@ -13,6 +13,7 @@ public class CollectiblesScript : MonoBehaviour
     private float _floatSpeed = 0.02f;
     private ParticleSystem _collectibleEmitterInstantiated;
     private bool _collected = false;
+    private float _rotateAmount = 0;
 
     void Update()
     {
@@ -21,6 +22,13 @@ public class CollectiblesScript : MonoBehaviour
         {
             transform.position += new Vector3(0, _floatSpeed, 0);
         }
+        _rotateAmount += _rotateSpeed;
+    }
+
+    public void ResetRotation()
+    {
+        transform.RotateAround(transform.position, Vector3.up, -_rotateAmount);
+        _rotateAmount = 0;
     }
 
     private void OnTriggerEnter(Collider collider)

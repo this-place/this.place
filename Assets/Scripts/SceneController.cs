@@ -127,6 +127,7 @@ public class SceneController : MonoBehaviour
         _toLoad = _toLoad.GetRange(index, _toLoad.Count - index);
         Load(_toLoad[0]);
         _sceneIndex = 0;
+        _collectibleScore.ResetScore();
         Menu.Instance.UpdateUIScores();
     }
 
@@ -162,6 +163,7 @@ public class SceneController : MonoBehaviour
         _player.transform.position = _position;
         playerController.SetMobility(true);
         _isReloading = false;
+        _collectibleScore.ResetScore();
         Menu.Instance.UpdateUIScores();
     }
 

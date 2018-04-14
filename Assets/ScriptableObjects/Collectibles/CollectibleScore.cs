@@ -27,6 +27,20 @@ public class CollectibleScore : ScriptableObject
     {
         _primaryRecord = PrimaryCollectiblesCollected;
         _secondaryRecord = SecondaryCollectiblesCollected;
+
+        List<bool> tempList = new List<bool>();
+        foreach (bool cs in PrimaryCollectiblesCollected)
+        {
+            tempList.Add(false);
+        }
+        _primaryRecord = tempList;
+
+        tempList = new List<bool>();
+        foreach (bool cs in SecondaryCollectiblesCollected)
+        {
+            tempList.Add(false);
+        }
+        _secondaryRecord = tempList;
     }
 
     public List<bool> WipeScore()
@@ -39,6 +53,27 @@ public class CollectibleScore : ScriptableObject
                 tempList.Add(false);
             }
             PrimaryCollectiblesCollected = tempList;
+
+            tempList = new List<bool>();
+            foreach (bool cs in SecondaryCollectiblesCollected)
+            {
+                tempList.Add(false);
+            }
+            SecondaryCollectiblesCollected = tempList;
+
+            tempList = new List<bool>();
+            foreach (bool cs in PrimaryCollectiblesCollected)
+            {
+                tempList.Add(false);
+            }
+            _primaryRecord = tempList;
+
+            tempList = new List<bool>();
+            foreach (bool cs in SecondaryCollectiblesCollected)
+            {
+                tempList.Add(false);
+            }
+            _secondaryRecord = tempList;
             return new List<bool>(PrimaryCollectiblesCollected);
         }
 
@@ -103,7 +138,24 @@ public class CollectibleScore : ScriptableObject
 
         return toReturn;
     }
-    
+
+    public List<bool> GetSecondaryRecordInStage()
+    {
+        if (IsPuzzle)
+        {
+            return new List<bool>(_secondaryRecord);
+        }
+
+        List<bool> toReturn = new List<bool>();
+
+        foreach (CollectibleScore cs in SubScores)
+        {
+            toReturn.AddRange(cs.GetSecondaryRecordInStage());
+        }
+
+        return toReturn;
+    }
+
     public List<bool> GetSecondaryCollectedInStage()
     {
         if (IsPuzzle)
