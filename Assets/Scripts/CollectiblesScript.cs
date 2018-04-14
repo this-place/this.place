@@ -5,7 +5,10 @@ using UnityEngine;
 public class CollectiblesScript : MonoBehaviour
 {
     public ParticleSystem CollectibleEmitter;
+    public AudioSource CollectibleCollectedSound;
+
     public int OptionalNumber = 0;
+
     private float _rotateSpeed = 0.3f;
     private float _floatSpeed = 0;
     private ParticleSystem _collectibleEmitterInstantiated;
@@ -28,6 +31,10 @@ public class CollectiblesScript : MonoBehaviour
             _collectibleEmitterInstantiated = Instantiate(CollectibleEmitter, transform.position, Quaternion.identity) as ParticleSystem;
             _collectibleEmitterInstantiated.GetComponent<ParticleSystemRenderer>().material.color = GetComponent<Renderer>().material.color;
             _collectibleEmitterInstantiated.Play();
+            if (CollectibleCollectedSound.clip != null)
+            {
+                AudioSource.PlayClipAtPoint(CollectibleCollectedSound.clip, transform.position);
+            }
             Destroy(_collectibleEmitterInstantiated, 1.5f);
         }
     }

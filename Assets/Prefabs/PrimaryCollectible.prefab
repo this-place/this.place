@@ -97,6 +97,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CollectibleEmitter: {fileID: 198800170384898968, guid: 777ecb480a600ce48a8b5c6881d0c195,
     type: 2}
+  CollectibleCollectedSound: {fileID: 82705616293263610, guid: a94fa3ea86f74a94fa76b1d7e58bcbeb,
+    type: 2}
   OptionalNumber: 0
 --- !u!135 &135353497912773804
 SphereCollider:
