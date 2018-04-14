@@ -266,6 +266,9 @@ MonoBehaviour:
   AttentionRadius: 3
   IdleTime: 2
   TopCollider: {fileID: 65177444385297752}
+  CollidableLayers:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &114202935330602156
 MonoBehaviour:
   m_ObjectHideFlags: 1
