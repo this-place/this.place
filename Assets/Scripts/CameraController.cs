@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.PostProcessing;
 
 public class CameraController : MonoBehaviour
 {
 
     public GameObject PlayerObject;
+    public PostProcessingBehaviour PostProcessingObject;
     public const float StartingXOffset = 0;
     public const float StartingYOffset = 3;
     public const float StartingZOffset = -6;
@@ -48,6 +50,16 @@ public class CameraController : MonoBehaviour
     public float ZoomDelay = 0.2f;
     private bool _isZooming = false;
 
+    //used for camera shake
+    private Rigidbody _playerRb;
+    private Vector3 _playerVelocity = Vector3.zero;
+    private float shakeThreshold = 4;
+    private float maxShakeOffset = 0.05f;
+    private float shakeOffsetSpeed = 0.01f;
+    private float currentShakeOffset = 0;
+    private bool shakingUp = true;
+    private bool shaking = false;
+
     private void Awake()
     {
         _offset = new Vector3(StartingXOffset, StartingYOffset, StartingZOffset);
@@ -58,6 +70,8 @@ public class CameraController : MonoBehaviour
     {
         _playerController = PlayerObject.GetComponent<PlayerController>();
         _playerCollider = PlayerObject.GetComponent<BoxCollider>();
+        _playerRb = PlayerObject.GetComponent<Rigidbody>();
+        PostProcessingObject = GetComponent<PostProcessingBehaviour>();
         _playerController.UpdateCamera();
     }
 
@@ -104,6 +118,60 @@ public class CameraController : MonoBehaviour
         }
 
         UpdateFadingBlocks();
+
+        UpdatePostProcessingDof();
+
+        UpdateScreenShake();
+    }
+
+    private void UpdateScreenShake()
+    {
+        Vector3 currentVelocity = _playerRb.velocity;
+        if (currentVelocity.y - _playerVelocity.y > shakeThreshold && _playerVelocity.y < 0)
+        {
+            shakingUp = true;
+            shaking = true;
+        }
+        _playerVelocity = currentVelocity;
+        ScreenShake();
+    }
+
+    private void ScreenShake()
+    {
+        if (shaking)
+        {
+            if (shakingUp)
+            {
+                if (currentShakeOffset < maxShakeOffset)
+                {
+                    transform.position = new Vector3(transform.position.x, transform.position.y + shakeOffsetSpeed, transform.position.z);
+                    currentShakeOffset += shakeOffsetSpeed;
+                }
+                else
+                {
+                    shakingUp = false;
+                }
+            }
+            else
+            {
+                if (currentShakeOffset > 0)
+                {
+                    transform.position = new Vector3(transform.position.x, transform.position.y - shakeOffsetSpeed, transform.position.z);
+                    currentShakeOffset -= shakeOffsetSpeed;
+                }
+                else
+                {
+                    shaking = false;
+                }
+            }
+
+            _offset = transform.position - PlayerObject.transform.position;
+        }
+    }
+
+    private void UpdatePostProcessingDof()
+    {
+        PostProcessingObject.UpdateDof(_offset.magnitude);
     }
 
     private Vector2 CalculateScreenSizeInWorldCoords() {
