@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.PostProcessing;
 
 public class CameraController : MonoBehaviour
 {
 
     public GameObject PlayerObject;
-    public PostProcessingBehaviour PostProcessingObject;
     public const float StartingXOffset = 0;
     public const float StartingYOffset = 3;
     public const float StartingZOffset = -6;
@@ -60,7 +58,6 @@ public class CameraController : MonoBehaviour
     {
         _playerController = PlayerObject.GetComponent<PlayerController>();
         _playerCollider = PlayerObject.GetComponent<BoxCollider>();
-        PostProcessingObject = GetComponent<PostProcessingBehaviour>();
         _playerController.UpdateCamera();
     }
 
@@ -107,13 +104,6 @@ public class CameraController : MonoBehaviour
         }
 
         UpdateFadingBlocks();
-
-        UpdatePostProcessingDof();
-    }
-
-    private void UpdatePostProcessingDof()
-    {
-        PostProcessingObject.UpdateDof(_offset.magnitude);
     }
 
     private Vector2 CalculateScreenSizeInWorldCoords() {
