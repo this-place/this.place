@@ -1,0 +1,192 @@
+fileFormatVersion: 2
+guid: 0d7d8ff580ca3e648b8e7f96f68f25a0
+timeCreated: 1523689318
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: arm
+    100002: arm.001
+    100004: body.001
+    100006: Bone
+    100008: Bone.001
+    100010: Bone.002
+    100012: Bone.003
+    100014: Bone.003_end
+    100016: Bone.004
+    100018: Bone.005
+    100020: Bone.005_end
+    100022: Bone.006
+    100024: Bone.006_end
+    100026: Bone.007
+    100028: Bone.008
+    100030: Bone.008_end
+    100032: Bone.010
+    100034: Bone.011
+    100036: Bone.011_end
+    100038: Camera
+    100040: hair
+    100042: hair.001
+    100044: hat
+    100046: hat.001
+    100048: head
+    100050: Lamp
+    100052: leg
+    100054: leg.001
+    100056: //RootNode
+    100058: mainchara_mqo.001
+    100060: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2"
+    400000: arm
+    400002: arm.001
+    400004: body.001
+    400006: Bone
+    400008: Bone.001
+    400010: Bone.002
+    400012: Bone.003
+    400014: Bone.003_end
+    400016: Bone.004
+    400018: Bone.005
+    400020: Bone.005_end
+    400022: Bone.006
+    400024: Bone.006_end
+    400026: Bone.007
+    400028: Bone.008
+    400030: Bone.008_end
+    400032: Bone.010
+    400034: Bone.011
+    400036: Bone.011_end
+    400038: Camera
+    400040: hair
+    400042: hair.001
+    400044: hat
+    400046: hat.001
+    400048: head
+    400050: Lamp
+    400052: leg
+    400054: leg.001
+    400056: //RootNode
+    400058: mainchara_mqo.001
+    400060: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2"
+    2000000: Camera
+    2100000: arm.001
+    2100002: leg.001
+    2100004: body.001
+    2100006: hair.001
+    2100008: hat.001
+    2100010: arm
+    2100012: leg
+    2100014: hair
+    2100016: hat
+    2100018: head
+    4300000: arm.001
+    4300002: leg.001
+    4300004: body.001
+    4300006: hair.001
+    4300008: hat.001
+    4300010: arm
+    4300012: leg
+    4300014: hair
+    4300016: hat
+    4300018: head
+    7400000: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|glide"
+    7400002: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|jump"
+    7400004: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|landing"
+    7400006: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|parachute"
+    7400008: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|pull_back"
+    7400010: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|pull_up"
+    7400012: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|push_back"
+    7400014: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|push_down"
+    7400016: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|wait"
+    7400018: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|walk"
+    9500000: //RootNode
+    10800000: Lamp
+    13700000: arm
+    13700002: arm.001
+    13700004: body.001
+    13700006: hair
+    13700008: hair.001
+    13700010: hat
+    13700012: hat.001
+    13700014: head
+    13700016: leg
+    13700018: leg.001
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
