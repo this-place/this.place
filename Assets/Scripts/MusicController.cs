@@ -45,10 +45,10 @@ public class MusicController : MonoBehaviour {
     IEnumerator FadeInMusic(AudioSource track)
     {
         float startVolume = track.volume;
-        float FadeInTime = 0.5f;
+        float FadeInTime = 10.0f;
 
         track.Play();
-        while (track.volume < 0.3f)
+        while (track.volume < 0.05f)
         {
             track.volume += startVolume * Time.deltaTime / FadeInTime;
             yield return null;
@@ -58,9 +58,9 @@ public class MusicController : MonoBehaviour {
     IEnumerator FadeOutMusic(AudioSource track)
     {
         float startVolume = track.volume;
-        float FadeOutTime = 3.0f;
+        float FadeOutTime = 20.0f;
 
-        while (track.volume > 0.01f)
+        while (track.volume > 0.001f)
         {
                 track.volume -= startVolume * Time.deltaTime / FadeOutTime;
 
