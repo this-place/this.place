@@ -28,7 +28,7 @@ public class DisintegratePlugin : BlockPlugin
     {
         if (!_isDisplaced && face != BlockFace.Top)
         {
-            if (_block.MoveBlock(face))
+            if (_block.MoveBlock(face, isError: true))
             {
                 _isDisplaced = true;
                 _directionOfTravel = face.GetOppositeFace();
