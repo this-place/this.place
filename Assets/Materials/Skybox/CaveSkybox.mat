@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: MorningSky
+  m_Name: CaveSkybox
   m_Shader: {fileID: 4800000, guid: 1b1032babd6d64921a50506aa07cf3b2, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -85,8 +85,8 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color1: {r: 0.50735295, g: 0.81653154, b: 1, a: 0}
-    - _Color2: {r: 1, g: 0.96653134, b: 0.51470584, a: 0}
+    - _Color1: {r: 0.035845585, g: 0.091797635, b: 0.125, a: 0}
+    - _Color2: {r: 0.18847318, g: 0.30882353, b: 0.30882353, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SkyColor1: {r: 0.36999997, g: 0.52, b: 0.73, a: 0}
     - _SkyColor2: {r: 0.89, g: 0.96, b: 1, a: 0}
