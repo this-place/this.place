@@ -3828,7 +3828,7 @@ MonoBehaviour:
   StageSecondaryCollectibleNumber: {fileID: 1291415502}
   LevelTextures:
   - {fileID: 21300000, guid: c51096029e718b147931bb3075430520, type: 3}
-  - {fileID: 21300000, guid: 17d8e36a01ed1504692458af9edab7f8, type: 3}
+  - {fileID: 21300000, guid: 3fb785fcfd1feed4ea3b81221938a88c, type: 3}
   - {fileID: 21300000, guid: 81090eb1aab79c741ba324bcdc8825bd, type: 3}
   - {fileID: 21300000, guid: a4b93386408784848a6a2cf3420d4e9a, type: 3}
   - {fileID: 21300000, guid: eb66741505abe9743aafbf0e755c967d, type: 3}
@@ -3840,8 +3840,6 @@ MonoBehaviour:
   - {fileID: 1054295119}
   SceneSecondaryCollectible: {fileID: 2043802376}
   SceneSecondaryCollectibles: []
-  LevelPrimaryCollectibleNumber: {fileID: 701648373}
-  LevelSecondaryCollectible: {fileID: 0}
   GamePrimaryCollectibleNumber: {fileID: 701648373}
   GameSecondaryCollectibleNumber: {fileID: 2038304460}
   DefaultImageColor: {r: 0, g: 0, b: 0, a: 0}
@@ -3858,6 +3856,7 @@ MonoBehaviour:
   - {fileID: 87510067}
   - {fileID: 672120738}
   - {fileID: 416709313}
+  _menuShowing: 1
 --- !u!224 &1450650887
 RectTransform:
   m_ObjectHideFlags: 0
