@@ -3828,10 +3828,10 @@ MonoBehaviour:
   StageSecondaryCollectibleNumber: {fileID: 1291415502}
   LevelTextures:
   - {fileID: 21300000, guid: c51096029e718b147931bb3075430520, type: 3}
-  - {fileID: 21300000, guid: 3fb785fcfd1feed4ea3b81221938a88c, type: 3}
-  - {fileID: 21300000, guid: 81090eb1aab79c741ba324bcdc8825bd, type: 3}
-  - {fileID: 21300000, guid: a4b93386408784848a6a2cf3420d4e9a, type: 3}
-  - {fileID: 21300000, guid: eb66741505abe9743aafbf0e755c967d, type: 3}
+  - {fileID: 21300000, guid: 801117fc121e7564c9f597a9f6abe576, type: 3}
+  - {fileID: 21300000, guid: 977fa0df475dd01429d4c9b9300fddb2, type: 3}
+  - {fileID: 21300000, guid: 31d401ce31e8279469eb1bc57af81376, type: 3}
+  - {fileID: 21300000, guid: b589bc8ff1881304b9df665cd222f964, type: 3}
   StageNames:
   - {fileID: 639492484}
   - {fileID: 848828109}
