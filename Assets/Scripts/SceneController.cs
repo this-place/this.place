@@ -74,7 +74,10 @@ public class SceneController : MonoBehaviour
     {
         _collectibleScore = cs;
         _collectibleScore.ResetScore();
-        Menu.Instance.UpdateUIScores();
+        if (Menu.Instance != null)
+        {
+            Menu.Instance.UpdateUIScores();
+        }
     }
 
     public void LoadNext()

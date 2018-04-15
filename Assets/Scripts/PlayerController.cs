@@ -157,7 +157,8 @@ public class PlayerController : MonoBehaviour
         if (_currentTimeInAir > ResetDelay)
         {
             _currentTimeInAir = 0;
-            SceneController.Instance.ReloadCurrentScene();
+            // let's not do this
+            // SceneController.Instance.ReloadCurrentScene();
         }
     }
 

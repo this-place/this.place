@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1273174, g: 0.13414761, b: 0.12107885, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -11613,6 +11613,62 @@ Transform:
   m_PrefabParentObject: {fileID: 4407584337683316, guid: 7bf3aeca06c4c4a4c9c13534205aa17f,
     type: 2}
   m_PrefabInternal: {fileID: 1834857932}
+--- !u!1001 &1635205465
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4172045816749160, guid: a981944a2f00a5a42bdab22983f60d82, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172045816749160, guid: a981944a2f00a5a42bdab22983f60d82, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -30.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172045816749160, guid: a981944a2f00a5a42bdab22983f60d82, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 107.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172045816749160, guid: a981944a2f00a5a42bdab22983f60d82, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172045816749160, guid: a981944a2f00a5a42bdab22983f60d82, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172045816749160, guid: a981944a2f00a5a42bdab22983f60d82, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172045816749160, guid: a981944a2f00a5a42bdab22983f60d82, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172045816749160, guid: a981944a2f00a5a42bdab22983f60d82, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 65205194595093546, guid: a981944a2f00a5a42bdab22983f60d82,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 65205194595093546, guid: a981944a2f00a5a42bdab22983f60d82,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1618761259315426, guid: a981944a2f00a5a42bdab22983f60d82, type: 2}
+      propertyPath: m_Name
+      value: Player Respawn Collider (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: a981944a2f00a5a42bdab22983f60d82, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1641879021
 GameObject:
   m_ObjectHideFlags: 0

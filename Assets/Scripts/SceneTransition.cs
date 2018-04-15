@@ -11,7 +11,14 @@ public class SceneTransition : MonoBehaviour
 
     private void Start()
     {
-        _light = GameObject.Find("Directional Light").GetComponent<Light>();
+        GameObject LightObj = GameObject.Find("Directional Light"); 
+        if (LightObj == null)
+        {
+            Destroy(this);
+            return;
+        }
+        _light = LightObj.GetComponent<Light>();
+       
     }
     private void OnTriggerEnter(Collider other)
     {

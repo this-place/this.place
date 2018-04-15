@@ -220,6 +220,7 @@ public class BlockBehaviour : MonoBehaviour
         {
             if (Vector3.Distance(collision.transform.position, transform.position) < 0.5f)
             {
+                Debug.Log("Error, reloading scene");
                 SceneController.Instance.ReloadCurrentScene();
             }
         }
