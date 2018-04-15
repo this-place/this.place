@@ -49,6 +49,12 @@ public class BlockBehaviour : MonoBehaviour
         Root = Root == null ? gameObject : Root;
         _originalScale = transform.localScale;
 
+        if (gameObject.scene.name == "Tutorial")
+        {
+            _isSpawned = true;
+            return;
+        }
+            
         transform.localScale = Vector3.zero;
         StartCoroutine(SpawnBlock());
     }
