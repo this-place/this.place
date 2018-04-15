@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public float JumpForce = 5.2f;
     public float RunMultiplier = 1.3f;
 
+    public Transform AudioListener;
     public AudioSource JumpingSound;
     public AudioSource LandingSound;
 
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
     private const float GroundSkinOffset = 0.5f;
     private const float ForwardSkinOffset = 0.05f;
     private const float ForwardLeeway = 0.1f;
+
 
     private List<BlockBehaviour> _blockList = new List<BlockBehaviour>();
 
@@ -99,6 +101,7 @@ public class PlayerController : MonoBehaviour
         _forward.y = 0;
         _forward = Vector3.Normalize(_forward);
         _right = Quaternion.Euler(new Vector3(0, 90, 0)) * _forward;
+        AudioListener.forward = _forward;
     }
 
     private bool _isGrounded;

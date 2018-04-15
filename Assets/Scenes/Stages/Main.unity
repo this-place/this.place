@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18728937, g: 0.92659396, b: 1.4463918, a: 1}
+  m_IndirectSpecularColor: {r: 0.18749061, g: 0.9268341, b: 1.4464028, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -214,6 +214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a91a0f0bc9a64654baa8133d0bb6cd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CollectibleEmitter: {fileID: 0}
+  CollectibleCollectedSound: {fileID: 0}
   OptionalNumber: 0
 --- !u!1 &87510065
 GameObject:
@@ -426,6 +428,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a91a0f0bc9a64654baa8133d0bb6cd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CollectibleEmitter: {fileID: 0}
+  CollectibleCollectedSound: {fileID: 0}
   OptionalNumber: 0
 --- !u!1 &172842639
 GameObject:
@@ -931,6 +935,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a91a0f0bc9a64654baa8133d0bb6cd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CollectibleEmitter: {fileID: 0}
+  CollectibleCollectedSound: {fileID: 0}
   OptionalNumber: 0
 --- !u!1 &416709311
 GameObject:
@@ -1587,6 +1593,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a91a0f0bc9a64654baa8133d0bb6cd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CollectibleEmitter: {fileID: 0}
+  CollectibleCollectedSound: {fileID: 0}
   OptionalNumber: 0
 --- !u!1 &672120736
 GameObject:
@@ -1973,6 +1981,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a91a0f0bc9a64654baa8133d0bb6cd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CollectibleEmitter: {fileID: 0}
+  CollectibleCollectedSound: {fileID: 0}
   OptionalNumber: 0
 --- !u!1 &860257980
 GameObject:
@@ -3577,4 +3587,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a91a0f0bc9a64654baa8133d0bb6cd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CollectibleEmitter: {fileID: 0}
+  CollectibleCollectedSound: {fileID: 0}
   OptionalNumber: 0
