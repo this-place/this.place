@@ -25,9 +25,6 @@ public class CollectibleScore : ScriptableObject
 
     public void ResetScore()
     {
-        _primaryRecord = PrimaryCollectiblesCollected;
-        _secondaryRecord = SecondaryCollectiblesCollected;
-
         List<bool> tempList = new List<bool>();
         foreach (bool cs in PrimaryCollectiblesCollected)
         {
