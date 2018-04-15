@@ -9,25 +9,28 @@ public class CollectiblesScript : MonoBehaviour
 
     public int OptionalNumber = 0;
 
-    private float _rotateSpeed = 0.3f;
-    private float _floatSpeed = 0;
+    private float _rotateSpeed = 0.6f;
+    private float _floatSpeed = 0.02f;
     private ParticleSystem _collectibleEmitterInstantiated;
+    private bool _collected = false;
 
     void Update()
     {
         transform.RotateAround(transform.position, Vector3.up, _rotateSpeed);
-        transform.position += new Vector3(0, _floatSpeed, 0);
+        if (_collected)
+        {
+            transform.position += new Vector3(0, _floatSpeed, 0);
+        }
     }
 
-    private void OnTriggerEnter(Collider colider)
+    private void OnTriggerEnter(Collider collider)
     {
-        if (colider.CompareTag("Player"))
+        if (collider.CompareTag("Player") && !_collected)
         {
             SendMessageUpwards("UpdateScore", this);
             _rotateSpeed += 10f;
-            _floatSpeed = 0.02f;
             Destroy(gameObject, 1f);
-
+            _collected = true;
             _collectibleEmitterInstantiated = Instantiate(CollectibleEmitter, transform.position, Quaternion.identity) as ParticleSystem;
             _collectibleEmitterInstantiated.GetComponent<ParticleSystemRenderer>().material.color = GetComponent<Renderer>().material.color;
             _collectibleEmitterInstantiated.Play();

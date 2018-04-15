@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 33276620863576378}
   - component: {fileID: 23635465736152260}
   - component: {fileID: 114930061533127284}
-  - component: {fileID: 135173604966675272}
   - component: {fileID: 82005866909059324}
+  - component: {fileID: 135408085230266822}
   m_Layer: 0
   m_Name: SecondaryCollectible
   m_TagString: Untagged
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1529484045111412}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -1.87, y: 1.016, z: -5.324}
+  m_LocalPosition: {x: 21.15855, y: 0.57210636, z: -21.638247}
   m_LocalScale: {x: 35, y: 35, z: 35}
   m_Children: []
   m_Father: {fileID: 0}
@@ -181,7 +181,7 @@ MonoBehaviour:
   CollectibleCollectedSound: {fileID: 82205796743585222, guid: 73ceefb5119748342b5cf3e2907eaac9,
     type: 2}
   OptionalNumber: 0
---- !u!135 &135173604966675272
+--- !u!135 &135408085230266822
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -191,5 +191,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.005
+  m_Radius: 0.014142102
   m_Center: {x: 0, y: 0, z: 0}
