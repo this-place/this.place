@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1273174, g: 0.13414761, b: 0.12107885, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -7217,7 +7217,7 @@ Transform:
   - {fileID: 1736444467}
   - {fileID: 2109840652}
   m_Father: {fileID: 1259130563}
-  m_RootOrder: 286
+  m_RootOrder: 273
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1001 &293921238
 Prefab:
@@ -17734,10 +17734,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4617227921920762, guid: a7d44ed2d77b7334f921650fa2a77e93,
     type: 2}
   m_PrefabInternal: {fileID: 709132460}
---- !u!4 &709667633 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 400006, guid: 3977dbeb421056d45a90b6e0dd97aca1, type: 3}
-  m_PrefabInternal: {fileID: 1378473776}
 --- !u!1001 &714028083
 Prefab:
   m_ObjectHideFlags: 0
@@ -24102,7 +24098,7 @@ MonoBehaviour:
   CollectibleScoreObj: {fileID: 11400000, guid: 6f51bf0ccd3199d488e24395e68e3b53,
     type: 2}
   PrimaryCollectibles:
-  - {fileID: 0}
+  - {fileID: 1506395111}
   - {fileID: 589013149}
   - {fileID: 217527282}
   - {fileID: 689171486}
@@ -30440,6 +30436,7 @@ Transform:
   - {fileID: 572556934}
   - {fileID: 921436338}
   - {fileID: 22027351}
+  - {fileID: 290209695}
   - {fileID: 1202119851}
   - {fileID: 2072512831}
   - {fileID: 298691106}
@@ -30453,7 +30450,6 @@ Transform:
   - {fileID: 1798087769}
   - {fileID: 709132461}
   - {fileID: 1225910859}
-  - {fileID: 290209695}
   - {fileID: 15214645}
   - {fileID: 1327710923}
   - {fileID: 1282938890}
@@ -30821,17 +30817,17 @@ Transform:
   - {fileID: 767966736}
   - {fileID: 600388668}
   - {fileID: 260691335}
+  - {fileID: 1057069579}
   - {fileID: 1512952419}
   - {fileID: 1400425165}
   - {fileID: 603093868}
-  - {fileID: 219880797}
   - {fileID: 1760306720}
+  - {fileID: 219880797}
+  - {fileID: 975753776}
   - {fileID: 1669496599}
   - {fileID: 1052905637}
   - {fileID: 1253434603}
   - {fileID: 875030618}
-  - {fileID: 975753776}
-  - {fileID: 1057069579}
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -34206,6 +34202,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3977dbeb421056d45a90b6e0dd97aca1, type: 3}
   m_IsPrefabParent: 0
+--- !u!4 &1378473777 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 1378473776}
 --- !u!1001 &1383407901
 Prefab:
   m_ObjectHideFlags: 0
@@ -36813,6 +36813,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 948cd0013deb6854691fb42280948915, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1506395111 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114789318114038370, guid: 948cd0013deb6854691fb42280948915,
+    type: 2}
+  m_PrefabInternal: {fileID: 1506395110}
+  m_Script: {fileID: 11500000, guid: a91a0f0bc9a64654baa8133d0bb6cd43, type: 3}
 --- !u!1001 &1506625664
 Prefab:
   m_ObjectHideFlags: 0
@@ -48849,7 +48855,7 @@ Transform:
   - {fileID: 1616391647}
   - {fileID: 383999931}
   - {fileID: 37109705}
-  - {fileID: 709667633}
+  - {fileID: 1378473777}
   - {fileID: 1035360368}
   - {fileID: 1456968904}
   - {fileID: 242586270}
