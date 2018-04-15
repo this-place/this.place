@@ -37,7 +37,6 @@ public class PlayerController : MonoBehaviour
     private const float ForwardSkinOffset = 0.05f;
     private const float ForwardLeeway = 0.1f;
 
-
     private List<BlockBehaviour> _blockList = new List<BlockBehaviour>();
 
     private void Awake()
