@@ -73,6 +73,7 @@ public class SceneController : MonoBehaviour
     public void RegisterCollectibleScore(CollectibleScore cs)
     {
         _collectibleScore = cs;
+        Menu.Instance.UpdateUIScores();
     }
 
     public void LoadNext()

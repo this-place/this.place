@@ -25,8 +25,13 @@ public class SpeechBubble : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
+        if (SpeechCanvasRoot.activeSelf || Menu.Instance != null && Menu.Instance._menuShowing)
+        {
+            return;
+        }
+
         if (other.CompareTag("Player"))
         {
             SpeechCanvasRoot.SetActive(true);

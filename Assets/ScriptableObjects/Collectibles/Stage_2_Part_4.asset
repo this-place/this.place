@@ -9,13 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f7de22cf90dbe64380430db31146f6d, type: 3}
-  m_Name: Stage_2
+  m_Name: Stage_2_Part_4
   m_EditorClassIdentifier: 
-  IsPuzzle: 0
-  SubScores:
-  - {fileID: 11400000, guid: 043b9760fd95f8a44bf4afd1a0f5c005, type: 2}
-  - {fileID: 11400000, guid: 656b16c49f8fadc4799c060e3527fe9f, type: 2}
-  - {fileID: 11400000, guid: c02092a8fa078a14eabfb47f7b354f17, type: 2}
-  - {fileID: 11400000, guid: 53dcf9ed187501e418bf9d101bc71726, type: 2}
+  IsPuzzle: 1
+  SubScores: []
   PrimaryCollectiblesCollected: 
   SecondaryCollectiblesCollected: 

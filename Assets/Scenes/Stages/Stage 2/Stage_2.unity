@@ -204,6 +204,7 @@ MonoBehaviour:
   - Stage_2_Part_3
   - Stage_2_Part_4
   SceneName: Stage_2
+  _collectibleScore: {fileID: 11400000, guid: f03eea87071a91c41aa5b1a15d6dec98, type: 2}
 --- !u!4 &690889760
 Transform:
   m_ObjectHideFlags: 0
