@@ -5,14 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class CheckPoint : MonoBehaviour
 {
-
-    //public string Level;
-    public bool ClearFlags;
-    public Color color;
-
     private Vector3 _position;
-    
-
     private void Start()
     {
         _position = transform.position;
@@ -24,15 +17,6 @@ public class CheckPoint : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             SendMessageUpwards("UnloadPrevious");
-            Camera.main.backgroundColor = color;
-            if (ClearFlags)
-            {
-                Camera.main.clearFlags = CameraClearFlags.SolidColor;
-            }
-            else
-            {
-                Camera.main.clearFlags = CameraClearFlags.Skybox;
-            }
         }
     }
 }

@@ -501,6 +501,7 @@ GameObject:
   - component: {fileID: 10314413}
   - component: {fileID: 10314415}
   - component: {fileID: 10314414}
+  - component: {fileID: 10314416}
   m_Layer: 0
   m_Name: CheckPoint
   m_TagString: Untagged
@@ -544,8 +545,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543f4106ed1ee13468b249c8e1fd3913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClearFlags: 0
-  color: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &10314416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 10314412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebc88b07963d7c848a2f627db23753ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkyBox: {fileID: 2100000, guid: 2bd8959f5fbd3644aa33af1a155fc147, type: 2}
+  Intensity: 1
 --- !u!1001 &11312996
 Prefab:
   m_ObjectHideFlags: 0
@@ -4810,6 +4822,7 @@ GameObject:
   - component: {fileID: 145143558}
   - component: {fileID: 145143559}
   - component: {fileID: 145143560}
+  - component: {fileID: 145143561}
   m_Layer: 0
   m_Name: Next Level Loader
   m_TagString: Untagged
@@ -4854,6 +4867,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3, y: 0.5, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &145143561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 145143557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebc88b07963d7c848a2f627db23753ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkyBox: {fileID: 2100000, guid: aa55ca848e686454fbd2900b8ad35bbb, type: 2}
+  Intensity: 0.3
 --- !u!1001 &147999424
 Prefab:
   m_ObjectHideFlags: 0

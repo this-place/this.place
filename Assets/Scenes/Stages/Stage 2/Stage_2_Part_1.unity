@@ -5267,9 +5267,32 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114121131968170906, guid: b5cbb8963e500b246a5063aee1cc6a1c,
+        type: 2}
+      propertyPath: SkyBox
+      value: 
+      objectReference: {fileID: 2100000, guid: aa55ca848e686454fbd2900b8ad35bbb, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b5cbb8963e500b246a5063aee1cc6a1c, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &512176212 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1016460850587524, guid: b5cbb8963e500b246a5063aee1cc6a1c,
+    type: 2}
+  m_PrefabInternal: {fileID: 512176211}
+--- !u!114 &512176213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 512176212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebc88b07963d7c848a2f627db23753ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkyBox: {fileID: 2100000, guid: aa55ca848e686454fbd2900b8ad35bbb, type: 2}
+  Intensity: 0.3
 --- !u!1001 &513589902
 Prefab:
   m_ObjectHideFlags: 0
