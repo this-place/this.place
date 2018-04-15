@@ -68,7 +68,7 @@ public class SceneController : MonoBehaviour
             _player = GameObject.FindGameObjectWithTag("Player");
             _player.transform.position = _position;
 
-            if (Menu.Instance._menuShowing) return;
+            if (Menu.Instance != null && Menu.Instance._menuShowing) return;
 
             PlayerController playerController = _player.GetComponent<PlayerController>();
 
