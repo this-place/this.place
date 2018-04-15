@@ -4532,6 +4532,12 @@ Prefab:
       propertyPath: SkyBox
       value: 
       objectReference: {fileID: 2100000, guid: 0eb5620fe424a1342be34e86c660b60a, type: 2}
+    - target: {fileID: 114808459760470876, guid: b5cbb8963e500b246a5063aee1cc6a1c,
+        type: 2}
+      propertyPath: _collectibleScore
+      value: 
+      objectReference: {fileID: 11400000, guid: 89762372c11c2cc4fbb6a15865438389,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b5cbb8963e500b246a5063aee1cc6a1c, type: 2}
   m_IsPrefabParent: 0

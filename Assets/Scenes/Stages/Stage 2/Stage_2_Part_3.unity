@@ -2030,7 +2030,7 @@ MonoBehaviour:
   CollectibleScoreObj: {fileID: 11400000, guid: c02092a8fa078a14eabfb47f7b354f17,
     type: 2}
   PrimaryCollectibles:
-  - {fileID: 0}
+  - {fileID: 645275106}
   - {fileID: 1294914436}
   - {fileID: 147582981}
   - {fileID: 1619486167}
@@ -5280,6 +5280,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 948cd0013deb6854691fb42280948915, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &645275106 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114789318114038370, guid: 948cd0013deb6854691fb42280948915,
+    type: 2}
+  m_PrefabInternal: {fileID: 645275105}
+  m_Script: {fileID: 11500000, guid: a91a0f0bc9a64654baa8133d0bb6cd43, type: 3}
 --- !u!1001 &649975806
 Prefab:
   m_ObjectHideFlags: 0
@@ -12399,6 +12405,12 @@ Prefab:
       propertyPath: Load
       value: Stage_2_Part_4
       objectReference: {fileID: 0}
+    - target: {fileID: 114808459760470876, guid: b5cbb8963e500b246a5063aee1cc6a1c,
+        type: 2}
+      propertyPath: _collectibleScore
+      value: 
+      objectReference: {fileID: 11400000, guid: c02092a8fa078a14eabfb47f7b354f17,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b5cbb8963e500b246a5063aee1cc6a1c, type: 2}
   m_IsPrefabParent: 0

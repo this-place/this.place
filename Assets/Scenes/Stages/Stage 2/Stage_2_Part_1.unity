@@ -5291,6 +5291,12 @@ Prefab:
       propertyPath: m_Center.y
       value: 0.4002962
       objectReference: {fileID: 0}
+    - target: {fileID: 114808459760470876, guid: b5cbb8963e500b246a5063aee1cc6a1c,
+        type: 2}
+      propertyPath: _collectibleScore
+      value: 
+      objectReference: {fileID: 11400000, guid: 043b9760fd95f8a44bf4afd1a0f5c005,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b5cbb8963e500b246a5063aee1cc6a1c, type: 2}
   m_IsPrefabParent: 0

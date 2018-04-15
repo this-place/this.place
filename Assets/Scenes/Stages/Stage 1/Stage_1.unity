@@ -21638,7 +21638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Scenes: []
   SceneName: Stage_1
-  _collectibleScore: {fileID: 0}
+  _collectibleScore: {fileID: 11400000, guid: 98221086d8f9a9a4bbe26af90b00f185, type: 2}
 --- !u!4 &619362558
 Transform:
   m_ObjectHideFlags: 0
