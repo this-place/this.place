@@ -15,7 +15,7 @@ public class SceneController : MonoBehaviour
     private bool _isLoadedToPosition = true;
     private GameObject _player;
     private bool _isReloading = false;
-    
+
     private int _sceneIndex = 0;
     public CollectibleScore _collectibleScore;
 
@@ -45,7 +45,7 @@ public class SceneController : MonoBehaviour
             Load(Scenes[0]);
         }
     }
-    
+
     public void RegisterScenes(List<string> scenes, string sceneName)
     {
         int index = _toLoad.IndexOf(sceneName);
@@ -67,6 +67,13 @@ public class SceneController : MonoBehaviour
             _isLoadedToPosition = false;
             _player = GameObject.FindGameObjectWithTag("Player");
             _player.transform.position = _position;
+
+            if (Menu.Instance._menuShowing) return;
+
+            PlayerController playerController = _player.GetComponent<PlayerController>();
+
+            playerController.SetGravity(true);
+            playerController.SetMobility(true);
         }
     }
 
@@ -126,7 +133,11 @@ public class SceneController : MonoBehaviour
         _isLoadedToPosition = true;
         _toLoad = Scenes;
         _toLoad.Add(sceneName);
-        Load("Player");
+        _player = GameObject.FindGameObjectWithTag("Player");
+        PlayerController playerController = _player.GetComponent<PlayerController>();
+        playerController.SetGravity(false);
+        playerController.SetMobility(false);
+
         Camera.main.GetComponent<CameraController>().ResetCameraAngle();
         int index = _toLoad.IndexOf(sceneName);
         _toLoad = _toLoad.GetRange(index, _toLoad.Count - index);
@@ -156,17 +167,19 @@ public class SceneController : MonoBehaviour
             Debug.Log("Sorry reloading does not work for puzzles");
             yield break;
         }
+        _player = GameObject.FindGameObjectWithTag("Player");
+        PlayerController playerController = _player.GetComponent<PlayerController>();
+        playerController.SetGravity(false);
+        playerController.SetMobility(false);
 
         string sceneName = _toLoad[_sceneIndex];
         yield return SceneManager.UnloadSceneAsync(sceneName);
         yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         _collectibleScore.ResetScore();
         Camera.main.GetComponent<CameraController>().ResetCameraAngle();
-        _player = GameObject.FindGameObjectWithTag("Player");
-        PlayerController playerController = _player.GetComponent<PlayerController>();
-        playerController.GetRigidbody().velocity.Set(0, 0, 0);
-        _player.transform.position = _position;
+        playerController.SetGravity(true);
         playerController.SetMobility(true);
+        _player.transform.position = _position;
         _isReloading = false;
         _collectibleScore.ResetScore();
         Menu.Instance.UpdateUIScores();

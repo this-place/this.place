@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1273174, g: 0.13414761, b: 0.12107885, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -771,6 +771,7 @@ MonoBehaviour:
   DisplacementSound: {fileID: 0}
   DestroyedSound: {fileID: 0}
   SelfDestructEmitter: {fileID: 0}
+  FadeInSpeed: 5
 --- !u!54 &22233479
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -31510,7 +31511,7 @@ GameObject:
   - component: {fileID: 1257008971}
   m_Layer: 0
   m_Name: CheckPoint
-  m_TagString: Untagged
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

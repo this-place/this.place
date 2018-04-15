@@ -5297,6 +5297,10 @@ Prefab:
       value: 
       objectReference: {fileID: 11400000, guid: 043b9760fd95f8a44bf4afd1a0f5c005,
         type: 2}
+    - target: {fileID: 1016460850587524, guid: b5cbb8963e500b246a5063aee1cc6a1c, type: 2}
+      propertyPath: m_TagString
+      value: CheckPoint
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b5cbb8963e500b246a5063aee1cc6a1c, type: 2}
   m_IsPrefabParent: 0

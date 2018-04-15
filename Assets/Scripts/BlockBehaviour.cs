@@ -33,6 +33,13 @@ public class BlockBehaviour : MonoBehaviour
 
     public GameObject SelfDestructEmitter;
 
+    public float FadeInSpeed = 5f;
+    private bool _isSpawned = false;
+    private bool _isSpawning = false;
+    private float _SpawnInT = 0;
+    private Vector3 _originalScale;
+
+
     private void Awake()
     {
         TransparentRenderer = GetComponent<ITransparentRenderer>();
@@ -40,6 +47,33 @@ public class BlockBehaviour : MonoBehaviour
         _currentSpeed = InitialSpeed;
 
         Root = Root == null ? gameObject : Root;
+        _originalScale = transform.localScale;
+
+        transform.localScale = Vector3.zero;
+        StartCoroutine(SpawnBlock());
+    }
+
+    IEnumerator SpawnBlock()
+    {
+        GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("CheckPoint");
+        GameObject checkpoint = gameObject;
+
+        foreach (GameObject cp in checkpoints)
+        {
+            if (cp.gameObject.scene == gameObject.scene)
+            {
+                checkpoint = cp;
+                break;
+            }
+        }
+
+        Vector3 checkPointTransform = checkpoint.transform.position;
+        Vector3 blockTransform = transform.position;
+        checkPointTransform.y = 0;
+        blockTransform.y = 0;
+        float timeToWait = Mathf.FloorToInt(Vector3.Distance(checkPointTransform, blockTransform));
+        yield return new WaitForSeconds(timeToWait * 0.2f);
+        _isSpawning = true;
     }
 
     // Use this for initialization
@@ -109,6 +143,14 @@ public class BlockBehaviour : MonoBehaviour
 
     private void Update()
     {
+
+        if (!_isSpawned)
+        {
+            if (!_isSpawning) return;
+            HandleSpawnBlock();
+            return;
+        }
+
         if (_isTranslating)
         {
             TranslateBlock();
@@ -117,6 +159,18 @@ public class BlockBehaviour : MonoBehaviour
         if (_onUpdate != null)
         {
             _onUpdate();
+        }
+    }
+
+    private void HandleSpawnBlock()
+    {
+        _SpawnInT += FadeInSpeed * Time.deltaTime;
+        transform.localScale = _originalScale * _SpawnInT;
+
+        if (_SpawnInT >= 1)
+        {
+            transform.localScale = _originalScale;
+            _isSpawned = true;
         }
     }
 

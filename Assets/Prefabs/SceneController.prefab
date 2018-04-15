@@ -137,8 +137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543f4106ed1ee13468b249c8e1fd3913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClearFlags: 0
-  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &114409546329884442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -164,3 +162,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Scenes: []
   SceneName: Stage_2
+  _collectibleScore: {fileID: 0}
