@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1872348, g: 0.92656815, b: 1.4463958, a: 1}
+  m_IndirectSpecularColor: {r: 0.10176441, g: 0.5004357, b: 0.62586534, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -394,7 +394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeTrigger: {fileID: 2027954765}
+  volumeTrigger: {fileID: 318634643}
   volumeLayer:
     serializedVersion: 2
     m_Bits: 4294967295
