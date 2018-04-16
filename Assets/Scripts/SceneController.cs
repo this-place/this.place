@@ -126,7 +126,23 @@ public class SceneController : MonoBehaviour
         {
             return;
         }
-        Unload(_toLoad[_sceneIndex - 1]);
+
+        StartCoroutine(PlayUnload(_toLoad[_sceneIndex - 1]));
+    }
+
+    IEnumerator PlayUnload(string sceneName)
+    {
+        BlockBehaviour[] blocks = FindObjectsOfType<BlockBehaviour>();
+        foreach (BlockBehaviour block in blocks)
+        {
+            if (block.gameObject.scene.name == sceneName)
+            {
+                block.DeSpawn(_position);
+            }
+        }
+
+        yield return new WaitForSeconds(15);
+        Unload(sceneName);
     }
 
     public void ReloadCurrentScene()
@@ -137,6 +153,8 @@ public class SceneController : MonoBehaviour
             StartCoroutine(ReloadScene());
         }
     }
+
+    private void _reloadCurrentScene() { }
 
     public void LoadNewScene(String sceneName)
     {

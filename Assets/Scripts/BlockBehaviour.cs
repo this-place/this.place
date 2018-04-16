@@ -37,6 +37,7 @@ public class BlockBehaviour : MonoBehaviour
     private bool _isSpawned = false;
     private bool _isSpawning = false;
     private float _SpawnInT = 0;
+    private bool _isDeSpawning = false;
     private Vector3 _originalScale;
 
 
@@ -54,7 +55,7 @@ public class BlockBehaviour : MonoBehaviour
             _isSpawned = true;
             return;
         }
-            
+
         transform.localScale = Vector3.zero;
         StartCoroutine(SpawnBlock());
     }
@@ -80,6 +81,22 @@ public class BlockBehaviour : MonoBehaviour
         float timeToWait = Mathf.FloorToInt(Vector3.Distance(checkPointTransform, blockTransform));
         yield return new WaitForSeconds(timeToWait * 0.2f);
         _isSpawning = true;
+    }
+
+    public void DeSpawn(Vector3 position)
+    {
+        StartCoroutine(DeSpawnBlock(position));
+    }
+
+    IEnumerator DeSpawnBlock(Vector3 position)
+    {
+        Vector3 blockTransform = transform.position;
+        position.y = 0;
+        blockTransform.y = 0;
+        float timeToWait = Mathf.FloorToInt(Vector3.Distance(position, blockTransform));
+        yield return new WaitForSeconds(timeToWait * 0.2f);
+        _SpawnInT = 1;
+        _isDeSpawning = true;
     }
 
     // Use this for initialization
@@ -149,12 +166,22 @@ public class BlockBehaviour : MonoBehaviour
 
     private void Update()
     {
-
         if (!_isSpawned)
         {
             if (!_isSpawning) return;
             HandleSpawnBlock();
             return;
+        }
+
+        if (_isDeSpawning)
+        {
+            _SpawnInT -= FadeInSpeed * Time.deltaTime;
+            transform.localScale = _originalScale * _SpawnInT;
+
+            if (_SpawnInT < 0)
+            {
+                Destroy(gameObject);
+            }
         }
 
         if (_isTranslating)
