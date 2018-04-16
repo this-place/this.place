@@ -49,7 +49,6 @@ public class DisintegratePlugin : BlockPlugin
             {
                 // block could not move due to obstruction
                 _block.SetCurrentSpeed(_block.InitialSpeed);
-                _block.SelfDestruct();
 
                 // fire raycast to grab collidable reference
                 GameObject collidedBlock = _block.GetCollidableObject(_directionOfTravel);
@@ -60,6 +59,11 @@ public class DisintegratePlugin : BlockPlugin
                     collidedBlock.GetComponent<BlockBehaviour>().SelfDestruct();
                     //Destroy(collidedBlock);
                 }
+
+                GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerAnimatorController>()
+                    .OnMoveBlockEnd();
+
+                _block.SelfDestruct();
             }
         }
         else if (!_block.IsTranslating())

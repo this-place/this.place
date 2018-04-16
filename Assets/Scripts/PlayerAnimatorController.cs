@@ -46,7 +46,7 @@ public class PlayerAnimatorController : MonoBehaviour
         _block.OnFaceClick(_face);
     }
 
-    private void OnMoveBlockEnd()
+    public void OnMoveBlockEnd()
     {
         _playerController.SetMobility(true);
         _playerController.SetGravity(true);
