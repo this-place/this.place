@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114930061533127284}
   - component: {fileID: 82005866909059324}
   - component: {fileID: 135408085230266822}
+  - component: {fileID: 123074814403694844}
   m_Layer: 0
   m_Name: SecondaryCollectible
   m_TagString: Untagged
@@ -181,6 +182,21 @@ MonoBehaviour:
   CollectibleCollectedSound: {fileID: 82205796743585222, guid: 73ceefb5119748342b5cf3e2907eaac9,
     type: 2}
   OptionalNumber: 0
+--- !u!123 &123074814403694844
+LensFlare:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1529484045111412}
+  m_Enabled: 1
+  m_Flare: {fileID: 12100000, guid: 0e5f153f2f9d947ba914bbf16a151626, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Brightness: 0.5
+  m_FadeSpeed: 1
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 6
+  m_Directional: 0
 --- !u!135 &135408085230266822
 SphereCollider:
   m_ObjectHideFlags: 1
