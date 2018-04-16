@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 198769636814830776}
   - component: {fileID: 199740565835787458}
   m_Layer: 0
-  m_Name: Self-Destruct Emitter
+  m_Name: DefaultSelfDestructEmitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
