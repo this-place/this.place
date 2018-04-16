@@ -35,7 +35,7 @@ public class CameraController : MonoBehaviour
     //used for zoom
     private const float MaxZoom = 6;
     private const float MinZoom = -5.5f;
-    private const float zoomSpeed = 3;
+    private const float zoomSpeed = 6;
     private float currentZoom = 0;
     private float zoomSpeedDistance = 6.5f;
     private BoxCollider _playerCollider;
@@ -217,7 +217,6 @@ public class CameraController : MonoBehaviour
                 }
                 else
                 {
-                    currentAutoZoomValue = 0;
                     _isZooming = false;
                 }
             }
@@ -349,13 +348,10 @@ public class CameraController : MonoBehaviour
 
     public void ResetCameraAngle()
     {
-        float yDiff = transform.eulerAngles.y - StartingYRotation;
-        RotateHorizontal(-yDiff);
-        RotateHorizontal(-currentAutoRotate);
         currentAutoRotate = 0;
-        RotateVertical(-_currentYDisplacement);
         _currentYDisplacement = 0;
-        _offset = transform.position - PlayerObject.transform.position + Vector3.Normalize(transform.position - PlayerObject.transform.position) * -currentZoom;
+        _offset = new Vector3(StartingXOffset, StartingYOffset, StartingZOffset);
+        transform.eulerAngles = new Vector3(StartingXRotation, StartingYRotation, StartingZRotation);
         currentZoom = 0;
         currentAutoZoomValue = 0;
     }
