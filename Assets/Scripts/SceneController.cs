@@ -12,6 +12,7 @@ public class SceneController : MonoBehaviour
     private List<string> _toLoad = new List<string>();
 
     private Vector3 _position;
+    public float OffsetAngle = 0;
     private bool _isLoadedToPosition = true;
     private GameObject _player;
     private bool _isReloading = false;
@@ -54,7 +55,17 @@ public class SceneController : MonoBehaviour
 
     }
 
-    public void RegisterCheckpoint(Vector3 position)
+    public void UpdateCheckpointOffset(float offsetAngle)
+    {
+        Instance._updateCheckpointOffset(offsetAngle);
+    }
+
+    private void _updateCheckpointOffset(float offsetAngle)
+    {
+        OffsetAngle = offsetAngle;
+    }
+
+        public void RegisterCheckpoint(Vector3 position)
     {
         Instance._registerCheckpoint(position);
     }
@@ -176,13 +187,13 @@ public class SceneController : MonoBehaviour
         yield return SceneManager.UnloadSceneAsync(sceneName);
         yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         _collectibleScore.ResetScore();
-        Camera.main.GetComponent<CameraController>().ResetCameraAngle();
         playerController.SetGravity(true);
         playerController.SetMobility(true);
         _player.transform.position = _position;
         _isReloading = false;
         _collectibleScore.ResetScore();
         Menu.Instance.UpdateUIScores();
+        Camera.main.GetComponent<CameraController>().ResetCameraAngle(OffsetAngle);
     }
 
     void Load(string sceneName)

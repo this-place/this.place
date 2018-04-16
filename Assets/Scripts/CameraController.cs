@@ -7,10 +7,19 @@ public class CameraController : MonoBehaviour
 
     public GameObject PlayerObject;
     public const float StartingXOffset = 0;
+    public const float StartingXOffset2 = -6;
+    public const float StartingXOffset3 = 0;
+    public const float StartingXOffset4 = 6;
     public const float StartingYOffset = 3;
     public const float StartingZOffset = -6;
+    public const float StartingZOffset2 = 0;
+    public const float StartingZOffset3 = 6;
+    public const float StartingZOffset4 = 0;
     public const float StartingXRotation = 30;
     public const float StartingYRotation = 0;
+    public const float StartingYRotation2 = 90;
+    public const float StartingYRotation3 = 180;
+    public const float StartingYRotation4 = 270;
     public const float StartingZRotation = 0;
 
     //used for translation
@@ -317,7 +326,7 @@ public class CameraController : MonoBehaviour
         _offset = transform.position - PlayerObject.transform.position;
     }
 
-    private void RotateHorizontal(float rotateAmount)
+    public void RotateHorizontal(float rotateAmount)
     {
         transform.RotateAround(PlayerObject.transform.position, Vector3.up, rotateAmount);
 
@@ -354,5 +363,38 @@ public class CameraController : MonoBehaviour
         transform.eulerAngles = new Vector3(StartingXRotation, StartingYRotation, StartingZRotation);
         currentZoom = 0;
         currentAutoZoomValue = 0;
+    }
+
+    public void ResetCameraAngle(float offsetAngle)
+    {
+        if (offsetAngle == 0)
+            ResetCameraAngle();
+        else if (offsetAngle == 90)
+        {
+            currentAutoRotate = 0;
+            _currentYDisplacement = 0;
+            _offset = new Vector3(StartingXOffset2, StartingYOffset, StartingZOffset2);
+            transform.eulerAngles = new Vector3(StartingXRotation, StartingYRotation2, StartingZRotation);
+            currentZoom = 0;
+            currentAutoZoomValue = 0;
+        }
+        else if (offsetAngle == 180)
+        {
+            currentAutoRotate = 0;
+            _currentYDisplacement = 0;
+            _offset = new Vector3(StartingXOffset3, StartingYOffset, StartingZOffset3);
+            transform.eulerAngles = new Vector3(StartingXRotation, StartingYRotation3, StartingZRotation);
+            currentZoom = 0;
+            currentAutoZoomValue = 0;
+        }
+        else if (offsetAngle == 270)
+        {
+            currentAutoRotate = 0;
+            _currentYDisplacement = 0;
+            _offset = new Vector3(StartingXOffset4, StartingYOffset, StartingZOffset4);
+            transform.eulerAngles = new Vector3(StartingXRotation, StartingYRotation4, StartingZRotation);
+            currentZoom = 0;
+            currentAutoZoomValue = 0;
+        }
     }
 }

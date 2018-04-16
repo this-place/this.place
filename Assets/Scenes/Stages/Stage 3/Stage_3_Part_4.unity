@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1273174, g: 0.13414761, b: 0.12107885, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731704, g: 0.13414727, b: 0.121078536, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -8950,6 +8950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Scenes: []
   SceneName: Stage_3_Part_4
+  OffsetAngle: 0
   _collectibleScore: {fileID: 11400000, guid: c0d8d51dbd4dd494d9306af083be5233, type: 2}
 --- !u!4 &340127488
 Transform:
@@ -31463,6 +31464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543f4106ed1ee13468b249c8e1fd3913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offsetAngle: 180
 --- !u!65 &1257008972
 BoxCollider:
   m_ObjectHideFlags: 0
