@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.1273174, g: 0.13414761, b: 0.12107885, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -573,13 +573,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'I need to climb
+  m_text: 'These creatures, hmm?
 
-    upwards... oh?
-
-    What are these
-
-    creatures?'
+    Maybe if I step on them...'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3dc0263bf2511724db0a0b852f150ec9, type: 2}
   m_sharedMaterial: {fileID: 21137366939891368, guid: 3dc0263bf2511724db0a0b852f150ec9,
@@ -625,7 +621,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 16
+  m_firstOverflowCharacterIndex: 6
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_enableKerning: 1
@@ -647,10 +643,10 @@ MonoBehaviour:
   m_margin: {x: -3.7089348, y: 0, z: -1.94273, w: 0}
   m_textInfo:
     textComponent: {fileID: 39701166}
-    characterCount: 56
+    characterCount: 48
     spriteCount: 0
-    spaceCount: 9
-    wordCount: 10
+    spaceCount: 8
+    wordCount: 9
     linkCount: 0
     lineCount: 4
     pageCount: 1
@@ -6541,7 +6537,6 @@ Transform:
   - {fileID: 1642168043}
   - {fileID: 505971281}
   - {fileID: 432773697}
-  - {fileID: 1376998917}
   - {fileID: 8386871}
   - {fileID: 1973313351}
   - {fileID: 24730948}
@@ -6595,6 +6590,7 @@ Transform:
   - {fileID: 1135916005}
   - {fileID: 552774539}
   - {fileID: 675651686}
+  - {fileID: 1376998917}
   - {fileID: 148923486}
   - {fileID: 1009512906}
   - {fileID: 11604423}
@@ -6628,7 +6624,6 @@ Transform:
   - {fileID: 116096858}
   - {fileID: 1255195926}
   - {fileID: 133010337}
-  - {fileID: 1511188415}
   - {fileID: 1188123859}
   - {fileID: 260723970}
   - {fileID: 1937630275}
@@ -6638,6 +6633,7 @@ Transform:
   - {fileID: 125859875}
   - {fileID: 1845547917}
   - {fileID: 1325056053}
+  - {fileID: 1511188415}
   - {fileID: 670366586}
   - {fileID: 1867568946}
   - {fileID: 2073786408}
@@ -6659,8 +6655,8 @@ Transform:
   - {fileID: 1088105488}
   - {fileID: 26193426}
   - {fileID: 267261321}
-  - {fileID: 545683544}
   - {fileID: 519792792}
+  - {fileID: 545683544}
   - {fileID: 955181019}
   - {fileID: 1127473149}
   - {fileID: 2022288327}
