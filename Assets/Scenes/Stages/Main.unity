@@ -1919,7 +1919,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4098695893459986, guid: 621433f92b1188f4abef5b97f0607a60, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 244
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 4098695893459986, guid: 621433f92b1188f4abef5b97f0607a60, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1981,7 +1981,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4733010725720110, guid: 948cd0013deb6854691fb42280948915, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 250.3
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 4733010725720110, guid: 948cd0013deb6854691fb42280948915, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2873,6 +2873,7 @@ MonoBehaviour:
   - Stage_2
   - Stage_3
   SceneName: Main
+  OffsetAngle: 0
   _collectibleScore: {fileID: 0}
 --- !u!4 &1298553163
 Transform:
