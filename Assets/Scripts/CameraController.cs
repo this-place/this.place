@@ -42,10 +42,9 @@ public class CameraController : MonoBehaviour
     private float currentAutoRotate = 0f;
 
     //used for zoom
-    private const float MaxZoom = 6;
-    private const float MinZoom = -5.5f;
+    private const float MaxZoom = 12f;
+    private const float MinZoom = 0.8f;
     private const float zoomSpeed = 6;
-    private float currentZoom = 0;
     private float zoomSpeedDistance = 6.5f;
     private BoxCollider _playerCollider;
 
@@ -85,14 +84,13 @@ public class CameraController : MonoBehaviour
     {
         Vector3 newPosition = PlayerObject.transform.position + _offset;
         transform.position = newPosition;
-
         if (!_idle)
         {
             RotateMouseCamera();
 
             if (Input.GetAxis("CameraZoom") > 0 || Input.GetAxis("CameraZoom") < 0)
             {
-                ZoomCamera(Input.GetAxis("CameraZoom"));
+                ZoomCamera(-Input.GetAxis("CameraZoom"));
             }
             else
             {
@@ -266,16 +264,13 @@ public class CameraController : MonoBehaviour
     private bool ZoomCamera(float zoomAmount)
     {
         float zoomDifference = zoomSpeed * zoomAmount;
-        if (!(currentZoom + zoomDifference > MaxZoom) && !(currentZoom + zoomDifference < MinZoom))
+        _offset = transform.position - PlayerObject.transform.position + Vector3.Normalize(transform.position - PlayerObject.transform.position) * zoomDifference;
+        if (_offset.magnitude > MaxZoom || _offset.magnitude < MinZoom)
         {
-            _offset = transform.position - PlayerObject.transform.position + Vector3.Normalize(transform.position - PlayerObject.transform.position) * zoomDifference;
-            currentZoom += zoomDifference;
-            return true;
-        }
-        else
-        {
+            _offset = transform.position - PlayerObject.transform.position;
             return false;
         }
+        return true;
     }
 
     private void UpdateFadingBlocks()
@@ -361,7 +356,6 @@ public class CameraController : MonoBehaviour
         _currentYDisplacement = 0;
         _offset = new Vector3(StartingXOffset, StartingYOffset, StartingZOffset);
         transform.eulerAngles = new Vector3(StartingXRotation, StartingYRotation, StartingZRotation);
-        currentZoom = 0;
         currentAutoZoomValue = 0;
     }
 
@@ -375,7 +369,6 @@ public class CameraController : MonoBehaviour
             _currentYDisplacement = 0;
             _offset = new Vector3(StartingXOffset2, StartingYOffset, StartingZOffset2);
             transform.eulerAngles = new Vector3(StartingXRotation, StartingYRotation2, StartingZRotation);
-            currentZoom = 0;
             currentAutoZoomValue = 0;
         }
         else if (offsetAngle == 180)
@@ -384,7 +377,6 @@ public class CameraController : MonoBehaviour
             _currentYDisplacement = 0;
             _offset = new Vector3(StartingXOffset3, StartingYOffset, StartingZOffset3);
             transform.eulerAngles = new Vector3(StartingXRotation, StartingYRotation3, StartingZRotation);
-            currentZoom = 0;
             currentAutoZoomValue = 0;
         }
         else if (offsetAngle == 270)
@@ -393,7 +385,6 @@ public class CameraController : MonoBehaviour
             _currentYDisplacement = 0;
             _offset = new Vector3(StartingXOffset4, StartingYOffset, StartingZOffset4);
             transform.eulerAngles = new Vector3(StartingXRotation, StartingYRotation4, StartingZRotation);
-            currentZoom = 0;
             currentAutoZoomValue = 0;
         }
     }
