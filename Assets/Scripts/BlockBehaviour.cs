@@ -33,6 +33,8 @@ public class BlockBehaviour : MonoBehaviour
 
     public GameObject SelfDestructEmitter;
 
+    public Color GreyedOutColor;
+
     public float FadeInSpeed = 5f;
     private bool _isSpawned = false;
     private bool _isSpawning = false;

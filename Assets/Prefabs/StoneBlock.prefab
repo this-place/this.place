@@ -137,3 +137,5 @@ MonoBehaviour:
     type: 2}
   SelfDestructEmitter: {fileID: 1859638957454700, guid: 1d7c5a2a78bf5ed4ca8619bf8197ad5e,
     type: 2}
+  GreyedOutColor: {r: 0.5661765, g: 0.5661765, b: 0.5661765, a: 0}
+  FadeInSpeed: 5

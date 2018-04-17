@@ -25,6 +25,10 @@ public class MoveablePlugin : BlockPlugin
             _isDisplaced = isError ? false : true;
             _displacedFace = face;
             _block.PlayDisplacementSound();
+            if (!isError) // Only grey out block if it was displaced
+            {
+                _block.StartCoroutine(GreyOutBlock(_block.GetComponent<Renderer>().material));
+            }
         }
     }
 
@@ -38,5 +42,19 @@ public class MoveablePlugin : BlockPlugin
     {
         if (_isDisplaced) return Vector3.zero;
         return face.GetNormal();
+    }
+
+    IEnumerator GreyOutBlock(Material BlockMaterial)
+    {
+        float ElapsedTime = 0.0f;
+        float TotalTime = 3.0f;
+
+        while (ElapsedTime < TotalTime)
+        {
+            BlockMaterial.color = Color.Lerp(BlockMaterial.color, _block.GreyedOutColor, ElapsedTime / TotalTime);
+
+            ElapsedTime += Time.deltaTime;
+            yield return null;
+        }
     }
 }
