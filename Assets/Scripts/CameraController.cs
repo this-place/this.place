@@ -45,6 +45,8 @@ public class CameraController : MonoBehaviour
     private const float MaxZoom = 12f;
     private const float MinZoom = 0.8f;
     private const float zoomSpeed = 6;
+    private const float joystickZoomSpeedFactor = 0.02f;
+    private const float joystickMaxSpeed = 1;
     private float zoomSpeedDistance = 6.5f;
     private BoxCollider _playerCollider;
 
@@ -87,10 +89,18 @@ public class CameraController : MonoBehaviour
         if (!_idle)
         {
             RotateMouseCamera();
-
             if (Input.GetAxis("CameraZoom") > 0 || Input.GetAxis("CameraZoom") < 0)
             {
                 ZoomCamera(-Input.GetAxis("CameraZoom"));
+            }
+            else if (Input.GetAxis("CameraZoomJoystick") > 0 || Input.GetAxis("CameraZoomJoystick") < 0)
+            {
+                if (Math.Abs(Input.GetAxis("CameraZoomJoystick")) < joystickMaxSpeed)
+                    ZoomCamera(-Input.GetAxis("CameraZoomJoystick") * joystickZoomSpeedFactor);
+                else if (Input.GetAxis("CameraZoomJoystick") > 0)
+                    ZoomCamera(-joystickMaxSpeed * joystickZoomSpeedFactor);
+                else
+                    ZoomCamera(joystickMaxSpeed * joystickZoomSpeedFactor);
             }
             else
             {

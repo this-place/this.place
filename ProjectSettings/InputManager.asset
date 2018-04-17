@@ -106,9 +106,9 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: '`'
     altNegativeButton: 
-    altPositiveButton: '`'
+    altPositiveButton: 
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -204,7 +204,7 @@ InputManager:
     negativeButton: 
     positiveButton: m
     altNegativeButton: 
-    altPositiveButton: 
+    altPositiveButton: escape
     gravity: 0
     dead: 0
     sensitivity: 1000
@@ -268,7 +268,7 @@ InputManager:
     negativeButton: 
     positiveButton: joystick button 2
     altNegativeButton: 
-    altPositiveButton: 
+    altPositiveButton: joystick button 0
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -282,7 +282,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: joystick button 0
+    positiveButton: joystick button 3
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
@@ -387,5 +387,21 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
+    axis: 7
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: CameraZoomJoystick
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: joystick button 5
+    positiveButton: joystick button 7
+    altNegativeButton: joystick button 4
+    altPositiveButton: joystick button 6
+    gravity: 10
+    dead: 0.01
+    sensitivity: 10
+    snap: 0
+    invert: 0
+    type: 0
     axis: 7
     joyNum: 0
