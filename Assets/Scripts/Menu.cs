@@ -79,6 +79,11 @@ public class Menu : MonoBehaviour
             SceneController.Instance.ReloadCurrentScene();
         }
 
+        if (Input.GetAxisRaw("Reset") == 1f && !_menuShowing)
+        {
+            ResetGame();
+        }
+
         if (Input.GetAxisRaw("Pause") == 1f && !_menuShowing)
         {
             StopGame();
@@ -98,6 +103,19 @@ public class Menu : MonoBehaviour
             cs.WipeScore();
         }
         UpdateMenuScores();
+    }
+
+    private void ResetGame()
+    {
+        JumpToLevel(LevelTextures[0].name.Split('.')[0]);
+        foreach (CollectibleScore cs in CollectibleScores)
+        {
+            cs.WipeScore();
+        }
+        UpdateMenuScores();
+
+        StopGame();
+        ShowMenu(_mainMenu);
     }
 
     public void UpdateMenuScores()
