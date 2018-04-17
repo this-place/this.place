@@ -305,8 +305,8 @@ public class CameraController : MonoBehaviour
 
     private void RotateMouseCamera()
     {
-        float rotateXAmount = (Input.GetAxisRaw("Mouse X")) * MouseXSpeed;
-        float rotateYAmount = (Input.GetAxisRaw("Mouse Y")) * MouseYSpeed;
+        float rotateXAmount = (Input.GetAxis("Mouse X")) * MouseXSpeed;
+        float rotateYAmount = (Input.GetAxis("Mouse Y")) * MouseYSpeed;
         _currentYDisplacement += rotateYAmount;
         if (_currentYDisplacement > MaxYDisplacement)
         {
