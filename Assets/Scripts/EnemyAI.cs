@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -51,6 +52,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (_state == EnemyState.Idle || _state == EnemyState.Waiting)
         {
+            Destroy(_enemyController.EyesPivot);
             GetComponent<BlockBehaviour>().enabled = true;
             // ensure does not eat any RayCasts
             TopCollider.enabled = false;
