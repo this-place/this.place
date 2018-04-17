@@ -141,6 +141,15 @@ public class SceneController : MonoBehaviour
             }
         }
 
+        CollectiblesScript[] collectibles = FindObjectsOfType<CollectiblesScript>();
+        foreach (CollectiblesScript collectible in collectibles)
+        {
+            if (collectible.gameObject.scene.name == sceneName)
+            {
+                collectible.DeSpawn(_position);
+            }
+        }
+
         yield return new WaitForSeconds(15);
         Unload(sceneName);
     }
