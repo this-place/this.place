@@ -118,12 +118,12 @@ public class CameraController : MonoBehaviour
                     rotateAmount += currentAutoRotate;
                     currentAutoRotate = 0;
                 }
-                RotateHorizontal(-rotateAmount);
+                RotateHorizontal(rotateAmount);
             }
         }
         else
         {
-            RotateHorizontal(IdleRotateSpeed);
+            RotateHorizontal(-IdleRotateSpeed);
             currentAutoRotate += IdleRotateSpeed;
             if (currentAutoRotate > 360)
             {
