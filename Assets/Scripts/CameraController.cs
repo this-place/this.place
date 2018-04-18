@@ -31,7 +31,7 @@ public class CameraController : MonoBehaviour
     private const float MouseXSpeed = 3f;
     private const float MouseYSpeed = 1f;
     private float _currentYDisplacement = -20f;
-    private const float MaxYDisplacement = 70f;
+    private const float MaxYDisplacement = 60f;
     private PlayerController _playerController;
     private ArrayList _fadeBlocks = new ArrayList();
     private bool _idle = false;
