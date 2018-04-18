@@ -17,6 +17,10 @@ public class EnemyAI : MonoBehaviour
     private Animator _animator;
     private BlockFace _face;
     private Renderer _renderer;
+
+    public AudioSource DeathSound;
+    public float DeathIndicatorTime;
+
     // Use this for initialization
     void Awake()
     {
@@ -52,7 +56,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (_state == EnemyState.Idle || _state == EnemyState.Waiting)
         {
-            Destroy(_enemyController.EyesPivot);
+            PlayDeathSequence();
             GetComponent<BlockBehaviour>().enabled = true;
             // ensure does not eat any RayCasts
             TopCollider.enabled = false;
@@ -150,5 +154,27 @@ public class EnemyAI : MonoBehaviour
         Idle,
         Moving,
         Waiting
+    }
+
+    public void PlayDeathSequence()
+    {
+        Destroy(_enemyController.EyesPivot);
+        if (DeathSound.clip != null)
+        {
+            AudioSource.PlayClipAtPoint(DeathSound.clip, transform.position);
+        }
+
+        SetBlue();
+        Invoke("SetOriginal", DeathIndicatorTime);
+    }
+
+    public void SetBlue()
+    {
+        _renderer.material.color = Color.cyan + Color.white;
+    }
+
+    public void SetOriginal()
+    {
+        _renderer.material.color = Color.white;
     }
 }

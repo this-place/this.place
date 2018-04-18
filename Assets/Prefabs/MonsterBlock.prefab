@@ -335,6 +335,9 @@ MonoBehaviour:
   CollidableLayers:
     serializedVersion: 2
     m_Bits: 512
+  DeathSound: {fileID: 82091196929148722, guid: 55abb1561d390b446955d29e35807cba,
+    type: 2}
+  DeathIndicatorTime: 0.5
 --- !u!114 &114202935330602156
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -386,6 +389,9 @@ MonoBehaviour:
     type: 2}
   DestroyedSound: {fileID: 82828001692260854, guid: b47ef45978d91a5469544238047d57c4,
     type: 2}
+  SelfDestructEmitter: {fileID: 0}
+  GreyedOutColor: {r: 0, g: 0, b: 0, a: 0}
+  FadeInSpeed: 5
 --- !u!212 &212884392673552770
 SpriteRenderer:
   m_ObjectHideFlags: 1
