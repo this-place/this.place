@@ -20,6 +20,7 @@ public class EnemyAI : MonoBehaviour
 
     public AudioSource DeathSound;
     public float DeathIndicatorTime;
+    public GameObject Glow;
 
     // Use this for initialization
     void Awake()
@@ -163,18 +164,52 @@ public class EnemyAI : MonoBehaviour
         {
             AudioSource.PlayClipAtPoint(DeathSound.clip, transform.position);
         }
-
         SetBlue();
-        Invoke("SetOriginal", DeathIndicatorTime);
+        Invoke("SetBackToOriginal", DeathIndicatorTime);
+        Invoke("DestroyGlow", DeathIndicatorTime);
     }
 
     public void SetBlue()
     {
-        _renderer.material.color = Color.cyan + Color.white;
+        StartCoroutine(SetMonsterBlockToBlue(_renderer.material));
     }
 
-    public void SetOriginal()
+    public void SetBackToOriginal()
     {
-        _renderer.material.color = Color.white;
+        StopCoroutine(SetMonsterBlockToBlue(_renderer.material));
+        StartCoroutine(SetMonsterBackToOriginal(_renderer.material));
+    }
+
+    IEnumerator SetMonsterBlockToBlue(Material MonsterBlockMaterial)
+    {
+        float ElapsedTime = 0.0f;
+        float TotalTime = DeathIndicatorTime;
+
+        while (ElapsedTime < TotalTime)
+        {
+            MonsterBlockMaterial.color = Color.Lerp(MonsterBlockMaterial.color, Color.cyan + Color.white, ElapsedTime / TotalTime);
+
+            ElapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    IEnumerator SetMonsterBackToOriginal(Material MonsterBlockMaterial)
+    {
+        float ElapsedTime = 0.0f;
+        float TotalTime = DeathIndicatorTime;
+
+        while (ElapsedTime < TotalTime)
+        {
+            MonsterBlockMaterial.color = Color.Lerp(MonsterBlockMaterial.color, Color.white, ElapsedTime / TotalTime);
+
+            ElapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    public void DestroyGlow()
+    {
+        Glow.GetComponent<Light>().enabled = false;
     }
 }

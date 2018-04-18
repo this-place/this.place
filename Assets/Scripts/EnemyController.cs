@@ -7,17 +7,51 @@ public class EnemyController : MonoBehaviour
     public GameObject EyesPivot;
     private BlockBehaviour _inner;
     private Vector3 _newPosition;
-
+	private bool _isSpawning = true;
     private bool _isMoving;
     // Use this for initialization
     void Awake()
     {
         _inner = GetComponentInChildren<BlockBehaviour>();
+		StartCoroutine (SpawnBlock ());
     }
 
+
+	IEnumerator SpawnBlock()
+	{
+		GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("CheckPoint");
+		GameObject checkpoint = gameObject;
+
+		foreach (GameObject cp in checkpoints)
+		{
+			if (cp.gameObject.scene == gameObject.scene)
+			{
+				checkpoint = cp;
+				break;
+			}
+		}
+		Vector3 _originalScale = transform.localScale;
+		transform.localScale = Vector3.zero;
+		Vector3 checkPointTransform = checkpoint.transform.position;
+		Vector3 blockTransform = transform.position;
+		checkPointTransform.y = 0;
+		blockTransform.y = 0;
+		float timeToWait = Mathf.FloorToInt(Vector3.Distance(checkPointTransform, blockTransform));
+		yield return new WaitForSeconds(timeToWait * 0.2f);
+		float t = 0;
+		while (t < 1) {
+			transform.localScale = _originalScale * t;
+			t += Time.deltaTime * 5f;
+			yield return null;
+		}
+		transform.localScale = _originalScale;
+		_isSpawning = false;
+	}
     // Update is called once per frame
     void Update()
     {
+		if (_isSpawning)
+			return;
         if (_isMoving)
         {
             if (Vector3.Distance(transform.position, _newPosition) <= 0.01f)

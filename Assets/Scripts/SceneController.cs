@@ -149,7 +149,25 @@ public class SceneController : MonoBehaviour
                 collectible.DeSpawn(_position);
             }
         }
+        
+        LightingScript[] lightObjects = FindObjectsOfType<LightingScript>();
+        foreach (LightingScript lightObject in lightObjects)
+        {
+            if (lightObject.gameObject.scene.name == sceneName)
+            {
+                lightObject.DeSpawn(_position);
+            }
+        }
 
+		EnemyAI[] monsterBlocks = FindObjectsOfType<EnemyAI>();
+		foreach (EnemyAI monsterBlock in monsterBlocks)
+		{
+			if (monsterBlock.gameObject.scene.name == sceneName)
+			{
+				Destroy(monsterBlock.gameObject);
+			}
+		}
+        
         yield return new WaitForSeconds(15);
         Unload(sceneName);
     }

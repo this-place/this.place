@@ -21,7 +21,10 @@ public class SpeechBubble : MonoBehaviour
         if (SpeechCanvasRoot.activeSelf)
         {
             SpeechCanvasRoot.transform.forward = Camera.main.transform.forward;
-            SpeechCanvasRoot.transform.position = _player.transform.position;
+			if (_player != null)
+			{
+				SpeechCanvasRoot.transform.position = _player.transform.position;
+			}
         }
     }
 

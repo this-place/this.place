@@ -200,10 +200,11 @@ public class BlockBehaviour : MonoBehaviour
     private void HandleSpawnBlock()
     {
         _SpawnInT += FadeInSpeed * Time.deltaTime;
-        transform.localScale = _originalScale * _SpawnInT;
+
+		transform.localScale = _originalScale * _SpawnInT;
 
         if (_SpawnInT >= 1)
-        {
+		{
             transform.localScale = _originalScale;
             _isSpawned = true;
         }
