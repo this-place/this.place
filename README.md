@@ -1,6 +1,8 @@
 # this.place
 **this.place** (a play on the word ‘displace’), is an isometric puzzle game that incorporates platforming and block building.
 
+Download available [here](https://www.dropbox.com/s/g2knumcgrcq4a2g/thisplace_windows.zip?dl=0)
+
 # Setup
 1. Fork this repository and clone the fork to your computer
 1. Install Git LFS
